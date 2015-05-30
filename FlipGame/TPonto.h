@@ -1,4 +1,6 @@
-#include <TCor.h>
+#include <QColor>
+#include <QDebug>
+
 /**
  * Author : Diovani Bernardi da Motta
  * @brief The TPonto class classe responsável por representar cada ponto do tabuleiro
@@ -9,8 +11,11 @@ class TPonto {
     int y;
     int altura;
     int largura;
-    TCor cor;
+    QColor corFundo;
+    QColor corBorda;
+
 public:
+    static const int dimensao = 50;
 
     TPonto(){
         this->altura = 0;
@@ -19,11 +24,16 @@ public:
         this->y = 0;
     }
 
-    TPonto(int x,int y,int altura, int largura){
+    TPonto(int x,int y,int altura, int largura,QColor corBorda,QColor corFundo){
         this->altura= altura;
         this->largura = largura;
         this->x = x;
         this->y = y;
+        this->corBorda = corBorda;
+        this->corFundo = corFundo;
+    }
+
+    ~TPonto(){
     }
 
     void setAltura(int altura){
@@ -34,7 +44,7 @@ public:
         return altura;
     }
 
-    void getLargura(int largura){
+    void setLargura(int largura){
         this->largura = largura;
     }
 
@@ -58,11 +68,19 @@ public:
        return this->y;
     }
 
-    void setCor(TCor cor){
-      this->cor = cor;
+    void setCorFundo(QColor corFundo){
+       this->corFundo = corFundo;
     }
 
-    TCor getCor(){
-      this->cor;
+    QColor getCorFundo(){
+       return this->corFundo;
+    }
+
+    void setCorBorda(QColor corBorda){
+       this->corBorda = corBorda;
+    }
+
+    QColor getCorBorda(){
+       return this->corBorda;
     }
 };

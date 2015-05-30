@@ -48,8 +48,10 @@ OBJECTS       = release/Main.o
 
 DIST          =  ..\FlipGame\TFrame.h \
 		..\FlipGame\TPonto.h \
+		..\FlipGame\TTabuleiro.h \
+		..\FlipGame\TDimensao.h \
 		..\FlipGame\TCor.h \
-		..\FlipGame\TTabuleiro.h ..\FlipGame\Main.cpp
+		..\FlipGame\TPlayer.h ..\FlipGame\Main.cpp
 QMAKE_TARGET  = FlipGame
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = FlipGame.exe
@@ -242,7 +244,16 @@ release/Main.o: ../FlipGame/Main.cpp C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtWid
 		../FlipGame/TTabuleiro.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QVector \
 		../FlipGame/TPonto.h \
-		../FlipGame/TCor.h
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QColor \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QDebug \
+		../FlipGame/TDimensao.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QPoint \
+		../FlipGame/TCor.h \
+		../FlipGame/TPlayer.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QPainter \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qpainter.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qtextoption.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qpen.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Main.o ..\FlipGame\Main.cpp
 
 ####### Install

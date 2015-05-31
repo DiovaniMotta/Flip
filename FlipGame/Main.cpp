@@ -1,5 +1,6 @@
 #include <QApplication>
-#include "TFrame.h"
+#include <TFrame.h>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {

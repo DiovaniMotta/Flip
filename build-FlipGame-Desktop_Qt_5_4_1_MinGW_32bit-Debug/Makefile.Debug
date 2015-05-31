@@ -46,12 +46,17 @@ OBJECTS_DIR   = debug
 SOURCES       = ..\FlipGame\Main.cpp 
 OBJECTS       = debug/Main.o
 
-DIST          =  ..\FlipGame\TFrame.h \
+DIST          =  ..\FlipGame\TDimensao.h \
+		..\FlipGame\TPlayer.h \
+		..\FlipGame\TCor.h \
+		..\FlipGame\TFrame.h \
 		..\FlipGame\TPonto.h \
 		..\FlipGame\TTabuleiro.h \
-		..\FlipGame\TDimensao.h \
-		..\FlipGame\TCor.h \
-		..\FlipGame\TPlayer.h ..\FlipGame\Main.cpp
+		..\FlipGame\TNivel1.h \
+		..\FlipGame\TNivel2.h \
+		..\FlipGame\TNivel3.h \
+		..\FlipGame\TNivel4.h \
+		..\FlipGame\TNivel5.h ..\FlipGame\Main.cpp
 QMAKE_TARGET  = FlipGame
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = FlipGame.exe
@@ -249,7 +254,14 @@ debug/Main.o: ../FlipGame/Main.cpp C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtWidge
 		../FlipGame/TDimensao.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QPoint \
 		../FlipGame/TCor.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QException \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qexception.h \
 		../FlipGame/TPlayer.h \
+		../FlipGame/TNivel1.h \
+		../FlipGame/TNivel2.h \
+		../FlipGame/TNivel3.h \
+		../FlipGame/TNivel4.h \
+		../FlipGame/TNivel5.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QPainter \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qpainter.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qtextoption.h \

@@ -1,6 +1,8 @@
 #include <QColor>
 #include <QDebug>
 
+#ifndef TPONTO
+#define TPONTO
 /**
  * Author : Diovani Bernardi da Motta
  * @brief The TPonto class classe responsável por representar cada ponto do tabuleiro
@@ -84,3 +86,4 @@ public:
        return this->corBorda;
     }
 };
+#endif // TPONTO

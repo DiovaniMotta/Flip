@@ -1,50 +1,44 @@
-#include <TNivel1.h>
-#include <TPonto.h>
-#include <QException>
+#include <TNivel.h>
 
 #ifndef TNIVEL2
 #define TNIVEL2
 
-/**
- * @brief The TNivel2 class responsavel por montar as estrutura usada para o tabuleiro usado no nivel 2
- */
-class TNivel2 : public TNivel1 {
+class TNivel2 : public TNivel {
 
+protected:
+    void configurar(){
+        for(int x=0; x<20; x++){
+          for(int y=0; y<20; y++){
+              int fim = (20 - 2);
+              if(x < 10){
+                 TColor::branco(&lista[x][y]);
+              }else{
+                 TColor::preto(&lista[x][y]);
+              }
+              if((y < 2) || (y >= fim)){
+                 TColor::cinza(&lista[x][y]);
+              }
+              if((x < 2) || (x >= fim)){
+                 TColor::cinza(&lista[x][y]);
+              }
+              /*
+              if((x > 3) && (x < 8)){
+                  if((y > 3) && (y < 8)){
+                    TColor::preto(&lista[x][y]);
+                  }
+              }*/
+            }
+        }
+    }
 public:
-    TNivel2() {}
-
-    void preto(const int index,TPonto* ponto){
-        try
-        {
-
-        }
-        catch(QException exception)
-        {
-
-        }
+    TNivel2 () {
+      inicializar();
+      configurar();
     }
 
-    void branco(const int index,TPonto* ponto){
-        try
-        {
-
-        }
-        catch(QException exception)
-        {
-
-        }
-    }
-
-    void centro(const int index,TPonto* ponto){
-        try
-        {
-
-        }
-        catch(QException exception)
-        {
-
-        }
+    TPonto nivel(int x, int y){
+        return lista[x][y];
     }
 };
-#endif
+#endif // TNIVEL2
 

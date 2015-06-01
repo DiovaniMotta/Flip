@@ -1,3 +1,4 @@
+#pragma once
 #include <QWidget>
 
 #ifndef TPLAYER
@@ -9,10 +10,6 @@
 class TPlayer : public QWidget {
 
   int nivel;
-  int posX;
-  int posY;
-  int altura;
-  int largura;
 
 public:
 
@@ -24,10 +21,6 @@ public:
 
     TPlayer() {
         this->nivel = 1;
-        this->posX = 0;
-        this->posY = 0;
-        this->altura = 0;
-        this->largura = 0;
     }
 
     int getNivel(){
@@ -36,38 +29,6 @@ public:
 
     void setNivel(int nivel){
         this->nivel = nivel;
-    }
-
-    void setPosX(int pos){
-        this->posX = pos;
-    }
-
-    void setPosY(int pos){
-        this->posY = pos;
-    }
-
-    int getPosX(){
-        return this->posX;
-    }
-
-    int getPosY(){
-        return this->posY;
-    }
-
-    void setAltura(int altura){
-        this->altura = altura;
-    }
-
-    void setLargura(int largura){
-        this->largura = largura;
-    }
-
-    int getLargura(){
-        return this->largura;
-    }
-
-    int getAltura(){
-        return this->altura;
     }
 };
 #endif // TPLAYER

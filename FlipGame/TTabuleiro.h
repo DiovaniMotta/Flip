@@ -14,7 +14,8 @@
  */
 class TTabuleiro{
 
-   TPlayer* player;
+   TPlayer* player1;
+   TPlayer* player2;
    TNivel1* nivel1;
    TNivel2* nivel2;
 
@@ -22,30 +23,43 @@ public:
     static const int DIMENSAO = 20;
 
     TTabuleiro(){
-        player = new TPlayer();
-        nivel1 = new TNivel1();
+        this->player1 = new TPlayer();
+        this->player2 = new TPlayer();
+        this->nivel1 = new TNivel1();
+        this->nivel2 = new TNivel2();
     }
 
-    TTabuleiro(TPlayer* player){
-        this->player = player;
-        nivel1 = new TNivel1();
+    TTabuleiro(TPlayer* player1,TPlayer* player2){
+        this->player1 = player1;
+        this->player2 = player2;
+        this->nivel1 = new TNivel1();
+        this->nivel2 = new TNivel2();
     }
 
     ~TTabuleiro(){
-        delete player;
+        delete player1;
+        delete player2;
         delete nivel1;
     }
 
-    void setPlayer(TPlayer* player){
-        this->player = player;
+    void setPlayer1(TPlayer* player1){
+        this->player1 = player1;
     }
 
-    TPlayer* getPlayer(){
-        return this->player;
+    TPlayer* getPlayer1(){
+        return this->player1;
+    }
+
+    void setPlayer2(TPlayer* player2){
+        this->player2 = player2;
+    }
+
+    TPlayer* getPlayer2(){
+        return this->player2;
     }
 
     TPonto nivel(int x,int y){
-       switch(player->getNivel()){
+       switch(player1->getNivel()){
             case TPlayer::NIVEL1:
                 return nivel1->nivel(x,y);
             case TPlayer::NIVEL2:

@@ -23,12 +23,18 @@ protected:
               if((x < 2) || (x >= fim)){
                  TColor::cinza(&lista[x][y]);
               }
-              /*
+
               if((x > 3) && (x < 8)){
                   if((y > 3) && (y < 8)){
                     TColor::preto(&lista[x][y]);
                   }
-              }*/
+              }
+
+              if((x > 11) && (x < 16)){
+                  if((y > 11) && (y < 16)){
+                    TColor::branco(&lista[x][y]);
+                  }
+              }
             }
         }
     }

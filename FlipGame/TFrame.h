@@ -3,6 +3,8 @@
 #include <QPainter>
 #include <TTabuleiro.h>
 #include <TPlayer.h>
+#include <QPushButton>
+#include <QPalette>
 
 #ifndef TFRAME
 #define TFRAME
@@ -12,8 +14,8 @@ class TFrame : public QFrame {
     int _h_sz;
     int _w_sz;
     TTabuleiro* tabuleiro;
-    TPlayer* player;
-
+    TPlayer* player1;
+    TPlayer* player2;
 public:
     TFrame () {
         setMinimumSize(800,600);
@@ -24,9 +26,11 @@ public:
         setMouseTracking(true);
         setFocus();
         tabuleiro = new TTabuleiro;
-        player = new TPlayer;
-        player->setNivel(TPlayer::NIVEL2);
-        tabuleiro->setPlayer(player);
+        player1 = new TPlayer;
+        player1->setNivel(TPlayer::NIVEL2);
+        player1->setPosX(3);
+        player1->setPosY(5);
+        tabuleiro->setPlayer1(player1);
     }
 
     void resizeEvent(QResizeEvent* event){
@@ -46,6 +50,9 @@ public:
                 painter.drawRect((x * _w_sz),(y*_h_sz),_w_sz,_h_sz);
             }
          }
+        painter.setPen(Qt::red);
+        painter.setBrush(Qt::red);
+        painter.drawRect((player1->getPosX() * _w_sz),(player1->getPosY() * _h_sz),_w_sz,_h_sz);
      }
 };
 #endif // TFRAME

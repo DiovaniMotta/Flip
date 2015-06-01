@@ -1,4 +1,6 @@
+#pragma once
 #include <TNivel.h>
+#include <TColor.h>
 
 #ifndef TNIVEL2
 #define TNIVEL2
@@ -34,10 +36,6 @@ public:
     TNivel2 () {
       inicializar();
       configurar();
-    }
-
-    TPonto nivel(int x, int y){
-        return lista[x][y];
     }
 };
 #endif // TNIVEL2

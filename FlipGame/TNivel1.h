@@ -24,24 +24,18 @@ protected:
               if((x < 2) || (x >= fim)){
                  TColor::cinza(&lista[x][y]);
               }
-
               if((x > 7) && (x < 12)){
                   if((y > 7) && (y < 12)){
                     TColor::cinza(&lista[x][y]);
                   }
               }
-            }
+           }
         }
     }
-
 public:
     TNivel1 () {
         inicializar();
         configurar();
-    }
-
-    TPonto nivel(int x, int y){
-        return lista[x][y];
     }
 };
 

@@ -25,7 +25,7 @@ public:
         setFocus();
         tabuleiro = new TTabuleiro;
         player = new TPlayer;
-        player->setNivel(TPlayer::NIVEL1);
+        player->setNivel(TPlayer::NIVEL2);
         tabuleiro->setPlayer(player);
     }
 

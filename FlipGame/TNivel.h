@@ -24,6 +24,10 @@ protected:
 
 public:
     TNivel () {}
+
+    TPonto nivel(int x, int y){
+        return lista[x][y];
+    }
 };
 #endif // TNIVEL
 

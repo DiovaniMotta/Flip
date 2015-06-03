@@ -16,33 +16,19 @@ class TPonto {
 public:
     static const int dimensao = 50;
 
-    TPonto(){
+    TPonto();
 
-    }
+    TPonto(QColor corBorda,QColor corFundo);
 
-    TPonto(QColor corBorda,QColor corFundo){
-        this->corBorda = corBorda;
-        this->corFundo = corFundo;
-    }
+    ~TPonto();
 
-    ~TPonto(){
-    }
+    void setCorFundo(QColor corFundo);
 
-    void setCorFundo(QColor corFundo){
-       this->corFundo = corFundo;
-    }
+    QColor getCorFundo();
 
-    QColor getCorFundo(){
-       return this->corFundo;
-    }
+    void setCorBorda(QColor corBorda);
 
-    void setCorBorda(QColor corBorda){
-       this->corBorda = corBorda;
-    }
-
-    QColor getCorBorda(){
-       return this->corBorda;
-    }
+    QColor getCorBorda();
 };
 #endif // TPONTO
 

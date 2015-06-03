@@ -1,13 +1,24 @@
-#pragma once
-#include <TNivel.h>
-#include <TColor.h>
-
 #ifndef TNIVEL2
 #define TNIVEL2
 
-class TNivel2 : public TNivel {
+#include <TNivel.h>
+#include <TPonto.h>
+#include <TTabuleiro.h>
 
+class TNivel2 : public TNivel{
+
+/*
 protected:
+    void configurar();
+public:
+    TNivel2 ();
+    */
+public:
+    TNivel2 () {
+      inicializar();
+      configurar();
+    }
+ protected:
     void configurar(){
         for(int x=0; x<20; x++){
           for(int y=0; y<20; y++){
@@ -23,13 +34,11 @@ protected:
               if((x < 2) || (x >= fim)){
                  TColor::cinza(&lista[x][y]);
               }
-
               if((x > 3) && (x < 8)){
                   if((y > 3) && (y < 8)){
                     TColor::preto(&lista[x][y]);
                   }
               }
-
               if((x > 11) && (x < 16)){
                   if((y > 11) && (y < 16)){
                     TColor::branco(&lista[x][y]);
@@ -37,11 +46,6 @@ protected:
               }
             }
         }
-    }
-public:
-    TNivel2 () {
-      inicializar();
-      configurar();
     }
 };
 #endif // TNIVEL2

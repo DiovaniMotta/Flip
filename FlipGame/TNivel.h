@@ -1,12 +1,24 @@
-#pragma once
-#include <TPonto.h>
-#include <TTabuleiro.h>
-
 #ifndef TNIVEL
 #define TNIVEL
 
-class TNivel {
+#pragma once
+#include <TPonto.h>
+#include <TTabuleiro.h>
+#include <TColor.h>
 
+class TNivel {
+/*
+protected:
+
+    TPonto lista[20][20];
+
+    void inicializar();
+
+public:
+    TNivel ();
+
+    TPonto nivel(int x, int y);
+    */
 protected:
 
     TPonto lista[20][20];
@@ -21,13 +33,15 @@ protected:
             }
         }
     }
-
 public:
-    TNivel () {}
+    TNivel () {
+
+    }
 
     TPonto nivel(int x, int y){
         return lista[x][y];
     }
+
 };
 #endif // TNIVEL
 

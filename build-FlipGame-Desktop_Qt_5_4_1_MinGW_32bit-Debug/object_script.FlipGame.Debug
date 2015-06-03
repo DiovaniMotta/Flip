@@ -1,0 +1,12 @@
+INPUT(
+./debug\TColisao.o
+./debug\TPlayer.o
+./debug\TFrame.o
+./debug\Main.o
+./debug\TColor.o
+./debug\TNivel.o
+./debug\TNivel1.o
+./debug\TNivel2.o
+./debug\TTabuleiro.o
+./debug\TPonto.o
+);

@@ -13,6 +13,9 @@ class TPlayer {
   int nivel;
   int posX;
   int posY;
+  int largura;
+  int altura;
+  int ultimaPosicao;
   QColor fundo;
   QColor borda;
 
@@ -24,50 +27,39 @@ public:
     static const int NIVEL4 = 4;
     static const int NIVEL5 = 5;
 
-    TPlayer() {
-        this->nivel = 1;
-        this->posX = 0;
-        this->posY = 0;
-    }
+    TPlayer();
+    ~TPlayer();
+    int getNivel();
 
-    int getNivel(){
-        return this->nivel;
-    }
+    void setNivel(int nivel);
 
-    void setNivel(int nivel){
-        this->nivel = nivel;
-    }
+    void setPosX(int posX);
 
-    void setPosX(int posX){
-        this->posX = posX;
-    }
+    void setPosY(int posY);
 
-    void setPosY(int posY){
-        this->posY = posY;
-    }
+    int getPosX();
 
-    int getPosX(){
-        return this->posX;
-    }
+    int getPosY();
 
-    int getPosY(){
-        return this ->posY;
-    }
-    void setFundo(QColor fundo){
-        this->fundo = fundo;
-    }
+    void setUltimaPosicao(int ultima);
 
-    QColor getFundo(){
-        return this->fundo;
-    }
+    int getUltimaPosicao();
 
-    void setBorda(QColor borda){
-        this->borda = borda;
-    }
+    void setAltura(int altura);
 
-    QColor getBorda(){
-       return this->borda;
-    }
+    int getAltura();
+
+    void setLargura(int largura);
+
+    int getLargura();
+
+    void setFundo(QColor fundo);
+
+    QColor getFundo();
+
+    void setBorda(QColor borda);
+
+    QColor getBorda();
 
 };
 #endif // TPLAYER

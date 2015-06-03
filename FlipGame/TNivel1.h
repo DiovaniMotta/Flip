@@ -1,13 +1,25 @@
 #pragma once
-#include <TNivel.h>
-#include <TTabuleiro.h>
-#include <TColor.h>
 
 #ifndef TNIVEL1
 #define TNIVEL1
 
+#include <TNivel.h>
+#include <TTabuleiro.h>
+#include <TColor.h>
+
 class TNivel1 : public TNivel {
 
+/*
+protected:
+    void configurar();
+public:
+    TNivel1 ();
+*/
+public:
+    TNivel1 () {
+        inicializar();
+        configurar();
+    }
 protected:
     void configurar(){
         for(int x=0; x<20; x++){
@@ -31,11 +43,6 @@ protected:
               }
            }
         }
-    }
-public:
-    TNivel1 () {
-        inicializar();
-        configurar();
     }
 };
 

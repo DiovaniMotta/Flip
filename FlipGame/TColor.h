@@ -6,22 +6,13 @@
 class TColor {
 
 public:
-    TColor () {}
+    TColor ();
 
-    static void preto(TPonto* ponto){
-        ponto->setCorBorda(Qt::white);
-        ponto->setCorFundo(Qt::black);
-    }
+    static void preto(TPonto* ponto);
 
-    static void branco(TPonto* ponto){
-        ponto->setCorBorda(Qt::black);
-        ponto->setCorFundo(Qt::white);
-    }
+    static void branco(TPonto* ponto);
 
-    static void cinza(TPonto* ponto){
-        ponto->setCorBorda(Qt::gray);
-        ponto->setCorFundo(Qt::gray);
-    }
+    static void cinza(TPonto* ponto);
 };
 #endif // TCOLOR
 

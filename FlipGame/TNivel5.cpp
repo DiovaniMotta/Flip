@@ -69,17 +69,17 @@ void TNivel5::inicializar(){
 }
 
 void TNivel5::players(){
-    player1->setNivel(TPlayer::NIVEL5);
-    player1->setPosX(5);
-    player1->setPosY(5);
-    player1->setBorda(Qt::black);
-    player1->setFundo(Qt::white);
-
     player2->setNivel(TPlayer::NIVEL5);
-    player2->setPosX(13);
-    player2->setPosY(13);
-    player2->setBorda(Qt::white);
-    player2->setFundo(Qt::black);
+    player2->setPosX(15);
+    player2->setPosY(10);
+    player2->setBorda(Qt::black);
+    player2->setFundo(Qt::white);
+
+    player1->setNivel(TPlayer::NIVEL5);
+    player1->setPosX(4);
+    player1->setPosY(10);
+    player1->setBorda(Qt::white);
+    player1->setFundo(Qt::black);
 }
 
 void TNivel5::setPlayer1(TPlayer *player1){

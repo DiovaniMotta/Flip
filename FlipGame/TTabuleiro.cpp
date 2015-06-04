@@ -114,7 +114,7 @@ void TTabuleiro::reposicionar(TPlayer *player){
     int esquerda = 0;
     int direita = 0;
     switch(player->getUltimaPosicao()){
-        //controla a colisao do player1
+        //controla a colisao do player2
         case Qt::Key_Up:
             acima = player->getPosY() + TPlayer::SALTOS;
             player->setPosY(acima);
@@ -131,7 +131,7 @@ void TTabuleiro::reposicionar(TPlayer *player){
             direita = player->getPosX() - TPlayer::SALTOS;
             player->setPosX(direita);
             break;
-        //controla a colisao do player2
+        //controla a colisao do player1
         case Qt::Key_W:
             acima = player->getPosY() + TPlayer::SALTOS;
             player->setPosY(acima);

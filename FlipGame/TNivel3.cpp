@@ -65,17 +65,17 @@ void TNivel3::addPonto(int x, int y, TPonto ponto){
 
 void TNivel3::players(){
 
-    player1->setNivel(TPlayer::NIVEL3);
-    player1->setPosX(5);
-    player1->setPosY(5);
-    player1->setBorda(Qt::black);
-    player1->setFundo(Qt::white);
-
     player2->setNivel(TPlayer::NIVEL3);
-    player2->setPosX(13);
-    player2->setPosY(13);
-    player2->setBorda(Qt::white);
-    player2->setFundo(Qt::black);
+    player2->setPosX(16);
+    player2->setPosY(17);
+    player2->setBorda(Qt::black);
+    player2->setFundo(Qt::white);
+
+    player1->setNivel(TPlayer::NIVEL3);
+    player1->setPosX(3);
+    player1->setPosY(2);
+    player1->setBorda(Qt::white);
+    player1->setFundo(Qt::black);
 }
 
 void TNivel3::setPlayer1(TPlayer *player1){

@@ -6,6 +6,9 @@ TColisao::TColisao(){
     altura = 0;
     nivel1 = new TNivel1;
     nivel2 = new TNivel2;
+    nivel3 = new TNivel3;
+    nivel4 = new TNivel4;
+    nivel5 = new TNivel5;
 }
 
 TColisao::TColisao(int larg, int alt){
@@ -13,11 +16,17 @@ TColisao::TColisao(int larg, int alt){
     altura = alt;
     nivel1 = new TNivel1;
     nivel2 = new TNivel2;
+    nivel3 = new TNivel3;
+    nivel4 = new TNivel4;
+    nivel5 = new TNivel5;
 }
 
 TColisao::~TColisao(){
     delete nivel1;
     delete nivel2;
+    delete nivel3;
+    delete nivel4;
+    delete nivel5;
     delete tabuleiro;
 }
 /**
@@ -31,6 +40,22 @@ void TColisao::colisao(TPlayer *player){
         return;
     }
     if(ponto.getCorFundo().operator ==(player->getFundo())){
+        tabuleiro->reposicionar(player);
+        return;
+    }
+    if(player->getPosX() < 0){
+        tabuleiro->reposicionar(player);
+        return;
+    }
+    if(player->getPosY() < 0){
+        tabuleiro->reposicionar(player);
+        return;
+    }
+    if(player->getPosX() == TTabuleiro::DIMENSAO){
+        tabuleiro->reposicionar(player);
+        return;
+    }
+    if(player->getPosY() == TTabuleiro::DIMENSAO){
         tabuleiro->reposicionar(player);
         return;
     }

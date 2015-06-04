@@ -80,58 +80,58 @@ void TFrame::keyPressEvent(QKeyEvent* event){
   int esquerda = 0;
   int direita = 0;
   switch(event->key()){
-     //comandos de movimentação do player1
+     //comandos de movimentação do player2
      case Qt::Key_Up:
-        acima = player1->getPosY() - TPlayer::SALTOS;
-        player1->setPosY(acima);
-        player1->setUltimaPosicao(event->key());
-        colisao->colisao(player1);
+        acima = player2->getPosY() - TPlayer::SALTOS;
+        player2->setPosY(acima);
+        player2->setUltimaPosicao(event->key());
+        colisao->colisao(player2);
         break;
      case Qt::Key_Down:
-        abaixo = player1->getPosY() + TPlayer::SALTOS;
-        player1->setPosY(abaixo);
-        player1->setUltimaPosicao(event->key());
-        colisao->colisao(player1);
+        abaixo = player2->getPosY() + TPlayer::SALTOS;
+        player2->setPosY(abaixo);
+        player2->setUltimaPosicao(event->key());
+        colisao->colisao(player2);
         break;
      case Qt::Key_Left:
-        esquerda = player1->getPosX() - TPlayer::SALTOS;
-        player1->setPosX(esquerda);
-        player1->setUltimaPosicao(event->key());
-        colisao->colisao(player1);
+        esquerda = player2->getPosX() - TPlayer::SALTOS;
+        player2->setPosX(esquerda);
+        player2->setUltimaPosicao(event->key());
+        colisao->colisao(player2);
         break;
      case Qt::Key_Right:
-        direita = player1->getPosX() + TPlayer::SALTOS;
-        player1->setPosX(direita);
-        player1->setUltimaPosicao(event->key());
-        colisao->colisao(player1);
+        direita = player2->getPosX() + TPlayer::SALTOS;
+        player2->setPosX(direita);
+        player2->setUltimaPosicao(event->key());
+        colisao->colisao(player2);
         break;
      case Qt::Key_End:
         break;
 
      //comandos de movimentação do player2
      case Qt::Key_W:
-        acima = player2->getPosY() - TPlayer::SALTOS;
-        player2->setPosY(acima);
-        player2->setUltimaPosicao(event->key());
-        colisao->colisao(player2);
+        acima = player1->getPosY() - TPlayer::SALTOS;
+        player1->setPosY(acima);
+        player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         break;
      case Qt::Key_S:
-        abaixo = player2->getPosY() + TPlayer::SALTOS;
-        player2->setPosY(abaixo);
-        player2->setUltimaPosicao(event->key());
-        colisao->colisao(player2);
+        abaixo = player1->getPosY() + TPlayer::SALTOS;
+        player1->setPosY(abaixo);
+        player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         break;
      case Qt::Key_A:
-        esquerda = player2->getPosX() - TPlayer::SALTOS;
-        player2->setPosX(esquerda);
-        player2->setUltimaPosicao(event->key());
-        colisao->colisao(player2);
+        esquerda = player1->getPosX() - TPlayer::SALTOS;
+        player1->setPosX(esquerda);
+        player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         break;
      case Qt::Key_D:
-        direita = player2->getPosX() + TPlayer::SALTOS;
-        player2->setPosX(direita);
-        player2->setUltimaPosicao(event->key());
-        colisao->colisao(player2);
+        direita = player1->getPosX() + TPlayer::SALTOS;
+        player1->setPosX(direita);
+        player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         break;
      case Qt::Key_Backspace:
         break;

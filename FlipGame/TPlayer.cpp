@@ -7,10 +7,11 @@ TPlayer::TPlayer() {
     this->ultimaPosicao = 0;
     this->largura = 0;
     this->altura = 0;
+    this->projetil = new TProjetil;
 }
 
 TPlayer::~TPlayer(){
-
+    delete projetil;
 }
 
 int TPlayer::getNivel(){
@@ -91,5 +92,13 @@ void TPlayer::setY(int y){
 
 int TPlayer::getY(){
     return this->y;
+}
+
+void TPlayer::setProjetil(TProjetil *projetil){
+    this->projetil = projetil;
+}
+
+TProjetil* TPlayer::getProjetil(){
+    return this->projetil;
 }
 

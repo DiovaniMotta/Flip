@@ -1,18 +1,19 @@
-#ifndef TNIVEL1
-#define TNIVEL1
-
+#ifndef TNIVEL4
+#define TNIVEL4
 #include <TColor.h>
 #include <TPonto.h>
 #include <TPlayer.h>
 
-class TNivel1 {
+class TNivel4 {
 
-    TPlayer* player1;
-    TPlayer* player2;
-    static const int DIMENSAO = 20;
+   TPlayer* player1;
+   TPlayer* player2;
+
+   static const int DIMENSAO = 20;
+
 protected:
 
-  TPonto lista[DIMENSAO][DIMENSAO];
+  TPonto lista[20][20];
 
   void inicializar();
 
@@ -20,9 +21,9 @@ protected:
 
 public:
 
-  TNivel1 ();
+  TNivel4 ();
 
-  ~TNivel1();
+  ~TNivel4();
 
   TPonto nivel(int x, int y);
 
@@ -38,6 +39,7 @@ public:
 
   TPlayer* getPlayer2();
 
+
 };
-#endif // TNIVEL1
+#endif // TNIVEL4
 

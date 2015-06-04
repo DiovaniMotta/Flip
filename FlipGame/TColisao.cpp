@@ -18,6 +18,7 @@ TColisao::TColisao(int larg, int alt){
 TColisao::~TColisao(){
     delete nivel1;
     delete nivel2;
+    delete tabuleiro;
 }
 /**
  * @brief TColisao::colisao metodo responsavel por verificar a colisao entre o player e o tabuleiro
@@ -45,6 +46,12 @@ TPonto TColisao::nivel(TPlayer *player){
             return nivel1->nivel(player->getPosX(),player->getPosY());
         case TPlayer::NIVEL2:
             return nivel2->nivel(player->getPosX(),player->getPosY());
+        case TPlayer::NIVEL3:
+            return nivel3->nivel(player->getPosX(),player->getPosY());
+        case TPlayer::NIVEL4:
+            return nivel4->nivel(player->getPosX(),player->getPosY());
+        case TPlayer::NIVEL5:
+            return nivel5->nivel(player->getPosX(),player->getPosY());
     }
     return nivel(player);
 }

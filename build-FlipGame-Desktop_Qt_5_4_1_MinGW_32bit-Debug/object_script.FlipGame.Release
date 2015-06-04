@@ -4,9 +4,13 @@ INPUT(
 ./release\TFrame.o
 ./release\Main.o
 ./release\TColor.o
-./release\TNivel.o
 ./release\TNivel1.o
 ./release\TNivel2.o
 ./release\TTabuleiro.o
 ./release\TPonto.o
+./release\TProjetil.o
+./release\TNivel3.o
+./release\TNivel4.o
+./release\TNivel5.o
+./release\moc_TFrame.o
 );

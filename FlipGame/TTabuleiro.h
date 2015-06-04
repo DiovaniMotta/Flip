@@ -5,6 +5,9 @@
 #include <TPlayer.h>
 #include <TNivel1.h>
 #include <TNivel2.h>
+#include <TNivel3.h>
+#include <TNivel4.h>
+#include <TNivel5.h>
 #include <QKeyEvent>
 /**
  * Author : Diovani Bernardi da Motta
@@ -17,6 +20,9 @@ class TTabuleiro {
    TPlayer* player2;
    TNivel1* nivel1;
    TNivel2* nivel2;
+   TNivel3* nivel3;
+   TNivel4* nivel4;
+   TNivel5* nivel5;
 
 public:
     static const int DIMENSAO = 20;
@@ -45,6 +51,20 @@ public:
 
     void setNivel2(TNivel2* nivel);
 
+    void setNivel3(TNivel3* nivel);
+
+    TNivel3* getNivel3();
+
+    void setNivel4(TNivel4* nivel);
+
+    TNivel4* getNivel4();
+
+    void setNivel5(TNivel5* nivel);
+
+    TNivel5* getNivel5();
+
     void reposicionar(TPlayer* player1);
+
+    void posicionar(const int nivel);
 };
 #endif // TTABULEIRO

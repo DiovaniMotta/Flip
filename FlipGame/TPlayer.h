@@ -1,9 +1,11 @@
-#include <QColor>
-
 #pragma once
 
 #ifndef TPLAYER
 #define TPLAYER
+
+#include <QColor>
+#include <TProjetil.h>
+
 /**
  * Classe responsavel por armazenar as informações do player que está no jogo
  * @brief The TPlayer class
@@ -20,6 +22,8 @@ class TPlayer {
   int ultimaPosicao;
   QColor fundo;
   QColor borda;
+
+  TProjetil* projetil;
 
 public:
 
@@ -74,5 +78,11 @@ public:
     int getY();
 
     void setY(int y);
+
+    void setProjetil(TProjetil* projetil);
+
+    TProjetil* getProjetil();
+
+    void  disparo();
 };
 #endif // TPLAYER

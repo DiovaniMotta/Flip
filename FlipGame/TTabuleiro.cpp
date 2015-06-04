@@ -5,6 +5,9 @@ TTabuleiro::TTabuleiro(){
     this->player2 = new TPlayer();
     this->nivel1 = new TNivel1();
     this->nivel2 = new TNivel2();
+    this->nivel3 = new TNivel3();
+    this->nivel4 = new TNivel4();
+    this->nivel5 = new TNivel5();
 }
 
 TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
@@ -12,6 +15,9 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->player2 = player2;
     this->nivel1 = new TNivel1();
     this->nivel2 = new TNivel2();
+    this->nivel3 = new TNivel3();
+    this->nivel4 = new TNivel4();
+    this->nivel5 = new TNivel5();
 }
 
 TTabuleiro::~TTabuleiro(){
@@ -19,6 +25,9 @@ TTabuleiro::~TTabuleiro(){
     delete player2;
     delete nivel1;
     delete nivel2;
+    delete nivel3;
+    delete nivel4;
+    delete nivel5;
 }
 
 void TTabuleiro::setPlayer1(TPlayer* player1){
@@ -52,6 +61,31 @@ TNivel2* TTabuleiro::getNivel2(){
 void TTabuleiro::setNivel2(TNivel2 *nivel){
     this->nivel2 = nivel;
 }
+
+void TTabuleiro::setNivel3(TNivel3 *nivel){
+    this->nivel3 = nivel;
+}
+
+TNivel3* TTabuleiro::getNivel3(){
+    return this->nivel3;
+}
+
+void TTabuleiro::setNivel4(TNivel4 *nivel){
+    this->nivel4 = nivel;
+}
+
+TNivel4* TTabuleiro::getNivel4(){
+    return this->nivel4;
+}
+
+void TTabuleiro::setNivel5(TNivel5 *nivel){
+    this->nivel5 = nivel;
+}
+
+TNivel5* TTabuleiro::getNivel5(){
+    return this->nivel5;
+}
+
 /**
  * @brief TTabuleiro::nivel retorna o ponto que será desenhado na tela
  * @param x a posicao x iterada na matriz
@@ -65,36 +99,88 @@ TPonto TTabuleiro::nivel(int x,int y){
         case TPlayer::NIVEL2:
             return nivel2->nivel(x,y);
         case TPlayer::NIVEL3:
-            return nivel1->nivel(x,y);
+            return nivel3->nivel(x,y);
         case TPlayer::NIVEL4:
-            return nivel1->nivel(x,y);
+            return nivel4->nivel(x,y);
         case TPlayer::NIVEL5:
-            return nivel1->nivel(x,y);
+            return nivel5->nivel(x,y);
    }
    return nivel(x,y);
 }
 
-void TTabuleiro::reposicionar(TPlayer *player1){
+void TTabuleiro::reposicionar(TPlayer *player){
     int acima =0;
     int abaixo = 0;
     int esquerda = 0;
     int direita = 0;
-    switch(player1->getUltimaPosicao()){
+    switch(player->getUltimaPosicao()){
+        //controla a colisao do player1
         case Qt::Key_Up:
-            acima = player1->getPosY() + TPlayer::SALTOS;
-            player1->setPosY(acima);
+            acima = player->getPosY() + TPlayer::SALTOS;
+            player->setPosY(acima);
             break;
         case Qt::Key_Down:
-            abaixo = player1->getPosY() - TPlayer::SALTOS;
-            player1->setPosY(abaixo);
+            abaixo = player->getPosY() - TPlayer::SALTOS;
+            player->setPosY(abaixo);
             break;
         case Qt::Key_Left:
-            esquerda = player1->getPosX() + TPlayer::SALTOS;
-            player1->setPosX(esquerda);
+            esquerda = player->getPosX() + TPlayer::SALTOS;
+            player->setPosX(esquerda);
             break;
         case Qt::Key_Right:
-            direita = player1->getPosX() - TPlayer::SALTOS;
-            player1->setPosX(direita);
+            direita = player->getPosX() - TPlayer::SALTOS;
+            player->setPosX(direita);
             break;
+        //controla a colisao do player2
+        case Qt::Key_W:
+            acima = player->getPosY() + TPlayer::SALTOS;
+            player->setPosY(acima);
+            break;
+        case Qt::Key_S:
+            abaixo = player->getPosY() - TPlayer::SALTOS;
+            player->setPosY(abaixo);
+            break;
+        case Qt::Key_A:
+            esquerda = player->getPosX() + TPlayer::SALTOS;
+            player->setPosX(esquerda);
+            break;
+        case Qt::Key_D:
+            direita = player->getPosX() - TPlayer::SALTOS;
+            player->setPosX(direita);
+            break;
+    }
+}
+/**
+ * @brief TTabuleiro::posicionar metodo responsavel por posicionar os players de acordo
+ * com a configuracao do tabuleiro feita
+ * @param nivel
+ */
+void TTabuleiro::posicionar(const int nivel){
+    switch(nivel){
+        case TPlayer::NIVEL1:
+          nivel1->players();
+          player1 = nivel1->getPlayer1();
+          player2 = nivel1->getPlayer2();
+          break;
+       case TPlayer::NIVEL2:
+          nivel2->players();
+          player1 = nivel2->getPlayer1();
+          player2 = nivel2->getPlayer2();
+          break;
+       case TPlayer::NIVEL3:
+          nivel3->players();
+          player1 = nivel3->getPlayer1();
+          player2 = nivel3->getPlayer2();
+          break;
+       case TPlayer::NIVEL4:
+          nivel4->players();
+          player1 = nivel4->getPlayer1();
+          player2 = nivel4->getPlayer2();
+          break;
+       case TPlayer::NIVEL5:
+          nivel5->players();
+          player1 = nivel5->getPlayer1();
+          player2 = nivel5->getPlayer2();
+          break;
     }
 }

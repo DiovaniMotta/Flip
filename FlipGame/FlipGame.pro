@@ -5,22 +5,28 @@ SOURCES += \
     TFrame.cpp \
     Main.cpp \
     TColor.cpp \
-    TNivel.cpp \
     TNivel1.cpp \
     TNivel2.cpp \
     TTabuleiro.cpp \
-    TPonto.cpp
+    TPonto.cpp \
+    TProjetil.cpp \
+    TNivel3.cpp \
+    TNivel4.cpp \
+    TNivel5.cpp
 
 HEADERS += \
     TTabuleiro.h\
     TFrame.h \
     TPonto.h \
     TPlayer.h \
-    TNivel.h \
     TNivel1.h \
     TColor.h \
     TNivel2.h \
     TColisao.h \
-    TFrame.h
+    TFrame.h \
+    TProjetil.h \
+    TNivel3.h \
+    TNivel4.h \
+    TNivel5.h
 
 DISTFILES +=

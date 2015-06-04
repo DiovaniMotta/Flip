@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TCOLISAO
 #define TCOLISAO
 
@@ -14,6 +13,9 @@ class TColisao {
     int altura;
     TNivel1* nivel1;
     TNivel2* nivel2;
+    TNivel3* nivel3;
+    TNivel4* nivel4;
+    TNivel5* nivel5;
     TTabuleiro* tabuleiro;
 
 public:

@@ -20,8 +20,6 @@ TPonto TNivel2::nivel(int x, int y){
     return lista[x][y];
 }
 
-
-
 void TNivel2::addPonto(int x, int y,TPonto ponto) {
     lista[x][y] = ponto;
 }

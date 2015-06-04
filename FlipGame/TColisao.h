@@ -34,7 +34,7 @@ public:
 
     int getAltura();
 
-    bool colisao(TPlayer* player);
+    void colisao(TPlayer* player);
 
     TNivel1* getNivel1();
 

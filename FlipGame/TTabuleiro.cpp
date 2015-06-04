@@ -37,6 +37,27 @@ TPlayer* TTabuleiro::getPlayer2(){
     return this->player2;
 }
 
+TNivel1* TTabuleiro::getNivel1(){
+    return this->nivel1;
+}
+
+void TTabuleiro::setNivel1(TNivel1 *nivel){
+    this->nivel1 = nivel;
+}
+
+TNivel2* TTabuleiro::getNivel2(){
+    return this->nivel2;
+}
+
+void TTabuleiro::setNivel2(TNivel2 *nivel){
+    this->nivel2 = nivel;
+}
+/**
+ * @brief TTabuleiro::nivel retorna o ponto que será desenhado na tela
+ * @param x a posicao x iterada na matriz
+ * @param y a posicao y iterada na matriz
+ * @return um objeto contendo as cores de pintura da tela
+ */
 TPonto TTabuleiro::nivel(int x,int y){
    switch(player1->getNivel()){
         case TPlayer::NIVEL1:
@@ -53,19 +74,27 @@ TPonto TTabuleiro::nivel(int x,int y){
    return nivel(x,y);
 }
 
-TNivel1* TTabuleiro::getNivel1(){
-    return this->nivel1;
+void TTabuleiro::reposicionar(TPlayer *player1){
+    int acima =0;
+    int abaixo = 0;
+    int esquerda = 0;
+    int direita = 0;
+    switch(player1->getUltimaPosicao()){
+        case Qt::Key_Up:
+            acima = player1->getPosY() + TPlayer::SALTOS;
+            player1->setPosY(acima);
+            break;
+        case Qt::Key_Down:
+            abaixo = player1->getPosY() - TPlayer::SALTOS;
+            player1->setPosY(abaixo);
+            break;
+        case Qt::Key_Left:
+            esquerda = player1->getPosX() + TPlayer::SALTOS;
+            player1->setPosX(esquerda);
+            break;
+        case Qt::Key_Right:
+            direita = player1->getPosX() - TPlayer::SALTOS;
+            player1->setPosX(direita);
+            break;
+    }
 }
-
-void TTabuleiro::setNivel1(TNivel1 *nivel){
-    this->nivel1 = nivel;
-}
-
-TNivel2* TTabuleiro::getNivel2(){
-    return this->nivel2;
-}
-
-void TTabuleiro::setNivel2(TNivel2 *nivel){
-    this->nivel2 = nivel;
-}
-

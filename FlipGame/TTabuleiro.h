@@ -5,7 +5,7 @@
 #include <TPlayer.h>
 #include <TNivel1.h>
 #include <TNivel2.h>
-
+#include <QKeyEvent>
 /**
  * Author : Diovani Bernardi da Motta
  * @brief The TTabuleiro class classe responsável por montar as informações que serão exibidas para o usuario em forma de
@@ -44,5 +44,7 @@ public:
     TNivel2* getNivel2();
 
     void setNivel2(TNivel2* nivel);
+
+    void reposicionar(TPlayer* player1);
 };
 #endif // TTABULEIRO

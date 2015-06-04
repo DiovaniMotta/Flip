@@ -29,6 +29,8 @@ public:
     static const int NIVEL4 = 4;
     static const int NIVEL5 = 5;
 
+    static const int SALTOS = 1;
+
     TPlayer();
 
     ~TPlayer();

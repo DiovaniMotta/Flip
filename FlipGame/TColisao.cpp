@@ -19,10 +19,20 @@ TColisao::~TColisao(){
     delete nivel1;
     delete nivel2;
 }
-
-bool TColisao::colisao(TPlayer *player){
-
-    return true;
+/**
+ * @brief TColisao::colisao metodo responsavel por verificar a colisao entre o player e o tabuleiro
+ * @param player o objeto player que contem as informações de posicionamento
+ */
+void TColisao::colisao(TPlayer *player){
+    TPonto ponto = nivel2->nivel(player->getPosX(),player->getPosY());
+    if(ponto.getCorFundo().operator ==(Qt::gray)){
+        tabuleiro->reposicionar(player);
+        return;
+    }
+    if(ponto.getCorFundo().operator ==(player->getFundo())){
+        tabuleiro->reposicionar(player);
+        return;
+    }
 }
 
 int TColisao::getLargura(){

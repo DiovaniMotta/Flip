@@ -11,11 +11,13 @@ TFrame::TFrame () {
     tabuleiro = new TTabuleiro;
     player1 = new TPlayer;
     player1->setNivel(TPlayer::NIVEL2);
-    player1->setPosX(5);
+    player1->setPosX(15);
     player1->setPosY(5);
     player1->setBorda(Qt::red);
     player1->setFundo(Qt::white);
     tabuleiro->setPlayer1(player1);
+    colisao = new TColisao;
+    colisao->setTabuleiro(tabuleiro);
 }
 
 void TFrame::resizeEvent(QResizeEvent* event){
@@ -47,10 +49,7 @@ void TFrame::paintEvent(QPaintEvent* event){
     painter.setBrush(player1->getFundo());
     player1->setX((player1->getPosX() * _w_sz));
     player1->setY((player1->getPosY() * _h_sz));
-    bool retorno = colisao->colisao(player1);
-    if(retorno){
-        painter.drawRect((player1->getPosX() * _w_sz),(player1->getPosY() * _h_sz),_w_sz,_h_sz);
-    }
+    painter.drawRect((player1->getPosX() * _w_sz),(player1->getPosY() * _h_sz),_w_sz,_h_sz);
   }
 
 void TFrame::keyPressEvent(QKeyEvent* event){
@@ -61,28 +60,32 @@ void TFrame::keyPressEvent(QKeyEvent* event){
   int direita = 0;
   switch(event->key()){
      case Qt::Key_Up:
-        acima = player1->getPosY() - 2;
+        acima = player1->getPosY() - TPlayer::SALTOS;
         player1->setPosY(acima);
         player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         repaint();
         break;
      case Qt::Key_Down:
-        abaixo = player1->getPosY() + 2;
+        abaixo = player1->getPosY() + TPlayer::SALTOS;
         player1->setPosY(abaixo);
         player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         repaint();
         break;
      case Qt::Key_Left:
-        esquerda = player1->getPosX() - 2;
+        esquerda = player1->getPosX() - TPlayer::SALTOS;
         player1->setPosX(esquerda);
         player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         repaint();
         break;
      case Qt::Key_Right:
-        direita = player1->getPosX() + 2;
+        direita = player1->getPosX() + TPlayer::SALTOS;
         player1->setPosX(direita);
         player1->setUltimaPosicao(event->key());
+        colisao->colisao(player1);
         repaint();
         break;
-  }
+    }
 }

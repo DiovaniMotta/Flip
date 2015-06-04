@@ -24,7 +24,7 @@ TColisao::~TColisao(){
  * @param player o objeto player que contem as informações de posicionamento
  */
 void TColisao::colisao(TPlayer *player){
-    TPonto ponto = nivel2->nivel(player->getPosX(),player->getPosY());
+    TPonto ponto = this->nivel(player);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
         tabuleiro->reposicionar(player);
         return;
@@ -33,6 +33,20 @@ void TColisao::colisao(TPlayer *player){
         tabuleiro->reposicionar(player);
         return;
     }
+}
+/**
+ * @brief TColisao::nivel retorna um objeto TPonto em relação a posicao atual do player
+ * @param player um objeto player contendo as informações sobre o posicionamento
+ * @return um objeto TPonto contendo as informações sobre a cor usada naquele determinado ponto
+ */
+TPonto TColisao::nivel(TPlayer *player){
+    switch(player->getNivel()){
+        case TPlayer::NIVEL1:
+            return nivel1->nivel(player->getPosX(),player->getPosY());
+        case TPlayer::NIVEL2:
+            return nivel2->nivel(player->getPosX(),player->getPosY());
+    }
+    return nivel(player);
 }
 
 int TColisao::getLargura(){

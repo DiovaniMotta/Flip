@@ -44,6 +44,9 @@ public:
 
     void setTabuleiro(TTabuleiro* tabuleiro);
 
+private:
+
+    TPonto nivel(TPlayer* player);
 };
 #endif // TCOLISAO
 

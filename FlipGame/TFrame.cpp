@@ -12,7 +12,7 @@ TFrame::TFrame () {
     setMouseTracking(true);
     setFocus();
     tabuleiro = new TTabuleiro;
-    tabuleiro->posicionar(TPlayer::NIVEL1);
+    tabuleiro->posicionar(TPlayer::NIVEL5);
     player1 = tabuleiro->getPlayer1();
     player2 = tabuleiro->getPlayer2();
     colisao = new TColisao;

@@ -13,32 +13,33 @@ TNivel3::~TNivel3(){
 }
 
 void TNivel3::configurar(){
-    for(int x=0; x<DIMENSAO; x++){
-      for(int y=0; y<DIMENSAO; y++){
-          int fim = (DIMENSAO - 2);
-          if(x < (DIMENSAO/2)){
-             TColor::branco(&lista[x][y]);
-          }else{
-             TColor::preto(&lista[x][y]);
-          }
-          if((y < 2) || (y >= fim)){
-             //if(){
-                TColor::cinza(&lista[x][y]);
-             //}
-          }
-          if((x < 2) || (x >= fim)){
-             TColor::cinza(&lista[x][y]);
-          }
-          if((x > 3) && (x < 8)){
-              if((y > 3) && (y < 8)){
-                TColor::preto(&lista[x][y]);
-              }
-          }
-          if((x > 11) && (x < 16)){
-              if((y > 11) && (y < 16)){
-                TColor::branco(&lista[x][y]);
-              }
-          }
+    for(int x=0; x < DIMENSAO; x++){
+        for(int y=0; y<DIMENSAO; y++){
+            if(x < (DIMENSAO/2)){
+               TColor::branco(&lista[x][y]);
+            }else{
+               TColor::preto(&lista[x][y]);
+            }
+            if((x > 4) && (x < 15)){
+                if((y < 3)){
+                   TColor::cinza(&lista[x][y]);
+                }
+            }
+            if((y > 4) && (y < 15)){
+                if((x < 3)){
+                   TColor::cinza(&lista[x][y]);
+                }
+            }
+            if((x > 4) && (x < 15)){
+                if((y > 16)){
+                   TColor::cinza(&lista[x][y]);
+                }
+            }
+            if((y > 4) && (y < 15)){
+                if((x > 16)){
+                   TColor::cinza(&lista[x][y]);
+                }
+            }
         }
     }
 }

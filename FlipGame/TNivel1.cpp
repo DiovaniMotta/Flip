@@ -1,6 +1,25 @@
-/*
-#include <TNivel.h>
 #include <TNivel1.h>
+
+void TNivel1::inicializar(){
+    for(int x=0; x<20; x++){
+        for(int y=0; y< 20; y++){
+            TPonto ponto;
+            ponto.setCorBorda(Qt::white);
+            ponto.setCorFundo(Qt::black);
+            lista[x][y] = ponto;
+        }
+    }
+}
+
+TPonto TNivel1::nivel(int x, int y){
+    return lista[x][y];
+}
+
+
+
+void TNivel1::addPonto(int x, int y,TPonto ponto) {
+    lista[x][y] = ponto;
+}
 
 TNivel1::TNivel1 () {
     inicializar();
@@ -30,6 +49,3 @@ void TNivel1::configurar(){
        }
     }
 }
-
-*/
-

@@ -13,6 +13,8 @@ class TPlayer {
   int nivel;
   int posX;
   int posY;
+  int x;
+  int y;
   int largura;
   int altura;
   int ultimaPosicao;
@@ -28,7 +30,9 @@ public:
     static const int NIVEL5 = 5;
 
     TPlayer();
+
     ~TPlayer();
+
     int getNivel();
 
     void setNivel(int nivel);
@@ -61,5 +65,12 @@ public:
 
     QColor getBorda();
 
+    int getX();
+
+    void setX(int x);
+
+    int getY();
+
+    void setY(int y);
 };
 #endif // TPLAYER

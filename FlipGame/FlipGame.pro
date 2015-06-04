@@ -21,6 +21,6 @@ HEADERS += \
     TColor.h \
     TNivel2.h \
     TColisao.h \
-    tframe.h
+    TFrame.h
 
 DISTFILES +=

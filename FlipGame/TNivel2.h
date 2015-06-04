@@ -1,52 +1,28 @@
 #ifndef TNIVEL2
 #define TNIVEL2
 
-#include <TNivel.h>
 #include <TPonto.h>
-#include <TTabuleiro.h>
+#include <TColor.h>
 
-class TNivel2 : public TNivel{
+class TNivel2 {
 
-/*
 protected:
-    void configurar();
+
+  TPonto lista[20][20];
+
+  void inicializar();
+
+  void configurar();
+
 public:
-    TNivel2 ();
-    */
-public:
-    TNivel2 () {
-      inicializar();
-      configurar();
-    }
- protected:
-    void configurar(){
-        for(int x=0; x<20; x++){
-          for(int y=0; y<20; y++){
-              int fim = (20 - 2);
-              if(x < 10){
-                 TColor::branco(&lista[x][y]);
-              }else{
-                 TColor::preto(&lista[x][y]);
-              }
-              if((y < 2) || (y >= fim)){
-                 TColor::cinza(&lista[x][y]);
-              }
-              if((x < 2) || (x >= fim)){
-                 TColor::cinza(&lista[x][y]);
-              }
-              if((x > 3) && (x < 8)){
-                  if((y > 3) && (y < 8)){
-                    TColor::preto(&lista[x][y]);
-                  }
-              }
-              if((x > 11) && (x < 16)){
-                  if((y > 11) && (y < 16)){
-                    TColor::branco(&lista[x][y]);
-                  }
-              }
-            }
-        }
-    }
+
+  TNivel2 ();
+
+  TPonto nivel(int x, int y);
+
+  void addPonto(int x, int y,TPonto ponto);
+
 };
 #endif // TNIVEL2
+
 

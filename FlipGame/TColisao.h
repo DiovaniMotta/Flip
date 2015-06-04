@@ -1,15 +1,29 @@
-#include <TPlayer.h>
 #pragma once
 #ifndef TCOLISAO
 #define TCOLISAO
+
+#include <TPlayer.h>
+#include <TNivel1.h>
+#include <TNivel2.h>
+#include <TTabuleiro.h>
+
 
 class TColisao {
 
     int largura;
     int altura;
+    TNivel1* nivel1;
+    TNivel2* nivel2;
+    TTabuleiro* tabuleiro;
+
 public:
+
     TColisao ();
+
     TColisao(int larg, int alt);
+
+    TColisao(TTabuleiro* tabuleiro);
+
     ~TColisao();
 
     void setLargura(int larg);
@@ -20,7 +34,16 @@ public:
 
     int getAltura();
 
-    void dimensaoJanela(TPlayer* player);
+    bool colisao(TPlayer* player);
+
+    TNivel1* getNivel1();
+
+    void setNivel1(TNivel1* nivel);
+
+    TTabuleiro* getTabuleiro();
+
+    void setTabuleiro(TTabuleiro* tabuleiro);
+
 };
 #endif // TCOLISAO
 

@@ -18,6 +18,7 @@ TTabuleiro::~TTabuleiro(){
     delete player1;
     delete player2;
     delete nivel1;
+    delete nivel2;
 }
 
 void TTabuleiro::setPlayer1(TPlayer* player1){
@@ -51,3 +52,20 @@ TPonto TTabuleiro::nivel(int x,int y){
    }
    return nivel(x,y);
 }
+
+TNivel1* TTabuleiro::getNivel1(){
+    return this->nivel1;
+}
+
+void TTabuleiro::setNivel1(TNivel1 *nivel){
+    this->nivel1 = nivel;
+}
+
+TNivel2* TTabuleiro::getNivel2(){
+    return this->nivel2;
+}
+
+void TTabuleiro::setNivel2(TNivel2 *nivel){
+    this->nivel2 = nivel;
+}
+

@@ -1,6 +1,6 @@
-//#include <TNivel.h>
+#include <TNivel.h>
 
-/*
+
 TNivel::TNivel () {
 
 }
@@ -18,4 +18,10 @@ void TNivel::inicializar(){
 
 TPonto TNivel::nivel(int x, int y){
     return lista[x][y];
-}*/
+}
+
+
+
+void TNivel::addPonto(int x, int y,TPonto ponto) {
+    lista[x][y] = ponto;
+}

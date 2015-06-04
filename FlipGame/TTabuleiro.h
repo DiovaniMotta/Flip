@@ -1,10 +1,8 @@
-#pragma once
 #ifndef TTABULEIRO
 #define TTABULEIRO
 
 #include <TPonto.h>
 #include <TPlayer.h>
-#include <TNivel.h>
 #include <TNivel1.h>
 #include <TNivel2.h>
 
@@ -38,5 +36,13 @@ public:
     TPlayer* getPlayer2();
 
     TPonto nivel(int x,int y);
+
+    TNivel1* getNivel1();
+
+    void setNivel1(TNivel1* nivel);
+
+    TNivel2* getNivel2();
+
+    void setNivel2(TNivel2* nivel);
 };
 #endif // TTABULEIRO

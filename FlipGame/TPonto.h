@@ -10,6 +10,10 @@
  */
 class TPonto {
 
+    int x;
+    int y;
+    int widht;
+    int height;
     QColor corFundo;
     QColor corBorda;
 
@@ -29,6 +33,22 @@ public:
     void setCorBorda(QColor corBorda);
 
     QColor getCorBorda();
+
+    int getX();
+
+    void setX(int x);
+
+    int getY();
+
+    void setY(int y);
+
+    int getWidht();
+
+    void setWidht(int widht);
+
+    int getHeight();
+
+    void setHeight(int height);
 };
 #endif // TPONTO
 

@@ -73,7 +73,7 @@ DIST          =  ..\FlipGame\TTabuleiro.h \
 		..\FlipGame\TColor.h \
 		..\FlipGame\TNivel2.h \
 		..\FlipGame\TColisao.h \
-		..\FlipGame\tframe.h ..\FlipGame\TColisao.cpp \
+		..\FlipGame\TFrame.h ..\FlipGame\TColisao.cpp \
 		..\FlipGame\TPlayer.cpp \
 		..\FlipGame\TFrame.cpp \
 		..\FlipGame\Main.cpp \
@@ -214,7 +214,25 @@ release/TColisao.o: ../FlipGame/TColisao.cpp ../FlipGame/TColisao.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qobject_impl.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qpair.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qregexp.h \
-		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstringmatcher.h
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstringmatcher.h \
+		../FlipGame/TNivel.h \
+		../FlipGame/TPonto.h \
+		../FlipGame/TTabuleiro.h \
+		../FlipGame/TNivel1.h \
+		../FlipGame/TColor.h \
+		../FlipGame/TNivel2.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QDebug \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qhash.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qmap.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qvector.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qset.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qcontiguouscache.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\TColisao.o ..\FlipGame\TColisao.cpp
 
 release/TPlayer.o: ../FlipGame/TPlayer.cpp ../FlipGame/TPlayer.h \
@@ -390,9 +408,9 @@ release/TFrame.o: ../FlipGame/TFrame.cpp ../FlipGame/TFrame.h \
 		../FlipGame/TPonto.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QColor \
 		../FlipGame/TPlayer.h \
-		../FlipGame/TNivel1.h \
 		../FlipGame/TNivel.h \
 		../FlipGame/TColor.h \
+		../FlipGame/TNivel1.h \
 		../FlipGame/TNivel2.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QKeyEvent \
 		../FlipGame/TColisao.h
@@ -517,9 +535,9 @@ release/Main.o: ../FlipGame/Main.cpp C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtWid
 		../FlipGame/TPonto.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QColor \
 		../FlipGame/TPlayer.h \
-		../FlipGame/TNivel1.h \
 		../FlipGame/TNivel.h \
 		../FlipGame/TColor.h \
+		../FlipGame/TNivel1.h \
 		../FlipGame/TNivel2.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QKeyEvent \
 		../FlipGame/TColisao.h
@@ -721,7 +739,71 @@ release/TNivel1.o: ../FlipGame/TNivel1.cpp ../FlipGame/TNivel1.h \
 		../FlipGame/TColor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\TNivel1.o ..\FlipGame\TNivel1.cpp
 
-release/TNivel2.o: ../FlipGame/TNivel2.cpp 
+release/TNivel2.o: ../FlipGame/TNivel2.cpp ../FlipGame/TNivel2.h \
+		../FlipGame/TPonto.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/QColor \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qcolor.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qrgb.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qglobal.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qconfig.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qfeatures.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qsystemdetection.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qprocessordetection.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qcompilerdetection.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qtypeinfo.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qtypetraits.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qsysinfo.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qlogging.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qflags.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qbasicatomic.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qgenericatomic.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_msvc.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_armv7.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_armv6.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_armv5.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_ia64.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_mips.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_x86.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_gcc.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qatomic_unix.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qglobalstatic.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qmutex.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qnumeric.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qnamespace.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstringlist.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qalgorithms.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qscopedpointer.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qobject.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qobjectdefs.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstring.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qchar.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qrefcount.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qarraydata.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstringbuilder.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qlist.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qiterator.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qbytearraylist.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qcoreevent.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qmetatype.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qvarlengtharray.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qcontainerfwd.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qisenum.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qobject_impl.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qpair.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qregexp.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstringmatcher.h \
+		../FlipGame/TTabuleiro.h \
+		../FlipGame/TPlayer.h \
+		../FlipGame/TNivel.h \
+		../FlipGame/TColor.h \
+		../FlipGame/TNivel1.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\TNivel2.o ..\FlipGame\TNivel2.cpp
 
 release/TTabuleiro.o: ../FlipGame/TTabuleiro.cpp ../FlipGame/TTabuleiro.h \
@@ -785,9 +867,9 @@ release/TTabuleiro.o: ../FlipGame/TTabuleiro.cpp ../FlipGame/TTabuleiro.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qregexp.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstringmatcher.h \
 		../FlipGame/TPlayer.h \
-		../FlipGame/TNivel1.h \
 		../FlipGame/TNivel.h \
 		../FlipGame/TColor.h \
+		../FlipGame/TNivel1.h \
 		../FlipGame/TNivel2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\TTabuleiro.o ..\FlipGame\TTabuleiro.cpp
 

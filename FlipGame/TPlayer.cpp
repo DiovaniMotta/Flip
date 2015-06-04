@@ -77,3 +77,19 @@ QColor TPlayer::getBorda(){
    return this->borda;
 }
 
+void TPlayer::setX(int x){
+    this->x = x;
+}
+
+int TPlayer::getX(){
+    return this->x;
+}
+
+void TPlayer::setY(int y){
+    this->y = y;
+}
+
+int TPlayer::getY(){
+    return this->y;
+}
+

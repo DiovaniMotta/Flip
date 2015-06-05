@@ -46,6 +46,8 @@ private:
 
     void disparo(TPlayer* player,TProjetil* projetil,QPainter* painter); // usado para verifica se houve a colisao entre o player e o projetil
 
+    void redimensionar(TPlayer* player); // funcao responsavel por redimensionar o projetil disparado pelo player
+
 private slots:
 
     void iniciar();

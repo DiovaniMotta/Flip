@@ -34,8 +34,10 @@ void TFrame::resizeEvent(QResizeEvent* event){
     _w_sz = this->width()*0.05;
     player1->setLargura(_w_sz);
     player1->setAltura(_h_sz);
+    redimensionar(player1);
     player2->setLargura(_w_sz);
     player2->setAltura(_h_sz);
+    redimensionar(player2);
 }
 
 /**
@@ -264,4 +266,21 @@ void TFrame::disparo(TPlayer* player, TProjetil* projetil,QPainter* painter){
         player->setFundo(Qt::red);
         painter->drawRect((player->getPosX() * _w_sz),(player->getPosY() * _h_sz),_w_sz,_h_sz);
     }
+}
+
+/**
+ * @brief TFrame::redimensionar metodo responsavel por verificar se é necessário redimensionar o projetil
+ * @param player o jogador avaliado
+ */
+void TFrame::redimensionar(TPlayer *player){
+    if(!player->getProjetil()->isAtivo()){
+        return;
+    }
+    TProjetil* projetil = player->getProjetil();
+    int largura = (player->getLargura() / 2);
+    int altura = (player->getAltura() / 2);
+    projetil->setAltura(altura);
+    projetil->setLargura(largura);
+    projetil->setX((projetil->getPosX() * _w_sz));
+    projetil->setY((projetil->getPosY() * _h_sz));
 }

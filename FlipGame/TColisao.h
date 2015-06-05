@@ -36,6 +36,8 @@ public:
 
     void colisao(TProjetil* projetil);
 
+    void colisao(TProjetil* projetil1,TProjetil* projetil2);
+
     bool colisao(TPlayer* player,TProjetil* projetil);
 
     void colisao();

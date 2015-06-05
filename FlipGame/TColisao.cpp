@@ -189,6 +189,27 @@ void TColisao::colisao(){
      }
 }
 
+/**
+ * @brief TColisao::colisao método responsável por verificar a colisao entre os dois projetils
+ * @param projetil1 o projetil disparado pelo player 1
+ * @param projetil2 o projetil disparado pelo player 2
+ */
+void TColisao::colisao(TProjetil *projetil1, TProjetil *projetil2){
+    if(!projetil1->isAtivo()){
+        return;
+    }
+    if(!projetil2->isAtivo()){
+        return;
+    }
+    //se houver colisao entre os projeteis
+    if(projetil1->getPosX() == projetil2->getPosX()){
+        if(projetil1->getPosY() == projetil2->getPosY()){
+            projetil1->reiniciar();
+            projetil2->reiniciar();
+        }
+    }
+}
+
 int TColisao::getLargura(){
     return largura;
 }

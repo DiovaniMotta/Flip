@@ -75,6 +75,8 @@ void TFrame::paintEvent(QPaintEvent* event){
     this->disparo(player2,&painter);
     // verifica a colisao entre o player 2 e o projetil do player 1
     this->disparo(player2,player1->getProjetil(),&painter);
+    //verifico a colisao entre os projeteis
+    colisao->colisao(player1->getProjetil(),player2->getProjetil());
  }
 
 /**

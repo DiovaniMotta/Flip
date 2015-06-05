@@ -105,6 +105,38 @@ void TColisao::setNivel1(TNivel1 *nivel1){
     this->nivel1 = nivel1;
 }
 
+TNivel2* TColisao::getNivel2(){
+    return this->nivel2;
+}
+
+void TColisao::setNivel2(TNivel2 *nivel2){
+    this->nivel2 = nivel2;
+}
+
+TNivel3* TColisao::getNivel3(){
+    return this->nivel3;
+}
+
+void TColisao::setNivel3(TNivel3 *nivel3){
+    this->nivel3 = nivel3;
+}
+
+TNivel4* TColisao::getNivel4(){
+    return this->nivel4;
+}
+
+void TColisao::setNivel4(TNivel4 *nivel4){
+    this->nivel4 = nivel4;
+}
+
+TNivel5* TColisao::getNivel5(){
+    return this->nivel5;
+}
+
+void TColisao::setNivel5(TNivel5 *nivel5){
+    this->nivel5 = nivel5;
+}
+
 TTabuleiro* TColisao::getTabuleiro(){
     return this->tabuleiro;
 }
@@ -112,3 +144,5 @@ TTabuleiro* TColisao::getTabuleiro(){
 void TColisao::setTabuleiro(TTabuleiro *tabuleiro){
     this->tabuleiro = tabuleiro;
 }
+
+

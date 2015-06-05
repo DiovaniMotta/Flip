@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include <TColisao.h>
 #include <QTimer>
+#include <QDebug>
 
 #ifndef TFRAME
 #define TFRAME
@@ -37,6 +38,12 @@ public:
     void paintEvent(QPaintEvent* event);
 
     void keyPressEvent(QKeyEvent* event);
+
+private:
+
+    void disparo(TPlayer* player,QPainter* painter);
+
+    void disparo();
 
 private slots:
 

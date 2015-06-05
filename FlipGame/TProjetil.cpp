@@ -79,3 +79,19 @@ void TProjetil::setAtivo(bool ativo){
 bool TProjetil::isAtivo(){
     return this->ativo;
 }
+
+void TProjetil::setCorBorda(QColor borda){
+   this->borda = borda;
+}
+
+void TProjetil::setCorFundo(QColor fundo){
+    this->corFundo = fundo;
+}
+
+QColor TProjetil::getCorBorda(){
+    return this->borda;
+}
+
+QColor TProjetil::getCorFundo(){
+    return this->corFundo;
+}

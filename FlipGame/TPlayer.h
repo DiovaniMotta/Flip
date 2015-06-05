@@ -5,6 +5,7 @@
 
 #include <QColor>
 #include <TProjetil.h>
+#include <QDebug>
 
 /**
  * Classe responsavel por armazenar as informações do player que está no jogo

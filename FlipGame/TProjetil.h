@@ -1,6 +1,8 @@
 #ifndef TPROJETIL
 #define TPROJETIL
 
+#include <QColor>
+
 class TProjetil {
 
     int x;
@@ -10,8 +12,11 @@ class TProjetil {
     int largura;
     int altura;
     bool ativo;
+    QColor corFundo;
+    QColor borda;
 
 public:
+    static const int DESLOCAMENTO = 10;
 
     TProjetil ();
 
@@ -46,6 +51,16 @@ public:
     void setAtivo(bool ativo);
 
     bool isAtivo();
+
+    void setCorFundo(QColor fundo);
+
+    QColor getCorFundo();
+
+    void setCorBorda(QColor borda);
+
+    QColor getCorBorda();
+
+    void disparo();
 };
 #endif // TPROJETIL
 

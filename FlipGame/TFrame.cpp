@@ -6,7 +6,7 @@
 TFrame::TFrame () {
     setMinimumSize(800,600);
     setFrameStyle(QFrame::Box);
-    QString titulo("Flip - Programação Gráfica I - Diovani Bernardi da Motta");
+    QString titulo("FlipGame - Programação Gráfica I - Diovani Bernardi da Motta");
     setWindowTitle(titulo);
     setLineWidth(4);
     setMouseTracking(true);
@@ -61,12 +61,14 @@ void TFrame::paintEvent(QPaintEvent* event){
     player1->setX((player1->getPosX() * _w_sz));
     player1->setY((player1->getPosY() * _h_sz));
     painter.drawRect((player1->getPosX() * _w_sz),(player1->getPosY() * _h_sz),_w_sz,_h_sz);
+    this->disparo(player1,&painter);
     // desenho do player 2;
     painter.setPen(player2->getBorda());
     painter.setBrush(player2->getFundo());
     player2->setX((player2->getPosX() * _w_sz));
     player2->setY((player2->getPosY() * _h_sz));
     painter.drawRect((player2->getPosX() * _w_sz),(player2->getPosY() * _h_sz),_w_sz,_h_sz);
+    this->disparo(player2,&painter);
  }
 
 /**
@@ -106,9 +108,10 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao(player2);
         break;
      case Qt::Key_End:
+        player2->disparo();
         break;
 
-     //comandos de movimentação do player2
+     //comandos de movimentação do player1
      case Qt::Key_W:
         acima = player1->getPosY() - TPlayer::SALTOS;
         player1->setPosY(acima);
@@ -134,6 +137,7 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao(player1);
         break;
      case Qt::Key_Backspace:
+        player1->disparo();
         break;
     }
 }
@@ -142,6 +146,7 @@ void TFrame::keyPressEvent(QKeyEvent* event){
  * @brief TFrame::iniciar slot tratador do evento de pintura de tela
  */
 void TFrame::iniciar(){
+    this->disparo();
     this->repaint();
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }
@@ -150,5 +155,63 @@ void TFrame::iniciar(){
  * @brief TFrame::parar slot tratador do evento de paralização de pintura de tela
  */
 void TFrame::parar(){
+
+}
+
+void TFrame::disparo(TPlayer *player,QPainter* painter){
+    //se o projetil foi disparado pelo player
+    if(player->getProjetil()->isAtivo()){
+        int acima = 0;
+        int abaixo = 0;
+        int esqueda  = 0;
+        int direita = 0;
+        //verifico qual foi a ultima direção tomanda
+        switch(player->getUltimaPosicao()){
+            case Qt::Key_Up:
+            case Qt::Key_W:
+                acima = (player->getProjetil()->getY() - TProjetil::DESLOCAMENTO);
+                player->getProjetil()->setY(acima);
+                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                                  player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                break;
+            case Qt::Key_Down:
+            case Qt::Key_S:
+                abaixo = (player->getProjetil()->getY() + TProjetil::DESLOCAMENTO);
+                player->getProjetil()->setY(abaixo);
+                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                                  player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                break;
+            case Qt::Key_Left:
+            case Qt::Key_A:
+                esqueda = (player->getProjetil()->getX() - TProjetil::DESLOCAMENTO);
+                player->getProjetil()->setX(esqueda);
+                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                                  player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                break;
+            case Qt::Key_Right:
+            case Qt::Key_D:
+                direita = (player->getProjetil()->getX() + TProjetil::DESLOCAMENTO);
+                player->getProjetil()->setX(direita);
+                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                                  player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                break;
+            default:
+                esqueda = (player->getProjetil()->getX() - TProjetil::DESLOCAMENTO);
+                player->getProjetil()->setX(esqueda);
+                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                                  player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                break;
+        }
+    }
+
+    if(player->getProjetil()->getX() < 0){
+        player->getProjetil()->setAtivo(false);
+    }
+    if(player->getProjetil()->getY() < 0){
+        player->getProjetil()->setAtivo(false);
+    }
+}
+
+void TFrame::disparo(){
 
 }

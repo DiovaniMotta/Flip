@@ -102,3 +102,18 @@ TProjetil* TPlayer::getProjetil(){
     return this->projetil;
 }
 
+void TPlayer::disparo(){
+    int largura = (this->largura /2);
+    int altura = (this->altura/2);
+    projetil->setAltura(altura);
+    projetil->setAtivo(true);
+    projetil->setLargura(largura);
+    projetil->setPosX(this->posX);
+    projetil->setPosY(this->posY);
+    projetil->setX(x);
+    projetil->setY(y);
+    projetil->setX(this->x);
+    projetil->setY(this->y);
+    projetil->setCorBorda(this->fundo);
+    projetil->setCorFundo(this->fundo);
+}

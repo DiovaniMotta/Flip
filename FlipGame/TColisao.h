@@ -5,7 +5,7 @@
 #include <TNivel1.h>
 #include <TNivel2.h>
 #include <TTabuleiro.h>
-
+#include <TProjetil.h>
 
 class TColisao {
 
@@ -38,6 +38,8 @@ public:
 
     void colisao(TPlayer* player);
 
+    void colisao(TProjetil* projetil);
+
     TNivel1* getNivel1();
 
     void setNivel1(TNivel1* nivel1);
@@ -65,6 +67,10 @@ public:
 private:
 
     TPonto nivel(TPlayer* player);
+
+    TPonto nivel(TProjetil* projetil);
+
+    void repintar(TProjetil* projetil,TPonto ponto);
 };
 #endif // TCOLISAO
 

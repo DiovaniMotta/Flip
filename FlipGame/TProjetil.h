@@ -2,27 +2,39 @@
 #define TPROJETIL
 
 #include <QColor>
+#include <QKeyEvent>
 
 class TProjetil {
 
+    int nivel;
     int x;
     int y;
     int posX;
     int posY;
+    int count; // vai contar o numero de saltos dados de acordo com a diretiva SALTOS e vai atualizar as variaveis X/Y
     int largura;
     int altura;
+    int ultimaPosicao;
     bool ativo;
     QColor corFundo;
     QColor borda;
 
+    //variaveis usadas para o controle do deslocamento
+    int SALTOS = 5;
+    float PERCENTUAL_DESLOCAMENTO = 0.20;
+
 public:
-    static const int DESLOCAMENTO = 10;
+    int DESLOCAMENTO = 0;
 
     TProjetil ();
 
     TProjetil(int x, int y, int posX, int posY, int largura, int altura);
 
     ~TProjetil();
+
+    void setNivel(int nivel);
+
+    int getNivel();
 
     void setX(int x);
 
@@ -60,7 +72,17 @@ public:
 
     QColor getCorBorda();
 
+    void setUltimaPosicao(int ultimaPosicao);
+
+    int getUltimaPosicao();
+
     void disparo();
+
+    void reiniciar();
+
+    void deslocamento(int dimen); // recebe uma dimensao da tela (Altura ou largura)
+
+
 };
 #endif // TPROJETIL
 

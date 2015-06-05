@@ -61,6 +61,7 @@ void TFrame::paintEvent(QPaintEvent* event){
     player1->setX((player1->getPosX() * _w_sz));
     player1->setY((player1->getPosY() * _h_sz));
     painter.drawRect((player1->getPosX() * _w_sz),(player1->getPosY() * _h_sz),_w_sz,_h_sz);
+    // desenho o disparo do player1
     this->disparo(player1,&painter);
     // desenho do player 2;
     painter.setPen(player2->getBorda());
@@ -68,6 +69,7 @@ void TFrame::paintEvent(QPaintEvent* event){
     player2->setX((player2->getPosX() * _w_sz));
     player2->setY((player2->getPosY() * _h_sz));
     painter.drawRect((player2->getPosX() * _w_sz),(player2->getPosY() * _h_sz),_w_sz,_h_sz);
+    //desenho o disparo do player2
     this->disparo(player2,&painter);
  }
 
@@ -110,7 +112,6 @@ void TFrame::keyPressEvent(QKeyEvent* event){
      case Qt::Key_End:
         player2->disparo();
         break;
-
      //comandos de movimentação do player1
      case Qt::Key_W:
         acima = player1->getPosY() - TPlayer::SALTOS;
@@ -136,7 +137,7 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         player1->setUltimaPosicao(event->key());
         colisao->colisao(player1);
         break;
-     case Qt::Key_Backspace:
+     case Qt::Key_Space:
         player1->disparo();
         break;
     }
@@ -146,7 +147,6 @@ void TFrame::keyPressEvent(QKeyEvent* event){
  * @brief TFrame::iniciar slot tratador do evento de pintura de tela
  */
 void TFrame::iniciar(){
-    this->disparo();
     this->repaint();
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }
@@ -166,49 +166,71 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
         int esqueda  = 0;
         int direita = 0;
         //verifico qual foi a ultima direção tomanda
-        switch(player->getUltimaPosicao()){
+        switch(player->getProjetil()->getUltimaPosicao()){
             case Qt::Key_Up:
             case Qt::Key_W:
-                acima = (player->getProjetil()->getY() - TProjetil::DESLOCAMENTO);
+                qDebug()<<"Posicao player ->";
+                qDebug()<<player->getPosX();
+                qDebug()<<player->getPosY();
+                qDebug()<<"Posicao projetil ->";
+                qDebug()<<player->getProjetil()->getPosX();
+                qDebug()<<player->getProjetil()->getPosY();
+                player->getProjetil()->deslocamento(_h_sz);
+                acima = (player->getProjetil()->getY() -  player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(acima);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                colisao->colisao(player->getProjetil());
                 break;
             case Qt::Key_Down:
             case Qt::Key_S:
-                abaixo = (player->getProjetil()->getY() + TProjetil::DESLOCAMENTO);
+                player->getProjetil()->deslocamento(_h_sz);
+                abaixo = (player->getProjetil()->getY() + player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(abaixo);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                colisao->colisao(player->getProjetil());
                 break;
             case Qt::Key_Left:
             case Qt::Key_A:
-                esqueda = (player->getProjetil()->getX() - TProjetil::DESLOCAMENTO);
+                qDebug()<<"Direcao Esquerda->";
+                qDebug()<<"Posicao player ->";
+                qDebug()<<player->getPosX();
+                qDebug()<<player->getPosY();
+                qDebug()<<"Posicao projetil ->";
+                qDebug()<<player->getProjetil()->getPosX();
+                qDebug()<<player->getProjetil()->getPosY();
+                player->getProjetil()->deslocamento(_w_sz);
+                esqueda = (player->getProjetil()->getX() - player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(esqueda);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                colisao->colisao(player->getProjetil());
                 break;
             case Qt::Key_Right:
             case Qt::Key_D:
-                direita = (player->getProjetil()->getX() + TProjetil::DESLOCAMENTO);
+                player->getProjetil()->deslocamento(_w_sz);
+                direita = (player->getProjetil()->getX() + player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(direita);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                colisao->colisao(player->getProjetil());
                 break;
             default:
-                esqueda = (player->getProjetil()->getX() - TProjetil::DESLOCAMENTO);
+                player->getProjetil()->deslocamento(_h_sz);
+                esqueda = (player->getProjetil()->getX() - player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(esqueda);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
+                colisao->colisao(player->getProjetil());
                 break;
         }
     }
-
     if(player->getProjetil()->getX() < 0){
-        player->getProjetil()->setAtivo(false);
+        player->getProjetil()->reiniciar();
     }
     if(player->getProjetil()->getY() < 0){
-        player->getProjetil()->setAtivo(false);
+       player->getProjetil()->reiniciar();
     }
 }
 

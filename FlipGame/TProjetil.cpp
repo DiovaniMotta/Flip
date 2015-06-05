@@ -7,6 +7,8 @@ TProjetil::TProjetil(){
     this->altura =0;
     this->x =0;
     this->y =0;
+    this->count = 0;
+    this->ultimaPosicao = 0;
     this->ativo = false;
 }
 
@@ -17,11 +19,54 @@ TProjetil::TProjetil(int x, int y, int posX, int posY, int largura, int altura){
     this->altura = altura;
     this->x = x;
     this->y = y;
+    this->count = 0;
+    this->ultimaPosicao = 0;
     this->ativo = false;
 }
 
 TProjetil::~TProjetil(){
 
+}
+
+void TProjetil::reiniciar(){
+    this->posX = 0;
+    this->posY = 0;
+    this->largura = 0;
+    this->altura =0;
+    this->x =0;
+    this->y =0;
+    this->count = 0;
+    this->ultimaPosicao = 0;
+    this->ativo = false;
+}
+
+void TProjetil::deslocamento(int dimen){
+    DESLOCAMENTO = (dimen * PERCENTUAL_DESLOCAMENTO);
+    if(count==SALTOS){
+        switch(ultimaPosicao){
+            case Qt::Key_Up:
+            case Qt::Key_W:
+                this->posY--;
+                break;
+            case Qt::Key_Down:
+            case Qt::Key_S:
+                this->posY++;
+                break;
+            case Qt::Key_Left:
+            case Qt::Key_A:
+                this->posX--;
+                break;
+            case Qt::Key_Right:
+            case Qt::Key_D:
+                this->posX++;
+                break;
+            default:
+                this->posX--;
+                break;
+        }
+        count = 0;
+    }
+    count++;
 }
 
 void TProjetil::setAltura(int altura){
@@ -94,4 +139,20 @@ QColor TProjetil::getCorBorda(){
 
 QColor TProjetil::getCorFundo(){
     return this->corFundo;
+}
+
+void TProjetil::setUltimaPosicao(int ultimaPosicao){
+    this->ultimaPosicao = ultimaPosicao;
+}
+
+int TProjetil::getUltimaPosicao(){
+    return this->ultimaPosicao;
+}
+
+void TProjetil::setNivel(int nivel){
+    this->nivel = nivel;
+}
+
+int TProjetil::getNivel(){
+    return this->nivel;
 }

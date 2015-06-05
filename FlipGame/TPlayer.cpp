@@ -7,6 +7,7 @@ TPlayer::TPlayer() {
     this->ultimaPosicao = 0;
     this->largura = 0;
     this->altura = 0;
+    this->ultimaPosicao = 0;
     this->projetil = new TProjetil;
 }
 
@@ -102,6 +103,9 @@ TProjetil* TPlayer::getProjetil(){
     return this->projetil;
 }
 
+/**
+ * @brief TPlayer::disparo responsavel por configurar os valores usados para o objeto projetil
+ */
 void TPlayer::disparo(){
     int largura = (this->largura /2);
     int altura = (this->altura/2);
@@ -114,6 +118,8 @@ void TPlayer::disparo(){
     projetil->setY(y);
     projetil->setX(this->x);
     projetil->setY(this->y);
-    projetil->setCorBorda(this->fundo);
+    projetil->setUltimaPosicao(this->ultimaPosicao);
+    projetil->setCorBorda(this->borda);
     projetil->setCorFundo(this->fundo);
+    projetil->setNivel(this->nivel);
 }

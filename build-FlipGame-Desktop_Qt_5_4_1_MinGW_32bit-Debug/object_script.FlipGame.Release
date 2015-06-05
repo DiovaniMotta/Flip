@@ -12,5 +12,7 @@ INPUT(
 ./release\TNivel3.o
 ./release\TNivel4.o
 ./release\TNivel5.o
+./release\TMedia.o
+./release\qrc_res.o
 ./release\moc_TFrame.o
 );

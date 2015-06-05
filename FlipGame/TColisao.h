@@ -6,6 +6,7 @@
 #include <TNivel2.h>
 #include <TTabuleiro.h>
 #include <TProjetil.h>
+#include <TMedia.h>
 #include <QDebug>
 
 class TColisao {
@@ -13,6 +14,7 @@ class TColisao {
     int largura;
     int altura;
     TTabuleiro* tabuleiro;
+    TMedia* media;
 
 public:
 
@@ -46,6 +48,9 @@ public:
 
     void setTabuleiro(TTabuleiro* tabuleiro);
 
+    void setMedia(TMedia* midia);
+
+    TMedia* getMedia();
 private:
 
     TPonto nivel(TPlayer* player);

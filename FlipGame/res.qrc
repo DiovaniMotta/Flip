@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>sons/tiro_simples.mp3</file>
+        <file>sons/abertura.mp3</file>
+        <file>sons/captura_tiro_especial.mp3</file>
+    </qresource>
+</RCC>

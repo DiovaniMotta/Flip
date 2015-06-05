@@ -1,4 +1,5 @@
-QT+= widgets
+QT      += widgets\
+        multimedia
 SOURCES += \
     TColisao.cpp \
     TPlayer.cpp \
@@ -12,7 +13,8 @@ SOURCES += \
     TProjetil.cpp \
     TNivel3.cpp \
     TNivel4.cpp \
-    TNivel5.cpp
+    TNivel5.cpp \
+    TMedia.cpp
 
 HEADERS += \
     TTabuleiro.h\
@@ -27,6 +29,10 @@ HEADERS += \
     TProjetil.h \
     TNivel3.h \
     TNivel4.h \
-    TNivel5.h
+    TNivel5.h \
+    TMedia.h
 
 DISTFILES +=
+
+RESOURCES += \
+    res.qrc

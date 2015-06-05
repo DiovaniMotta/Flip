@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include <TColisao.h>
 #include <QTimer>
+#include <TMedia.h>
 #include <QDebug>
 
 #ifndef TFRAME
@@ -25,7 +26,7 @@ class TFrame : public QFrame {
 
     TColisao* colisao;
     TTabuleiro* tabuleiro;
-
+    TMedia* media;
     TPlayer* player1;
     TPlayer* player2;
 

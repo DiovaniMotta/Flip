@@ -16,7 +16,9 @@ TFrame::TFrame () {
     player1 = tabuleiro->getPlayer1();
     player2 = tabuleiro->getPlayer2();
     colisao = new TColisao;
+    media = new TMedia;
     colisao->setTabuleiro(tabuleiro);
+    colisao->setMedia(media);
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }
 
@@ -147,7 +149,6 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player1);
         //verifica a colisao entre ambos os players
-        colisao->colisao();
         break;
      case Qt::Key_A:
         esquerda = player1->getPosX() - TPlayer::SALTOS;

@@ -13,6 +13,7 @@ TColisao::TColisao(int larg, int alt){
 
 TColisao::~TColisao(){
     delete tabuleiro;
+    delete media;
 }
 /**
  * @brief TColisao::colisao metodo responsavel por verificar a colisao entre o player e o tabuleiro
@@ -53,31 +54,32 @@ void TColisao::colisao(TPlayer *player){
 void TColisao::colisao(TProjetil* projetil){
     TPonto ponto = this->nivel(projetil);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
-        qDebug()<<"Colisao->";
-        qDebug()<<"PosX ->";
-        qDebug()<<projetil->getPosX();
-        qDebug()<<"PosY ->";
-        qDebug()<<projetil->getPosY();
+        media->parar();
         projetil->reiniciar();
         return;
     }
     if(ponto.getCorFundo().operator ==(projetil->getCorFundo())){
+        media->iniciar();
         this->repintar(projetil,ponto);
         return;
     }
     if(projetil->getPosX() < 0){
+        media->parar();
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosY() < 0){
+        media->parar();
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosX() == TTabuleiro::DIMENSAO){
+        media->parar();
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosY() == TTabuleiro::DIMENSAO){
+        media->parar();
         projetil->reiniciar();
         return;
     }
@@ -162,6 +164,7 @@ void TColisao::repintar(TProjetil *projetil, TPonto ponto){
 bool TColisao::colisao(TPlayer* player,TProjetil* projetil){
     if(player->getPosX() == projetil->getPosX()){
         if(player->getPosY() == projetil->getPosY()){
+            media->parar();
             projetil->reiniciar();
             return true;
         }
@@ -204,6 +207,7 @@ void TColisao::colisao(TProjetil *projetil1, TProjetil *projetil2){
     //se houver colisao entre os projeteis
     if(projetil1->getPosX() == projetil2->getPosX()){
         if(projetil1->getPosY() == projetil2->getPosY()){
+            media->parar();
             projetil1->reiniciar();
             projetil2->reiniciar();
         }
@@ -234,4 +238,10 @@ void TColisao::setTabuleiro(TTabuleiro *tabuleiro){
     this->tabuleiro = tabuleiro;
 }
 
+void TColisao::setMedia(TMedia *midia){
+    this->media = midia;
+}
 
+TMedia* TColisao::getMedia(){
+    return this->media;
+}

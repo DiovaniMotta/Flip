@@ -1359,7 +1359,8 @@ release/TProjetil.o: ../FlipGame/TProjetil.cpp ../FlipGame/TProjetil.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qfile.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qvector2d.h \
-		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qtouchdevice.h
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qtouchdevice.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\TProjetil.o ..\FlipGame\TProjetil.cpp
 
 release/TNivel3.o: ../FlipGame/TNivel3.cpp ../FlipGame/TNivel3.h \

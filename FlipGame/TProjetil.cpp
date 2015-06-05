@@ -29,8 +29,8 @@ TProjetil::~TProjetil(){
 }
 
 void TProjetil::reiniciar(){
-    this->posX = 0;
-    this->posY = 0;
+    this->posX = -1;
+    this->posY = -1;
     this->largura = 0;
     this->altura =0;
     this->x =0;
@@ -40,13 +40,23 @@ void TProjetil::reiniciar(){
     this->ativo = false;
 }
 
+/**
+ * @brief TProjetil::deslocamento método responsavel por efetuar o calculo da variavel usada para o
+ * deslocamento do projetil e atualizar as suas coordenadas x e y em relação ao tabuleiro
+ * @param dimen a largura ou altura de cada objeto TPonto
+ */
 void TProjetil::deslocamento(int dimen){
     DESLOCAMENTO = (dimen * PERCENTUAL_DESLOCAMENTO);
     if(count==SALTOS){
+        qDebug()<<"Antes ->";
+        qDebug()<<"PosX ->";
+        qDebug()<<this->posX;
+        qDebug()<<"PosY ->";
+        qDebug()<<this->posY;
         switch(ultimaPosicao){
             case Qt::Key_Up:
             case Qt::Key_W:
-                this->posY--;
+                this->posY--; 
                 break;
             case Qt::Key_Down:
             case Qt::Key_S:
@@ -65,6 +75,11 @@ void TProjetil::deslocamento(int dimen){
                 break;
         }
         count = 0;
+        qDebug()<<"Depois ->";
+        qDebug()<<"PosX ->";
+        qDebug()<<this->posX;
+        qDebug()<<"PosY ->";
+        qDebug()<<this->posY;
     }
     count++;
 }

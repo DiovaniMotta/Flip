@@ -53,6 +53,11 @@ void TColisao::colisao(TPlayer *player){
 void TColisao::colisao(TProjetil* projetil){
     TPonto ponto = this->nivel(projetil);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
+        qDebug()<<"Colisao->";
+        qDebug()<<"PosX ->";
+        qDebug()<<projetil->getPosX();
+        qDebug()<<"PosY ->";
+        qDebug()<<projetil->getPosY();
         projetil->reiniciar();
         return;
     }
@@ -148,6 +153,41 @@ void TColisao::repintar(TProjetil *projetil, TPonto ponto){
     }
 }
 
+/**
+ * @brief TColisao::colisao verifica a colisao entre o player e o projetil
+ * @param player o player que será verificado
+ * @param projetil o projetil que será avalidao
+ * @return um dado boleano informando sobre a colisao
+ */
+bool TColisao::colisao(TPlayer* player,TProjetil* projetil){
+    if(player->getPosX() == projetil->getPosX()){
+        if(player->getPosY() == projetil->getPosY()){
+            projetil->reiniciar();
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * @brief TColisao::colisao verifica a colisao entre os players
+ */
+void TColisao::colisao(){
+     TPlayer* player1 = this->tabuleiro->getPlayer1();
+     TPlayer* player2 = this->tabuleiro->getPlayer2();
+     // reposiciona o player1 um se caso o mesmo estiver na mesma posicao que o player2
+     if(player1->getPosX() == player2->getPosX()){
+         if(player1->getPosY() == player2->getPosY()){
+             tabuleiro->reposicionar(player1);
+         }
+     }
+     // reposiciona o player2 um se caso o mesmo estiver na mesma posicao que o player1
+     if(player2->getPosX() == player1->getPosX()){
+         if(player2->getPosY() == player1->getPosY()){
+             tabuleiro->reposicionar(player2);
+         }
+     }
+}
 
 int TColisao::getLargura(){
     return largura;

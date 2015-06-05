@@ -43,7 +43,7 @@ private:
 
     void disparo(TPlayer* player,QPainter* painter);
 
-    void disparo();
+    void disparo(TPlayer* player,TProjetil* projetil,QPainter* painter); // usado para verifica se houve a colisao entre o player e o projetil
 
 private slots:
 

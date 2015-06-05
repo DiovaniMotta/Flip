@@ -12,7 +12,7 @@ TFrame::TFrame () {
     setMouseTracking(true);
     setFocus();
     tabuleiro = new TTabuleiro;
-    tabuleiro->posicionar(TPlayer::NIVEL5);
+    tabuleiro->posicionar(TPlayer::NIVEL1);
     player1 = tabuleiro->getPlayer1();
     player2 = tabuleiro->getPlayer2();
     colisao = new TColisao;
@@ -63,6 +63,8 @@ void TFrame::paintEvent(QPaintEvent* event){
     painter.drawRect((player1->getPosX() * _w_sz),(player1->getPosY() * _h_sz),_w_sz,_h_sz);
     // desenho o disparo do player1
     this->disparo(player1,&painter);
+    // verifica a colisao entre o player 1 e o projetil do player 2
+    this->disparo(player1,player2->getProjetil(),&painter);
     // desenho do player 2;
     painter.setPen(player2->getBorda());
     painter.setBrush(player2->getFundo());
@@ -71,6 +73,8 @@ void TFrame::paintEvent(QPaintEvent* event){
     painter.drawRect((player2->getPosX() * _w_sz),(player2->getPosY() * _h_sz),_w_sz,_h_sz);
     //desenho o disparo do player2
     this->disparo(player2,&painter);
+    // verifica a colisao entre o player 2 e o projetil do player 1
+    this->disparo(player2,player1->getProjetil(),&painter);
  }
 
 /**
@@ -89,25 +93,37 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         acima = player2->getPosY() - TPlayer::SALTOS;
         player2->setPosY(acima);
         player2->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player2);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_Down:
         abaixo = player2->getPosY() + TPlayer::SALTOS;
         player2->setPosY(abaixo);
         player2->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player2);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_Left:
         esquerda = player2->getPosX() - TPlayer::SALTOS;
         player2->setPosX(esquerda);
         player2->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player2);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_Right:
         direita = player2->getPosX() + TPlayer::SALTOS;
         player2->setPosX(direita);
         player2->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player2);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_End:
         player2->disparo();
@@ -117,25 +133,37 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         acima = player1->getPosY() - TPlayer::SALTOS;
         player1->setPosY(acima);
         player1->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player1);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_S:
         abaixo = player1->getPosY() + TPlayer::SALTOS;
         player1->setPosY(abaixo);
         player1->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player1);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_A:
         esquerda = player1->getPosX() - TPlayer::SALTOS;
         player1->setPosX(esquerda);
         player1->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player1);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_D:
         direita = player1->getPosX() + TPlayer::SALTOS;
         player1->setPosX(direita);
         player1->setUltimaPosicao(event->key());
+        //verifica a colisao entre o player e o tabuleiro
         colisao->colisao(player1);
+        //verifica a colisao entre ambos os players
+        colisao->colisao();
         break;
      case Qt::Key_Space:
         player1->disparo();
@@ -172,44 +200,44 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
                 player->getProjetil()->deslocamento(_h_sz);
                 acima = (player->getProjetil()->getY() -  player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(acima);
+                colisao->colisao(player->getProjetil());
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
-                colisao->colisao(player->getProjetil());
                 break;
             case Qt::Key_Down:
             case Qt::Key_S:
                 player->getProjetil()->deslocamento(_h_sz);
+                colisao->colisao(player->getProjetil());
                 abaixo = (player->getProjetil()->getY() + player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(abaixo);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
-                colisao->colisao(player->getProjetil());
                 break;
             case Qt::Key_Left:
             case Qt::Key_A:
                 player->getProjetil()->deslocamento(_w_sz);
+                colisao->colisao(player->getProjetil());
                 esqueda = (player->getProjetil()->getX() - player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(esqueda);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
-                colisao->colisao(player->getProjetil());
                 break;
             case Qt::Key_Right:
             case Qt::Key_D:
                 player->getProjetil()->deslocamento(_w_sz);
+                colisao->colisao(player->getProjetil());
                 direita = (player->getProjetil()->getX() + player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(direita);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
-                colisao->colisao(player->getProjetil());
                 break;
             default:
                 player->getProjetil()->deslocamento(_h_sz);
+                colisao->colisao(player->getProjetil());
                 esqueda = (player->getProjetil()->getX() - player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(esqueda);
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
-                colisao->colisao(player->getProjetil());
                 break;
         }
     }
@@ -221,6 +249,16 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
     }
 }
 
-void TFrame::disparo(){
-
+/**
+ * @brief TFrame::colisao verifica a colisao entre o player e o projetil
+ * @param player o player que será verificado
+ * @param projetil o projetil
+ * @param painter o objeto responsavel pela pintura
+ */
+void TFrame::disparo(TPlayer* player, TProjetil* projetil,QPainter* painter){
+    if(colisao->colisao(player,projetil)){
+        player->setBorda(Qt::red);
+        player->setFundo(Qt::red);
+        painter->drawRect((player->getPosX() * _w_sz),(player->getPosY() * _h_sz),_w_sz,_h_sz);
+    }
 }

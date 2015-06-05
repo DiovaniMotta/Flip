@@ -6,6 +6,7 @@
 #include <TNivel2.h>
 #include <TTabuleiro.h>
 #include <TProjetil.h>
+#include <QDebug>
 
 class TColisao {
 
@@ -34,6 +35,10 @@ public:
     void colisao(TPlayer* player);
 
     void colisao(TProjetil* projetil);
+
+    bool colisao(TPlayer* player,TProjetil* projetil);
+
+    void colisao();
 
     TTabuleiro* getTabuleiro();
 

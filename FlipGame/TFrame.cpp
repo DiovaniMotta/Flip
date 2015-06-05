@@ -169,12 +169,6 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
         switch(player->getProjetil()->getUltimaPosicao()){
             case Qt::Key_Up:
             case Qt::Key_W:
-                qDebug()<<"Posicao player ->";
-                qDebug()<<player->getPosX();
-                qDebug()<<player->getPosY();
-                qDebug()<<"Posicao projetil ->";
-                qDebug()<<player->getProjetil()->getPosX();
-                qDebug()<<player->getProjetil()->getPosY();
                 player->getProjetil()->deslocamento(_h_sz);
                 acima = (player->getProjetil()->getY() -  player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(acima);
@@ -193,13 +187,6 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
                 break;
             case Qt::Key_Left:
             case Qt::Key_A:
-                qDebug()<<"Direcao Esquerda->";
-                qDebug()<<"Posicao player ->";
-                qDebug()<<player->getPosX();
-                qDebug()<<player->getPosY();
-                qDebug()<<"Posicao projetil ->";
-                qDebug()<<player->getProjetil()->getPosX();
-                qDebug()<<player->getProjetil()->getPosY();
                 player->getProjetil()->deslocamento(_w_sz);
                 esqueda = (player->getProjetil()->getX() - player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(esqueda);

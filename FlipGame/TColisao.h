@@ -11,11 +11,6 @@ class TColisao {
 
     int largura;
     int altura;
-    TNivel1* nivel1;
-    TNivel2* nivel2;
-    TNivel3* nivel3;
-    TNivel4* nivel4;
-    TNivel5* nivel5;
     TTabuleiro* tabuleiro;
 
 public:
@@ -39,26 +34,6 @@ public:
     void colisao(TPlayer* player);
 
     void colisao(TProjetil* projetil);
-
-    TNivel1* getNivel1();
-
-    void setNivel1(TNivel1* nivel1);
-
-    TNivel2* getNivel2();
-
-    void setNivel2(TNivel2* nivel2);
-
-    TNivel3* getNivel3();
-
-    void setNivel3(TNivel3* nivel3);
-
-    TNivel4* getNivel4();
-
-    void setNivel4(TNivel4* nivel4);
-
-    TNivel5* getNivel5();
-
-    void setNivel5(TNivel5* nivel5);
 
     TTabuleiro* getTabuleiro();
 

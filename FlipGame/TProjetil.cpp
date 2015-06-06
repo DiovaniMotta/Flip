@@ -47,16 +47,11 @@ void TProjetil::reiniciar(){
  */
 void TProjetil::deslocamento(int dimen){
     DESLOCAMENTO = (dimen * PERCENTUAL_DESLOCAMENTO);
-    if(count==SALTOS){
-        qDebug()<<"Antes ->";
-        qDebug()<<"PosX ->";
-        qDebug()<<this->posX;
-        qDebug()<<"PosY ->";
-        qDebug()<<this->posY;
+    if(count == SALTOS){
         switch(ultimaPosicao){
             case Qt::Key_Up:
             case Qt::Key_W:
-                this->posY--; 
+                this->posY--;
                 break;
             case Qt::Key_Down:
             case Qt::Key_S:
@@ -75,11 +70,6 @@ void TProjetil::deslocamento(int dimen){
                 break;
         }
         count = 0;
-        qDebug()<<"Depois ->";
-        qDebug()<<"PosX ->";
-        qDebug()<<this->posX;
-        qDebug()<<"PosY ->";
-        qDebug()<<this->posY;
     }
     count++;
 }

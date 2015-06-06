@@ -47,6 +47,7 @@ void TFrame::resizeEvent(QResizeEvent* event){
 void TFrame::paintEvent(QPaintEvent* event){
     QFrame::paintEvent(event);
     QPainter painter(this);
+    painter.setRenderHint(QPainter::HighQualityAntialiasing,true);
     for(int x=0;x <TTabuleiro::DIMENSAO;x++){
         for(int y=0; y<TTabuleiro::DIMENSAO; y++){
             TPonto ponto = tabuleiro->nivel(x,y);
@@ -207,9 +208,9 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
             case Qt::Key_Up:
             case Qt::Key_W:
                 player->getProjetil()->deslocamento(_h_sz);
+                colisao->colisao(player->getProjetil());
                 acima = (player->getProjetil()->getY() -  player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(acima);
-                colisao->colisao(player->getProjetil());
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
                 break;

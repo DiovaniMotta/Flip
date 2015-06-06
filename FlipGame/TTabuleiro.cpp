@@ -184,3 +184,27 @@ void TTabuleiro::posicionar(const int nivel){
           break;
     }
 }
+
+/**
+ * @brief TTabuleiro:: metodo responsavel por zerar o tabuleiro quando houver um vencededor
+ * @param player o jogador derrotado
+ */
+void TTabuleiro::zerar(TPlayer *player){
+    switch(player->getNivel()){
+        case TPlayer::NIVEL1:
+            nivel1->zerar(player);
+            break;
+        case TPlayer::NIVEL2:
+            nivel2->zerar(player);
+            break;
+        case TPlayer::NIVEL3:
+            nivel3->zerar(player);
+            break;
+        case TPlayer::NIVEL4:
+            nivel4->zerar(player);
+            break;
+        case TPlayer::NIVEL5:
+            nivel4->zerar(player);
+            break;
+    }
+}

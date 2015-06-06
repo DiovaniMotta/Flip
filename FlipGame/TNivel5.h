@@ -39,6 +39,7 @@ public:
 
   TPlayer* getPlayer2();
 
+  void zerar(TPlayer* player);
 };
 #endif // TNIVEL5
 

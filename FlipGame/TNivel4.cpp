@@ -82,6 +82,21 @@ void TNivel4::players(){
     player1->setFundo(Qt::black);
 }
 
+/**
+ * @brief TNivel1::zerar metodo responsavel por zerar o tabuleiro quando um player vence
+ * @param player o player que foi derrotado
+ */
+void TNivel4::zerar(TPlayer *player){
+    for(int x=0; x<DIMENSAO; x++){
+        for(int y=0; y<DIMENSAO; y++){
+            TPonto ponto = lista[x][y];
+            ponto.setCorBorda(player->getBorda());
+            ponto.setCorFundo(player->getFundo());
+            lista[x][y] = ponto;
+        }
+    }
+}
+
 void TNivel4::setPlayer1(TPlayer *player1){
     this->player1 = player1;
 }

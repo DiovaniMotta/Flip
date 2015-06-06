@@ -190,7 +190,11 @@ void TFrame::iniciar(){
 void TFrame::parar(){
 
 }
-
+/**
+ * @brief TFrame::disparo efetua a pintura do disparo do projetil
+ * @param player o jogador que efetuou o disparo
+ * @param painter o objeto responsavel pela pintura na tela
+ */
 void TFrame::disparo(TPlayer *player,QPainter* painter){
     //se o projetil foi disparado pelo player
     if(player->getProjetil()->isAtivo()){
@@ -262,9 +266,7 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
  */
 void TFrame::disparo(TPlayer* player, TProjetil* projetil,QPainter* painter){
     if(colisao->colisao(player,projetil)){
-        player->setBorda(Qt::red);
-        player->setFundo(Qt::red);
-        painter->drawRect((player->getPosX() * _w_sz),(player->getPosY() * _h_sz),_w_sz,_h_sz);
+        tabuleiro->zerar(player);
     }
 }
 

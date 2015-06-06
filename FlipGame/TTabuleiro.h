@@ -66,5 +66,7 @@ public:
     void reposicionar(TPlayer* player1);
 
     void posicionar(const int nivel);
+
+    void zerar(TPlayer* player);
 };
 #endif // TTABULEIRO

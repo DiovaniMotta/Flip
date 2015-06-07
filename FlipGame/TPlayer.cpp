@@ -9,10 +9,12 @@ TPlayer::TPlayer() {
     this->altura = 0;
     this->ultimaPosicao = 0;
     this->projetil = new TProjetil;
+    this->bombas = new QVector<TBomba>();
 }
 
 TPlayer::~TPlayer(){
     delete projetil;
+    delete bombas;
 }
 
 int TPlayer::getNivel(){
@@ -103,6 +105,14 @@ TProjetil* TPlayer::getProjetil(){
     return this->projetil;
 }
 
+void TPlayer::setBombas(QVector<TBomba>* b){
+    this->bombas = b;
+}
+
+QVector<TBomba>* TPlayer::getBombas(){
+  return this->bombas;
+}
+
 /**
  * @brief TPlayer::disparo responsavel por configurar os valores usados para o objeto projetil
  */
@@ -122,4 +132,8 @@ void TPlayer::disparo(){
     projetil->setCorBorda(this->borda);
     projetil->setCorFundo(this->fundo);
     projetil->setNivel(this->nivel);
+}
+
+void TPlayer::addBomba(TBomba bomba){
+    this->bombas->append(bomba);
 }

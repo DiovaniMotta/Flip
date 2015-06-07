@@ -8,6 +8,7 @@ TTabuleiro::TTabuleiro(){
     this->nivel3 = new TNivel3();
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
+    this->contador = 0;
 }
 
 TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
@@ -18,6 +19,7 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->nivel3 = new TNivel3();
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
+    this->contador = 0;
 }
 
 TTabuleiro::~TTabuleiro(){
@@ -207,4 +209,94 @@ void TTabuleiro::zerar(TPlayer *player){
             nivel4->zerar(player);
             break;
     }
+}
+
+/**
+ * @brief TTabuleiro::bomba retorna um objeto bomba que será pintado em algum lugar do tabuleiro
+ * @return null caso não tenha sido possivel gerar o objeto bomba e diferente de nulo se foi possivel
+ */
+TBomba* TTabuleiro::bomba(){
+    TBomba* b = NULL;
+    contador++;
+    qDebug()<<contador;
+    if(contador >= TIMEOUT){
+        int x = TUtils::randomize(TTabuleiro::DIMENSAO);
+        int y = TUtils::randomize(TTabuleiro::DIMENSAO);
+        bool retorno = false;
+        b = new TBomba;
+        TPonto ponto;
+        switch(player1->getNivel()){
+            case TPlayer::NIVEL1:
+                ponto = nivel1->nivel(x,y);
+                ponto.setX(x);
+                ponto.setY(y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno){
+                   return bomba();
+                }
+                contador = 0;
+                bomba(&ponto,b);
+                break;
+            case TPlayer::NIVEL2:
+                ponto = nivel2->nivel(x,y);
+                ponto.setX(x);
+                ponto.setY(y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno){
+                   return bomba();
+                }
+                contador = 0;
+                bomba(&ponto,b);
+                break;
+            case TPlayer::NIVEL3:
+                ponto = nivel3->nivel(x,y);
+                ponto.setX(x);
+                ponto.setY(y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno){
+                   return bomba();
+                }
+                contador = 0;
+                bomba(&ponto,b);
+                break;
+            case TPlayer::NIVEL4:
+                ponto = nivel4->nivel(x,y);
+                ponto.setX(x);
+                ponto.setY(y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno){
+                   return bomba();
+                }
+                contador = 0;
+                bomba(&ponto,b);
+                break;
+            case TPlayer::NIVEL5:
+                ponto = nivel5->nivel(x,y);
+                ponto.setX(x);
+                ponto.setY(y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno){
+                   qDebug()<<"é cinza";
+                   return bomba();
+                }
+                contador = 0;
+                bomba(&ponto,b);
+                break;
+        }
+    }
+    return b;
+}
+
+/**
+ * @brief TTabuleiro::bomba metodo responsavel por configurar a localizacao de um
+ * objeto TBomba que será pintada  na tela
+ * @param ponto o ponto onde deve ser pintado o objeto bomba
+ * @param bomba o objeto que será pintado no ponto
+ */
+void TTabuleiro::bomba(TPonto *ponto, TBomba *bomba){
+    bomba->setPosX(ponto->getX());
+    bomba->setPosY(ponto->getY());
+    bomba->setVisivel(true);
+    bomba->setBorda(Qt::red);
+    bomba->setFundo(Qt::red);
 }

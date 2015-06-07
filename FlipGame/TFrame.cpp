@@ -19,6 +19,7 @@ TFrame::TFrame () {
     media = new TMedia;
     colisao->setTabuleiro(tabuleiro);
     colisao->setMedia(media);
+    media->iniciar(TMedia::ABERTURA);
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }
 
@@ -82,6 +83,8 @@ void TFrame::paintEvent(QPaintEvent* event){
     this->disparo(player2,player1->getProjetil(),&painter);
     //verifico a colisao entre os projeteis
     colisao->colisao(player1->getProjetil(),player2->getProjetil());
+    //verifico se existem armas para serem desenhadas no tabuleiro
+    this->armas(&painter);
  }
 
 /**
@@ -208,9 +211,9 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
             case Qt::Key_Up:
             case Qt::Key_W:
                 player->getProjetil()->deslocamento(_h_sz);
-                colisao->colisao(player->getProjetil());
                 acima = (player->getProjetil()->getY() -  player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(acima);
+                colisao->colisao(player->getProjetil());
                 painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
                 break;
@@ -286,4 +289,29 @@ void TFrame::redimensionar(TPlayer *player){
     projetil->setLargura(largura);
     projetil->setX((projetil->getPosX() * _w_sz));
     projetil->setY((projetil->getPosY() * _h_sz));
+}
+
+/**
+ * @brief TFrame::armas método responsavel por desenhar as armas adicionais que serão mostradas na tela
+ * @param painter o objeto responsavel pela pintura em tela
+ */
+void TFrame::armas(QPainter *painter){
+    TBomba* b = tabuleiro->bomba();
+    if(b != NULL){
+      bomber = b;
+    }
+    if(bomber != NULL){
+        if(bomber->isVisivel())
+        {
+            qDebug()<<bomber->getPosX();
+            qDebug()<<bomber->getPosY();
+            painter->setPen(bomber->getBorda());
+            painter->setBrush(bomber->getFundo());
+            bomber->setX(((bomber->getPosX() * _w_sz) + (_w_sz /4)));
+            bomber->setY(((bomber->getPosY() * _h_sz) + (_h_sz /4)));
+            int rx = (int)(_w_sz/2);
+            int ry = (int)(_h_sz/2);
+            painter->drawEllipse((bomber->getX()),bomber->getY(),rx,ry);
+        }
+    }
 }

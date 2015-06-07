@@ -13,6 +13,8 @@ INPUT(
 ./debug\TNivel4.o
 ./debug\TNivel5.o
 ./debug\TMedia.o
+./debug\TBomba.o
+./debug\TUtils.o
 ./debug\qrc_res.o
 ./debug\moc_TFrame.o
 );

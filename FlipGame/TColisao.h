@@ -6,6 +6,7 @@
 #include <TNivel2.h>
 #include <TTabuleiro.h>
 #include <TProjetil.h>
+#include <TBomba.h>
 #include <TMedia.h>
 #include <QDebug>
 
@@ -36,13 +37,15 @@ public:
 
     void colisao(TPlayer* player);
 
+    void colisao();
+
     void colisao(TProjetil* projetil);
 
     void colisao(TProjetil* projetil1,TProjetil* projetil2);
 
     bool colisao(TPlayer* player,TProjetil* projetil);
 
-    void colisao();
+    void colisao(TPlayer* player,TBomba* bomba);
 
     TTabuleiro* getTabuleiro();
 

@@ -1,12 +1,15 @@
 #include <TPonto.h>
 
 TPonto::TPonto(){
-
+    this->x = 0;
+    this->y = 0;
 }
 
 TPonto::TPonto(QColor corBorda,QColor corFundo){
     this->corBorda = corBorda;
     this->corFundo = corFundo;
+    this->x = 0;
+    this->y = 0;
 }
 
 TPonto::~TPonto(){

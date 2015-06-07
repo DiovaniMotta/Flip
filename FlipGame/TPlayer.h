@@ -5,6 +5,8 @@
 
 #include <QColor>
 #include <TProjetil.h>
+#include <QVector>
+#include <TBomba.h>
 #include <QDebug>
 
 /**
@@ -25,6 +27,7 @@ class TPlayer {
   QColor borda;
 
   TProjetil* projetil;
+  QVector<TBomba>* bombas;
 
 public:
 
@@ -83,6 +86,12 @@ public:
     void setProjetil(TProjetil* projetil);
 
     TProjetil* getProjetil();
+
+    void setBombas(QVector<TBomba>* b);
+
+    QVector<TBomba>* getBombas();
+
+    void addBomba(TBomba bomba);
 
     void  disparo();
 };

@@ -13,6 +13,8 @@ INPUT(
 ./release\TNivel4.o
 ./release\TNivel5.o
 ./release\TMedia.o
+./release\TBomba.o
+./release\TUtils.o
 ./release\qrc_res.o
 ./release\moc_TFrame.o
 );

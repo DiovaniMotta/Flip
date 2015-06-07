@@ -3,5 +3,6 @@
         <file>sons/tiro_simples.mp3</file>
         <file>sons/abertura.mp3</file>
         <file>sons/captura_tiro_especial.mp3</file>
+        <file>sons/explosao.mp3</file>
     </qresource>
 </RCC>

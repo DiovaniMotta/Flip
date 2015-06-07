@@ -56,30 +56,36 @@ void TColisao::colisao(TProjetil* projetil){
     if(ponto.getCorFundo().operator ==(Qt::gray)){
         media->parar();
         projetil->reiniciar();
+        media->iniciar(TMedia::ABERTURA);
         return;
     }
     if(ponto.getCorFundo().operator ==(projetil->getCorFundo())){
-        media->iniciar();
+        media->parar();
+        media->iniciar(TMedia::TIRO);
         this->repintar(projetil,ponto);
         return;
     }
     if(projetil->getPosX() < 0){
         media->parar();
+        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosY() < 0){
         media->parar();
+        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosX() == TTabuleiro::DIMENSAO){
         media->parar();
+        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosY() == TTabuleiro::DIMENSAO){
         media->parar();
+        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
@@ -165,7 +171,9 @@ bool TColisao::colisao(TPlayer* player,TProjetil* projetil){
     if(player->getPosX() == projetil->getPosX()){
         if(player->getPosY() == projetil->getPosY()){
             media->parar();
+            media->iniciar(TMedia::EXPLOSAO);
             projetil->reiniciar();
+            media->parar();
             return true;
         }
     }

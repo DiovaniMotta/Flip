@@ -13,6 +13,8 @@ public:
     static void branco(TPonto* ponto);
 
     static void cinza(TPonto* ponto);
+
+    static bool equals(TPonto ponto,QColor cor);
 };
 #endif // TCOLOR
 

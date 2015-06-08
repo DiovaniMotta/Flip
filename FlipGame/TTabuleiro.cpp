@@ -218,7 +218,6 @@ void TTabuleiro::zerar(TPlayer *player){
 TBomba* TTabuleiro::bomba(){
     TBomba* b = NULL;
     contador++;
-    qDebug()<<contador;
     if(contador >= TIMEOUT){
         int x = TUtils::randomize(TTabuleiro::DIMENSAO);
         int y = TUtils::randomize(TTabuleiro::DIMENSAO);
@@ -236,7 +235,7 @@ TBomba* TTabuleiro::bomba(){
                 }
                 contador = 0;
                 bomba(&ponto,b);
-                break;
+                return b;
             case TPlayer::NIVEL2:
                 ponto = nivel2->nivel(x,y);
                 ponto.setX(x);
@@ -247,7 +246,7 @@ TBomba* TTabuleiro::bomba(){
                 }
                 contador = 0;
                 bomba(&ponto,b);
-                break;
+                return b;
             case TPlayer::NIVEL3:
                 ponto = nivel3->nivel(x,y);
                 ponto.setX(x);
@@ -258,7 +257,7 @@ TBomba* TTabuleiro::bomba(){
                 }
                 contador = 0;
                 bomba(&ponto,b);
-                break;
+                return b;
             case TPlayer::NIVEL4:
                 ponto = nivel4->nivel(x,y);
                 ponto.setX(x);
@@ -269,19 +268,18 @@ TBomba* TTabuleiro::bomba(){
                 }
                 contador = 0;
                 bomba(&ponto,b);
-                break;
+                return b;
             case TPlayer::NIVEL5:
                 ponto = nivel5->nivel(x,y);
                 ponto.setX(x);
                 ponto.setY(y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno){
-                   qDebug()<<"é cinza";
                    return bomba();
                 }
                 contador = 0;
                 bomba(&ponto,b);
-                break;
+                return b;
         }
     }
     return b;

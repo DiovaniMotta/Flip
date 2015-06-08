@@ -91,7 +91,7 @@ public:
 
     QVector<TBomba>* getBombas();
 
-    void addBomba(TBomba bomba);
+    void addBomba(TBomba* bomba);
 
     void  disparo();
 };

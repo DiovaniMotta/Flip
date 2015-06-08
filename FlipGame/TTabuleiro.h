@@ -12,7 +12,7 @@
 #include <TUtils.h>
 #include <TColor.h>
 
-#define TIMEOUT 2000
+#define TIMEOUT 500
 /**
  * Author : Diovani Bernardi da Motta
  * @brief The TTabuleiro class classe responsável por montar as informações que serão exibidas para o usuario em forma de

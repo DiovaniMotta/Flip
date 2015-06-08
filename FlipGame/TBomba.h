@@ -2,6 +2,7 @@
 #define TBOMBA
 
 #include <QColor>
+#include <QObject>
 
 class TBomba {
 

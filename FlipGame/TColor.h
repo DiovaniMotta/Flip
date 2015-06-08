@@ -1,9 +1,15 @@
 #pragma once
-#include <TPonto.h>
 
 #ifndef TCOLOR
 #define TCOLOR
-class TColor {
+
+#include <TPonto.h>
+#include <QObject>
+
+
+class TColor : public QObject {
+
+    Q_OBJECT
 
 public:
     TColor ();

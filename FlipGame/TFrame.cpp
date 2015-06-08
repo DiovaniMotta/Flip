@@ -71,6 +71,8 @@ void TFrame::paintEvent(QPaintEvent* event){
     this->disparo(player1,&painter);
     // verifica a colisao entre o player 1 e o projetil do player 2
     this->disparo(player1,player2->getProjetil(),&painter);
+    // verifico se o player 1 e um objeto bomba estão na mesma posicao
+    colisao->colisao(player1,bomber);
     // desenho do player 2;
     painter.setPen(player2->getBorda());
     painter.setBrush(player2->getFundo());
@@ -83,6 +85,8 @@ void TFrame::paintEvent(QPaintEvent* event){
     this->disparo(player2,player1->getProjetil(),&painter);
     //verifico a colisao entre os projeteis
     colisao->colisao(player1->getProjetil(),player2->getProjetil());
+    // verifico se o player 1 e um objeto bomba estão na mesma posicao
+    colisao->colisao(player2,bomber);
     //verifico se existem armas para serem desenhadas no tabuleiro
     this->armas(&painter);
  }
@@ -303,8 +307,6 @@ void TFrame::armas(QPainter *painter){
     if(bomber != NULL){
         if(bomber->isVisivel())
         {
-            qDebug()<<bomber->getPosX();
-            qDebug()<<bomber->getPosY();
             painter->setPen(bomber->getBorda());
             painter->setBrush(bomber->getFundo());
             bomber->setX(((bomber->getPosX() * _w_sz) + (_w_sz /4)));

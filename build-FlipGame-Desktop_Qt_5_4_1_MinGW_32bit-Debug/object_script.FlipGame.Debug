@@ -17,4 +17,6 @@ INPUT(
 ./debug\TUtils.o
 ./debug\qrc_res.o
 ./debug\moc_TFrame.o
+./debug\moc_TColor.o
+./debug\moc_TMedia.o
 );

@@ -134,6 +134,14 @@ void TPlayer::disparo(){
     projetil->setNivel(this->nivel);
 }
 
-void TPlayer::addBomba(TBomba bomba){
-    this->bombas->append(bomba);
+void TPlayer::addBomba(TBomba* bomba){
+    TBomba b;
+    b.setBorda(bomba->getBorda());
+    b.setFundo(bomba->getFundo());
+    b.setPosX(bomba->getPosX());
+    b.setPosY(bomba->getPosY());
+    b.setVisivel(bomba->isVisivel());
+    b.setX(bomba->getX());
+    b.setY(bomba->getY());
+    this->bombas->append(b);
 }

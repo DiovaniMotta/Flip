@@ -222,6 +222,23 @@ void TColisao::colisao(TProjetil *projetil1, TProjetil *projetil2){
     }
 }
 
+/**
+ * @brief TColisao::colisao método responsavel por implementar a colisao entre o player e um objeto bomba
+ * @param player o player avaliado
+ * @param bomba o objeto bomba
+ */
+void TColisao::colisao(TPlayer *player, TBomba* bomba){
+    if(bomba == NULL){
+        return;
+    }
+    if(player->getPosX() == bomba->getPosX()){
+        if(player->getPosY() == bomba->getPosY()){
+            player->addBomba(bomba);
+            bomba = NULL;
+        }
+    }
+}
+
 int TColisao::getLargura(){
     return largura;
 }

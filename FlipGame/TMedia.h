@@ -2,8 +2,11 @@
 #define TMEDIA
 
 #include <QMediaPlayer>
+#include <QObject>
 
-class TMedia {
+class TMedia : public QObject {
+
+    Q_OBJECT
 
     QMediaPlayer* tiro;
 

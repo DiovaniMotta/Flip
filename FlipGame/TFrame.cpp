@@ -142,6 +142,12 @@ void TFrame::keyPressEvent(QKeyEvent* event){
      case Qt::Key_End:
         player2->disparo();
         break;
+     case Qt::Key_PageDown:
+        player2->disparo(TBomba::DUPLO);
+        break;
+     case Qt::Key_PageUp:
+        player2->disparo(TBomba::TRIPLO);
+        break;
      //comandos de movimentação do player1
      case Qt::Key_W:
         acima = player1->getPosY() - TPlayer::SALTOS;
@@ -178,8 +184,14 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         //verifica a colisao entre ambos os players
         colisao->colisao();
         break;
-     case Qt::Key_Space:
+     case Qt::Key_E:
         player1->disparo();
+        break;
+     case Qt::Key_Q:
+        player1->disparo(TBomba::DUPLO);
+        break;
+     case Qt::Key_Z:
+        player1->disparo(TBomba::TRIPLO);
         break;
     }
 }
@@ -218,42 +230,42 @@ void TFrame::disparo(TPlayer *player,QPainter* painter){
                 acima = (player->getProjetil()->getY() -  player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(acima);
                 colisao->colisao(player->getProjetil());
-                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                painter->drawRect((player->getProjetil()->getX() + (_w_sz/4)),player->getProjetil()-> getY(),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
                 break;
             case Qt::Key_Down:
             case Qt::Key_S:
                 player->getProjetil()->deslocamento(_h_sz);
-                colisao->colisao(player->getProjetil());
                 abaixo = (player->getProjetil()->getY() + player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setY(abaixo);
-                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                colisao->colisao(player->getProjetil());
+                painter->drawRect((player->getProjetil()->getX() + (_w_sz/4)),(player->getProjetil()-> getY() + (_h_sz/4)),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
                 break;
             case Qt::Key_Left:
             case Qt::Key_A:
                 player->getProjetil()->deslocamento(_w_sz);
-                colisao->colisao(player->getProjetil());
                 esqueda = (player->getProjetil()->getX() - player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(esqueda);
-                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                colisao->colisao(player->getProjetil());
+                painter->drawRect(player->getProjetil()->getX(),(player->getProjetil()-> getY() + (_h_sz/4)),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
                 break;
             case Qt::Key_Right:
             case Qt::Key_D:
                 player->getProjetil()->deslocamento(_w_sz);
-                colisao->colisao(player->getProjetil());
                 direita = (player->getProjetil()->getX() + player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(direita);
-                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                colisao->colisao(player->getProjetil());
+                painter->drawRect(player->getProjetil()->getX(),(player->getProjetil()-> getY() + (_h_sz/4)),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
                 break;
             default:
                 player->getProjetil()->deslocamento(_h_sz);
-                colisao->colisao(player->getProjetil());
                 esqueda = (player->getProjetil()->getX() - player->getProjetil()->DESLOCAMENTO);
                 player->getProjetil()->setX(esqueda);
-                painter->drawRect(player->getProjetil()->getX(),player->getProjetil()-> getY(),
+                colisao->colisao(player->getProjetil());
+                painter->drawRect(player->getProjetil()->getX(),(player->getProjetil()-> getY() + (_h_sz/4)),
                                   player->getProjetil()->getLargura(),player->getProjetil()->getAltura());
                 break;
         }

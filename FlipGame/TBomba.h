@@ -11,26 +11,32 @@ class TBomba {
     int posX;
     int posY;
     bool visivel;
+    bool ativo;
     QColor fundo;
     QColor borda;
 
 public:
 
-    TBomba ();
+   static const int DUPLO = 2;
+   static const int TRIPLO = 3;
 
-    TBomba(int x, int y, int posX, int posY,bool visivel);
+   TBomba ();
 
-    ~TBomba();
+   TBomba(int x, int y, int posX, int posY,bool visivel);
 
-    void setX(int x);
+   ~TBomba();
 
-    void setY(int y);
+   void setX(int x);
 
-    void setPosX(int posX);
+   void setY(int y);
 
-    void setPosY(int posY);
+   void setPosX(int posX);
 
-    void setVisivel(bool visivel);
+   void setPosY(int posY);
+
+   void setVisivel(bool visivel);
+
+   void setAtivo(bool ativo);
 
    int getX();
 
@@ -41,6 +47,8 @@ public:
    int getPosY();
 
    bool isVisivel();
+
+   bool isAtivo();
 
    void setFundo(QColor fundo);
 

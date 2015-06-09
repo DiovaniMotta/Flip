@@ -6,6 +6,7 @@ TBomba::TBomba(){
     this->posX = 0;
     this->posY = 0;
     this->visivel = false;
+    this->ativo = true;
 }
 
 TBomba::TBomba(int x, int y, int posX, int posY, bool visivel){
@@ -14,6 +15,7 @@ TBomba::TBomba(int x, int y, int posX, int posY, bool visivel){
     this->posX = posX;
     this->posY = posY;
     this->visivel = visivel;
+    this->ativo = true;
 }
 
 TBomba::~TBomba(){
@@ -74,4 +76,12 @@ QColor TBomba::getBorda(){
 
 QColor TBomba::getFundo(){
     return this->fundo;
+}
+
+void TBomba::setAtivo(bool ativo){
+    this->ativo = ativo;
+}
+
+bool TBomba::isAtivo(){
+    return this->ativo;
 }

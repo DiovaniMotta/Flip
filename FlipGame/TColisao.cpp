@@ -231,10 +231,13 @@ void TColisao::colisao(TPlayer *player, TBomba* bomba){
     if(bomba == NULL){
         return;
     }
+    if(!bomba->isVisivel()){
+        return;
+    }
     if(player->getPosX() == bomba->getPosX()){
         if(player->getPosY() == bomba->getPosY()){
             player->addBomba(bomba);
-            bomba = NULL;
+            bomba->setVisivel(false);
         }
     }
 }

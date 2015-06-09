@@ -10,6 +10,8 @@ TPlayer::TPlayer() {
     this->ultimaPosicao = 0;
     this->projetil = new TProjetil;
     this->bombas = new QVector<TBomba>();
+    this->i = -1;
+    this->j = -1;
 }
 
 TPlayer::~TPlayer(){
@@ -135,13 +137,61 @@ void TPlayer::disparo(){
 }
 
 void TPlayer::addBomba(TBomba* bomba){
+    if(!bomba->isVisivel()){
+       return;
+    }
     TBomba b;
     b.setBorda(bomba->getBorda());
     b.setFundo(bomba->getFundo());
     b.setPosX(bomba->getPosX());
     b.setPosY(bomba->getPosY());
-    b.setVisivel(bomba->isVisivel());
+    b.setVisivel(false);
     b.setX(bomba->getX());
     b.setY(bomba->getY());
     this->bombas->append(b);
+    qDebug()<<bombas->size();
+}
+
+/**
+ * @brief TPlayer::disparo método responsavel por efetuar o disparo das munições especiais
+ * @param tipo o tipo de disparo
+ */
+void TPlayer::disparo(const int tipo){
+    switch(tipo){
+        case TBomba::DUPLO:
+            i++;
+            duplo();
+            break;
+        case TBomba::TRIPLO:
+            j++;
+            triplo();
+            break;
+    }
+}
+
+/**
+ * @brief TPlayer::duplo método responsavel por configurar um objeto  bomba que será usado pelo player
+ */
+void TPlayer::duplo(){
+    if(bombas->size() == 0){
+        return;
+    }
+    if(i >= bombas->size()){
+        i = -1;
+        return;
+    }
+    TBomba b = bombas->at(i);
+    if(!b.isAtivo()){
+        return;
+    }
+    b.setVisivel(true);
+    b.setPosX(this->posX);
+    b.setPosY(this->posY);
+}
+
+/**
+ * @brief TPlayer::duplo método responsavel por configurar um objeto  bomba que será usado pelo player
+ */
+void TPlayer::triplo(){
+
 }

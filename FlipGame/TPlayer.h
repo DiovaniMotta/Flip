@@ -23,6 +23,8 @@ class TPlayer {
   int largura;
   int altura;
   int ultimaPosicao;
+  int i;
+  int j;
   QColor fundo;
   QColor borda;
 
@@ -94,5 +96,13 @@ public:
     void addBomba(TBomba* bomba);
 
     void  disparo();
+
+    void disparo(const int tipo);
+
+private:
+
+    void duplo();
+
+    void triplo();
 };
 #endif // TPLAYER

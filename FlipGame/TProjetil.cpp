@@ -7,7 +7,7 @@ TProjetil::TProjetil(){
     this->altura =0;
     this->x =0;
     this->y =0;
-    this->count = 0;
+    this->count = 5;
     this->ultimaPosicao = 0;
     this->ativo = false;
 }
@@ -19,7 +19,7 @@ TProjetil::TProjetil(int x, int y, int posX, int posY, int largura, int altura){
     this->altura = altura;
     this->x = x;
     this->y = y;
-    this->count = 0;
+    this->count = 5;
     this->ultimaPosicao = 0;
     this->ativo = false;
 }
@@ -35,7 +35,7 @@ void TProjetil::reiniciar(){
     this->altura =0;
     this->x =0;
     this->y =0;
-    this->count = 0;
+    this->count = 5;
     this->ultimaPosicao = 0;
     this->ativo = false;
 }
@@ -47,7 +47,7 @@ void TProjetil::reiniciar(){
  */
 void TProjetil::deslocamento(int dimen){
     DESLOCAMENTO = (dimen * PERCENTUAL_DESLOCAMENTO);
-    if(count == SALTOS){
+    if(count >= SALTOS){
         switch(ultimaPosicao){
             case Qt::Key_Up:
             case Qt::Key_W:

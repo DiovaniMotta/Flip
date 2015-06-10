@@ -51,6 +51,16 @@ private:
 
     void armas(QPainter * painter); // responsavel por desenhar as armas adicionais que serão mostradas na tela
 
+    void disparo(); // responsavel por desenhar o disparo especiais feitos pelo player
+
+    void disparoAcima(TBomba* bomba);
+
+    void disparoAbaixo(TBomba* bomba);
+
+    void disparoEsquerda(TBomba* bomba);
+
+    void disparoDireita(TBomba* bomba);
+
 private slots:
 
     void iniciar();

@@ -47,6 +47,8 @@ public:
 
     void colisao(TPlayer* player,TBomba* bomba);
 
+    void colisao(TBomba* bomba);
+
     TTabuleiro* getTabuleiro();
 
     void setTabuleiro(TTabuleiro* tabuleiro);
@@ -54,11 +56,14 @@ public:
     void setMedia(TMedia* midia);
 
     TMedia* getMedia();
+
 private:
 
     TPonto nivel(TPlayer* player);
 
     TPonto nivel(TProjetil* projetil);
+
+    TPonto nivel(TBomba* bomba);
 
     void repintar(TProjetil* projetil,TPonto ponto);
 };

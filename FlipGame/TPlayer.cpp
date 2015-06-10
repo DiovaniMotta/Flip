@@ -124,18 +124,22 @@ void TPlayer::disparo(){
     projetil->setAltura(altura);
     projetil->setAtivo(true);
     projetil->setLargura(largura);
+    projetil->setUltimaPosicao(this->ultimaPosicao);
     projetil->setPosX(this->posX);
     projetil->setPosY(this->posY);
     projetil->setX(x);
     projetil->setY(y);
     projetil->setX(this->x);
     projetil->setY(this->y);
-    projetil->setUltimaPosicao(this->ultimaPosicao);
     projetil->setCorBorda(this->borda);
     projetil->setCorFundo(this->fundo);
     projetil->setNivel(this->nivel);
 }
 
+/**
+ * @brief TPlayer::addBomba adiciona um objeto do tipo bomba a lista de bombas do usuario
+ * @param bomba o objeto a ser adicionado
+ */
 void TPlayer::addBomba(TBomba* bomba){
     if(!bomba->isVisivel()){
        return;
@@ -149,7 +153,6 @@ void TPlayer::addBomba(TBomba* bomba){
     b.setX(bomba->getX());
     b.setY(bomba->getY());
     this->bombas->append(b);
-    qDebug()<<bombas->size();
 }
 
 /**
@@ -187,6 +190,8 @@ void TPlayer::duplo(){
     b.setVisivel(true);
     b.setPosX(this->posX);
     b.setPosY(this->posY);
+    b.setDirecao(this->ultimaPosicao);
+    b.setTipo(TBomba::DUPLO);
 }
 
 /**

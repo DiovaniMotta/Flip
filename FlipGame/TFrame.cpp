@@ -329,3 +329,120 @@ void TFrame::armas(QPainter *painter){
         }
     }
 }
+
+/**
+ * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
+ * @param bomba o objeto a ser pintado
+ */
+void TFrame::disparoAbaixo(TBomba *bomba){
+    bomba->deslocamento(_h_sz);
+    int abaixo = (bomba->getY() + bomba->DESLOCAMENTO);
+    bomba->setY(abaixo);
+    colisao->colisao(bomba);
+    painter->drawRect((bomba->getX() + (_w_sz/4)),(bomba->getY() + (_h_sz/4)),
+                  bomba->getLargura(),bomba->getAltura());
+
+}
+
+/**
+ * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
+ * @param bomba o objeto a ser pintado
+ */
+void TFrame::disparoAcima(TBomba *bomba){
+    bomba->deslocamento(_h_sz);
+    int acima = (bomba->getY() -  bomba->DESLOCAMENTO);
+    bomba->setY(acima);
+    colisao->colisao(bomba);
+    painter->drawRect((bomba->getX() + (_w_sz/4)), bomba->getY(),
+                  bomba->getLargura(),bomba->getAltura());
+}
+
+/**
+ * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
+ * @param bomba o objeto a ser pintado
+ */
+void TFrame::disparoDireita(TBomba *bomba){
+    bomba->deslocamento(_w_sz);
+    int direita = (bomba->getX() + bomba->DESLOCAMENTO);
+    bomba->setX(direita);
+    colisao->colisao(bomba);
+    painter->drawRect(bomba->getX(),(bomba->getY() + (_h_sz/4)),
+                  bomba->getLargura(),bomba->getAltura());
+}
+
+/**
+ * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
+ * @param bomba o objeto a ser pintado
+ */
+void TFrame::disparoEsquerda(TBomba *bomba){
+    bomba->deslocamento(_w_sz);
+    int esqueda = (bomba->getX() - bomba->DESLOCAMENTO);
+    bomba->setX(esqueda);
+    colisao->colisao(bomba);
+    painter->drawRect(bomba->getX(),(bomba-> getY() + (_h_sz/4)),
+                  bomba->getLargura(),bomba->getAltura());
+
+}
+
+
+/**
+ * @brief TFrame::disparo responsavel por efetuar a pintura dos disparos feitos pelo usuario dos tiros especiais
+ */
+void TFrame::disparo(){
+    //pinto os projeteis especiais disparados pelo player 1
+    for(int x=0; x<player1->getBombas()->size(); x++){
+        TBomba bomba = player1->getBombas()->at(x);
+        if(bomba.isAtivo()){
+            switch(bomba.getDirecao()){
+                case Qt::Key_Up:
+                case Qt::Key_W:
+                    disparoAcima(&bomba);
+                    break;
+                case Qt::Key_Down:
+                case Qt::Key_S:
+                    disparoAbaixo(&bo);
+                    break;
+                case Qt::Key_Left:
+                case Qt::Key_A:
+                    disparoEsquerda(&bomba);
+                    break;
+                case Qt::Key_Right:
+                case Qt::Key_D:
+                    disparoDireita(&bomba);
+                    break;
+                default:
+                    disparoEsquerda(&bomba);
+                    break;
+            }
+        }
+    }
+    //pinto os projeteis especiais disparados pelo player 2
+    for(int x=0; x<player2->getBombas()->size(); x++){
+        TBomba bomba = player2->getBombas()->at(x);
+        if(bomba.isAtivo()){
+            switch(bomba.getDirecao()){
+                case Qt::Key_Up:
+                case Qt::Key_W:
+                    disparoAcima(&bomba);
+                    break;
+                case Qt::Key_Down:
+                case Qt::Key_S:
+                    disparoAbaixo(&bo);
+                    break;
+                case Qt::Key_Left:
+                case Qt::Key_A:
+                    disparoEsquerda(&bomba);
+                    break;
+                case Qt::Key_Right:
+                case Qt::Key_D:
+                    disparoDireita(&bomba);
+                    break;
+                default:
+                    disparoEsquerda(&bomba);
+                    break;
+            }
+        }
+    }
+}
+
+

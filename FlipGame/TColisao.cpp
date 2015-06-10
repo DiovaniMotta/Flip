@@ -133,6 +133,29 @@ TPonto TColisao::nivel(TProjetil *projetil){
     return nivel(projetil);
 }
 
+
+/**
+ * @brief TColisao::nivel retorna um objeto TPonto em relação a posicao atual do projetil especial arremessado pelo player
+ * @param bomba um objeto bomba contendo as informações sobre o posicionamento
+ * @return um objeto TPonto contendo as informações sobre a cor usada naquele determinado ponto
+ */
+TPonto TColisao::nivel(TBomba *bomba){
+    switch(bomba->getNivel()){
+        case TPlayer::NIVEL1:
+            return tabuleiro->getNivel1()->nivel(bomba->getPosX(),bomba->getPosY());
+        case TPlayer::NIVEL2:
+            return tabuleiro->getNivel2()->nivel(bomba->getPosX(),bomba->getPosY());
+        case TPlayer::NIVEL3:
+            return tabuleiro->getNivel3()->nivel(bomba->getPosX(),bomba->getPosY());
+        case TPlayer::NIVEL4:
+            return tabuleiro->getNivel4()->nivel(bomba->getPosX(),bomba->getPosY());
+        case TPlayer::NIVEL5:
+            return tabuleiro->getNivel5()->nivel(bomba->getPosX(),bomba->getPosY());
+    }
+    return nivel(bomba);
+}
+
+
 /**
  * @brief TColisao::repintar metodo responsavel por repintar um ponto da tela quando ocorrer uma colisao
  * entre o projetil e o tabuleiro
@@ -241,6 +264,31 @@ void TColisao::colisao(TPlayer *player, TBomba* bomba){
         }
     }
 }
+
+/**
+ * @brief TColisao::colisao método responsavel por efetuar o controle da colisao entre o projetil especial disparado
+ * pelo player e o tabuleiro
+ * @param bomba
+ */
+void TColisao::colisao(TBomba *bomba){
+    TPonto ponto = this->nivel(bomba);
+    if(ponto.getCorFundo().operator ==(Qt::gray)){
+        return;
+    }
+    if(bomba->getPosX() < 0){
+        return;
+    }
+    if(bomba->getPosY() < 0){
+        return;
+    }
+    if(bomba->getPosX() == TTabuleiro::DIMENSAO){
+        return;
+    }
+    if(bomba->getPosY() == TTabuleiro::DIMENSAO){
+        return;
+    }
+}
+
 
 int TColisao::getLargura(){
     return largura;

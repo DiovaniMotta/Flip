@@ -47,7 +47,7 @@ void TProjetil::reiniciar(){
  */
 void TProjetil::deslocamento(int dimen){
     DESLOCAMENTO = (dimen * PERCENTUAL_DESLOCAMENTO);
-    if(count >= SALTOS){
+    if(count == SALTOS){
         switch(ultimaPosicao){
             case Qt::Key_Up:
             case Qt::Key_W:

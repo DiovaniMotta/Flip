@@ -145,6 +145,8 @@ void TPlayer::addBomba(TBomba* bomba){
        return;
     }
     TBomba b;
+    b.setFundo(this->borda);
+    b.setBorda(this->fundo);
     b.setBorda(bomba->getBorda());
     b.setFundo(bomba->getFundo());
     b.setPosX(bomba->getPosX());
@@ -152,6 +154,8 @@ void TPlayer::addBomba(TBomba* bomba){
     b.setVisivel(false);
     b.setX(bomba->getX());
     b.setY(bomba->getY());
+    b.setNivel(this->nivel);
+    b.setAtivo(false);
     this->bombas->append(b);
 }
 
@@ -184,14 +188,52 @@ void TPlayer::duplo(){
         return;
     }
     TBomba b = bombas->at(i);
-    if(!b.isAtivo()){
-        return;
-    }
-    b.setVisivel(true);
+    int largura = (this->largura /2);
+    int altura = (this->altura/2);
+    b.setAltura(altura);
+    b.setLargura(largura);
+    b.setX(((this->posX * this->largura) + (this->largura /4)));
+    b.setY(((this->posY * this->altura) + (this->altura /4)));
     b.setPosX(this->posX);
     b.setPosY(this->posY);
+    switch(this->ultimaPosicao)
+    {
+        case Qt::Key_A:
+        case Qt::Key_D:
+        case Qt::Key_Left:
+        case Qt::Key_Right:
+            if(this->posX < (20 - 1)){
+                b.setPosX2((this->posX + 1));
+            }
+            else
+            {
+                b.setPosX2((this->posX - 1));
+            }
+            b.setPosY2((this->posY + 1));
+            break;
+        case Qt::Key_W:
+        case Qt::Key_S:
+        case Qt::Key_Up:
+        case Qt::Key_Down:
+            if(this->posY < (20 - 1)){
+                b.setPosY2((this->posY + 1));
+            }
+            else
+            {
+                b.setPosY2((this->posY - 1));
+            }
+            b.setPosX2((this->posX + 1));
+            break;
+    }
+    b.setX2(((b.getPosX2() * this->largura) + (this->largura /4)));
+    b.setY2(((b.getPosY2() * this->altura) + (this->altura /4)));
+    b.setFundo(this->borda);
+    b.setBorda(this->fundo);
+    b.setAtivo(true);
+    b.setVisivel(true);
     b.setDirecao(this->ultimaPosicao);
     b.setTipo(TBomba::DUPLO);
+    bombas->insert(i,b);
 }
 
 /**

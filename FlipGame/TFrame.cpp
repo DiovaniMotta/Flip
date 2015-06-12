@@ -60,7 +60,7 @@ void TFrame::paintEvent(QPaintEvent* event){
             ponto.setHeight(_h_sz);
             ponto.setWidht(_w_sz);
         }
-     }
+    }
     //desenho do player 1;
     painter.setPen(player1->getBorda());
     painter.setBrush(player1->getFundo());
@@ -89,6 +89,7 @@ void TFrame::paintEvent(QPaintEvent* event){
     colisao->colisao(player2,bomber);
     //verifico se existem armas para serem desenhadas no tabuleiro
     this->armas(&painter);
+    this->disparo(&painter);
  }
 
 /**
@@ -200,6 +201,8 @@ void TFrame::keyPressEvent(QKeyEvent* event){
  * @brief TFrame::iniciar slot tratador do evento de pintura de tela
  */
 void TFrame::iniciar(){
+    this->disparo(player1);
+    this->disparo(player2);
     this->repaint();
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }
@@ -331,118 +334,90 @@ void TFrame::armas(QPainter *painter){
 }
 
 /**
- * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
- * @param bomba o objeto a ser pintado
- */
-void TFrame::disparoAbaixo(TBomba *bomba){
-    bomba->deslocamento(_h_sz);
-    int abaixo = (bomba->getY() + bomba->DESLOCAMENTO);
-    bomba->setY(abaixo);
-    colisao->colisao(bomba);
-    painter->drawRect((bomba->getX() + (_w_sz/4)),(bomba->getY() + (_h_sz/4)),
-                  bomba->getLargura(),bomba->getAltura());
-
-}
-
-/**
- * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
- * @param bomba o objeto a ser pintado
- */
-void TFrame::disparoAcima(TBomba *bomba){
-    bomba->deslocamento(_h_sz);
-    int acima = (bomba->getY() -  bomba->DESLOCAMENTO);
-    bomba->setY(acima);
-    colisao->colisao(bomba);
-    painter->drawRect((bomba->getX() + (_w_sz/4)), bomba->getY(),
-                  bomba->getLargura(),bomba->getAltura());
-}
-
-/**
- * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
- * @param bomba o objeto a ser pintado
- */
-void TFrame::disparoDireita(TBomba *bomba){
-    bomba->deslocamento(_w_sz);
-    int direita = (bomba->getX() + bomba->DESLOCAMENTO);
-    bomba->setX(direita);
-    colisao->colisao(bomba);
-    painter->drawRect(bomba->getX(),(bomba->getY() + (_h_sz/4)),
-                  bomba->getLargura(),bomba->getAltura());
-}
-
-/**
- * @brief TFrame::disparoAbaixo método responsável por efetuar a pintura dos disparos feitos pelo usuario
- * @param bomba o objeto a ser pintado
- */
-void TFrame::disparoEsquerda(TBomba *bomba){
-    bomba->deslocamento(_w_sz);
-    int esqueda = (bomba->getX() - bomba->DESLOCAMENTO);
-    bomba->setX(esqueda);
-    colisao->colisao(bomba);
-    painter->drawRect(bomba->getX(),(bomba-> getY() + (_h_sz/4)),
-                  bomba->getLargura(),bomba->getAltura());
-
-}
-
-
-/**
  * @brief TFrame::disparo responsavel por efetuar a pintura dos disparos feitos pelo usuario dos tiros especiais
  */
-void TFrame::disparo(){
+void TFrame::disparo(QPainter* painter){
     //pinto os projeteis especiais disparados pelo player 1
     for(int x=0; x<player1->getBombas()->size(); x++){
         TBomba bomba = player1->getBombas()->at(x);
         if(bomba.isAtivo()){
-            switch(bomba.getDirecao()){
-                case Qt::Key_Up:
-                case Qt::Key_W:
-                    disparoAcima(&bomba);
-                    break;
-                case Qt::Key_Down:
-                case Qt::Key_S:
-                    disparoAbaixo(&bo);
-                    break;
-                case Qt::Key_Left:
-                case Qt::Key_A:
-                    disparoEsquerda(&bomba);
-                    break;
-                case Qt::Key_Right:
-                case Qt::Key_D:
-                    disparoDireita(&bomba);
-                    break;
-                default:
-                    disparoEsquerda(&bomba);
-                    break;
-            }
+            painter->setPen(bomba.getBorda());
+            painter->setBrush(bomba.getFundo());
+            int rx = (int)(_w_sz/2);
+            int ry = (int)(_h_sz/2);
+            painter->drawEllipse((bomba.getX()),bomba.getY(),rx,ry);
+            painter->drawEllipse((bomba.getX2()),bomba.getY2(),rx,ry);
         }
     }
-    //pinto os projeteis especiais disparados pelo player 2
+    //pinto os projeteis especiais disparados peloww player 2
     for(int x=0; x<player2->getBombas()->size(); x++){
         TBomba bomba = player2->getBombas()->at(x);
         if(bomba.isAtivo()){
-            switch(bomba.getDirecao()){
-                case Qt::Key_Up:
-                case Qt::Key_W:
-                    disparoAcima(&bomba);
-                    break;
-                case Qt::Key_Down:
-                case Qt::Key_S:
-                    disparoAbaixo(&bo);
-                    break;
-                case Qt::Key_Left:
-                case Qt::Key_A:
-                    disparoEsquerda(&bomba);
-                    break;
-                case Qt::Key_Right:
-                case Qt::Key_D:
-                    disparoDireita(&bomba);
-                    break;
-                default:
-                    disparoEsquerda(&bomba);
-                    break;
-            }
+            painter->setPen(bomba.getBorda());
+            painter->setBrush(bomba.getFundo());
+            int rx = (int)(_w_sz/2);
+            int ry = (int)(_h_sz/2);
+            painter->drawEllipse((bomba.getX()),bomba.getY(),rx,ry);
+            painter->drawEllipse((bomba.getX2()),bomba.getY2(),rx,ry);
         }
     }
 }
 
-
+/**
+ * @brief TFrame::disparo metodo responsavel por verificar se os disparos especiais foram feitos pelo usuario
+ * @param player o jogador que será avaliado
+ */
+void TFrame::disparo(TPlayer* player){
+   for(int x=0; x< player->getBombas()->size(); x++){
+        TBomba bomba = player->getBombas()->at(x);
+        if(bomba.isAtivo()){
+            int disparo = 0;
+            //int disparo2 = 0;
+            switch(bomba.getDirecao()){
+                case Qt::Key_Up:
+                case Qt::Key_W:
+                    bomba.deslocamento(_h_sz);
+                    disparo = (bomba.getY() - bomba.DESLOCAMENTO);
+                    bomba.setY(disparo);
+                    bomba.setY2(disparo);
+                    colisao->colisao(&bomba);
+                    player->getBombas()->replace(x,bomba);
+                    break;
+                case Qt::Key_Down:
+                case Qt::Key_S:
+                    bomba.deslocamento(_h_sz);
+                    disparo = (bomba.getY() + bomba.DESLOCAMENTO);
+                    bomba.setY(disparo);
+                    bomba.setY2(disparo);
+                    colisao->colisao(&bomba);
+                    player->getBombas()->replace(x,bomba);
+                    break;
+                case Qt::Key_Left:
+                case Qt::Key_A:
+                    bomba.deslocamento(_w_sz);
+                    disparo = (bomba.getX() - bomba.DESLOCAMENTO);
+                    bomba.setX(disparo);
+                    bomba.setX2(disparo);
+                    colisao->colisao(&bomba);
+                    player->getBombas()->replace(x,bomba);
+                    break;
+                case Qt::Key_Right:
+                case Qt::Key_D:
+                    bomba.deslocamento(_w_sz);
+                    disparo = (bomba.getX() + bomba.DESLOCAMENTO);
+                    bomba.setX(disparo);
+                    bomba.setX2(disparo);
+                    colisao->colisao(&bomba);
+                    player->getBombas()->replace(x,bomba);
+                    break;
+                default:
+                    bomba.deslocamento(_w_sz);
+                    disparo = (bomba.getX() - bomba.DESLOCAMENTO);
+                    bomba.setX(disparo);
+                    bomba.setX2(disparo);
+                    colisao->colisao(&bomba);
+                    player->getBombas()->replace(x,bomba);
+            }
+       }
+   }
+}

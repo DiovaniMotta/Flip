@@ -8,7 +8,6 @@
 #include <QVector>
 #include <TBomba.h>
 #include <QDebug>
-
 /**
  * Classe responsavel por armazenar as informações do player que está no jogo
  * @brief The TPlayer class
@@ -98,6 +97,7 @@ public:
     void  disparo();
 
     void disparo(const int tipo);
+
 
 private:
 

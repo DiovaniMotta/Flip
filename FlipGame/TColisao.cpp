@@ -139,22 +139,41 @@ TPonto TColisao::nivel(TProjetil *projetil){
  * @param bomba um objeto bomba contendo as informações sobre o posicionamento
  * @return um objeto TPonto contendo as informações sobre a cor usada naquele determinado ponto
  */
-TPonto TColisao::nivel(TBomba *bomba){
+TPonto TColisao::nivel(TBomba *bomba,const int index){
     switch(bomba->getNivel()){
         case TPlayer::NIVEL1:
-            return tabuleiro->getNivel1()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 1)
+                return tabuleiro->getNivel1()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 2)
+                return tabuleiro->getNivel1()->nivel(bomba->getPosX2(),bomba->getPosY2());
+            break;
         case TPlayer::NIVEL2:
-            return tabuleiro->getNivel2()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 1)
+                return tabuleiro->getNivel2()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 2)
+                return tabuleiro->getNivel2()->nivel(bomba->getPosX2(),bomba->getPosY2());
+            break;
         case TPlayer::NIVEL3:
-            return tabuleiro->getNivel3()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 1)
+                return tabuleiro->getNivel3()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 2)
+                return tabuleiro->getNivel3()->nivel(bomba->getPosX2(),bomba->getPosY2());
+            break;
         case TPlayer::NIVEL4:
-            return tabuleiro->getNivel4()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 1)
+                return tabuleiro->getNivel4()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index == 2)
+                return tabuleiro->getNivel4()->nivel(bomba->getPosX2(),bomba->getPosY2());
+            break;
         case TPlayer::NIVEL5:
-            return tabuleiro->getNivel5()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index ==1)
+                return tabuleiro->getNivel5()->nivel(bomba->getPosX(),bomba->getPosY());
+            if(index ==2)
+                return tabuleiro->getNivel5()->nivel(bomba->getPosX2(),bomba->getPosY2());
+            break;
     }
-    return nivel(bomba);
+    return nivel(bomba,index);
 }
-
 
 /**
  * @brief TColisao::repintar metodo responsavel por repintar um ponto da tela quando ocorrer uma colisao
@@ -184,6 +203,42 @@ void TColisao::repintar(TProjetil *projetil, TPonto ponto){
     }
 }
 
+void TColisao::repintar(TBomba* bomba, TPonto ponto,const int index){
+    ponto.setCorBorda(bomba->getBorda());
+    ponto.setCorFundo(bomba->getFundo());
+    switch(bomba->getNivel()){
+        case TPlayer::NIVEL1:
+            if(index ==1)
+                tabuleiro->getNivel1()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            if(index ==2)
+                tabuleiro->getNivel1()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            break;
+        case TPlayer::NIVEL2:
+            if(index ==1)
+                tabuleiro->getNivel2()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            if(index ==2)
+                tabuleiro->getNivel2()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            break;
+        case TPlayer::NIVEL3:
+            if(index ==1)
+                tabuleiro->getNivel3()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            if(index ==2)
+                tabuleiro->getNivel3()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            break;
+        case TPlayer::NIVEL4:
+            if(index ==1)
+                tabuleiro->getNivel4()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            if(index ==2)
+                tabuleiro->getNivel4()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            break;
+        case TPlayer::NIVEL5:
+            if(index ==1)
+                tabuleiro->getNivel5()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            if(index ==2)
+                tabuleiro->getNivel5()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            break;
+    }
+}
 /**
  * @brief TColisao::colisao verifica a colisao entre o player e o projetil
  * @param player o player que será verificado
@@ -271,22 +326,50 @@ void TColisao::colisao(TPlayer *player, TBomba* bomba){
  * @param bomba
  */
 void TColisao::colisao(TBomba *bomba){
-    TPonto ponto = this->nivel(bomba);
+    TPonto ponto = this->nivel(bomba,1);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
+        bomba->setAtivo(false);
         return;
     }
     if(bomba->getPosX() < 0){
+        bomba->setAtivo(false);
         return;
     }
     if(bomba->getPosY() < 0){
+        bomba->setAtivo(false);
         return;
     }
     if(bomba->getPosX() == TTabuleiro::DIMENSAO){
+        bomba->setAtivo(false);
         return;
     }
     if(bomba->getPosY() == TTabuleiro::DIMENSAO){
+        bomba->setAtivo(false);
         return;
     }
+    repintar(bomba,ponto,1);
+    ponto = this->nivel(bomba,2);
+    if(ponto.getCorFundo().operator ==(Qt::gray)){
+        bomba->setAtivo(false);
+        return;
+    }
+    if(bomba->getPosX() < 0){
+        bomba->setAtivo(false);
+        return;
+    }
+    if(bomba->getPosY() < 0){
+        bomba->setAtivo(false);
+        return;
+    }
+    if(bomba->getPosX() == TTabuleiro::DIMENSAO){
+        bomba->setAtivo(false);
+        return;
+    }
+    if(bomba->getPosY() == TTabuleiro::DIMENSAO){
+        bomba->setAtivo(false);
+        return;
+    }
+    repintar(bomba,ponto,2);
 }
 
 

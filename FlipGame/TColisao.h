@@ -63,9 +63,11 @@ private:
 
     TPonto nivel(TProjetil* projetil);
 
-    TPonto nivel(TBomba* bomba);
+    TPonto nivel(TBomba* bomba,const int index);
 
     void repintar(TProjetil* projetil,TPonto ponto);
+
+    void repintar(TBomba* bomba,TPonto ponto,const int index);
 };
 #endif // TCOLISAO
 

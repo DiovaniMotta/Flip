@@ -16,7 +16,7 @@
 #define TFRAME
 
 #define TIMER 1000
-#define FPS 30
+#define FPS 80
 
 class TFrame : public QFrame {
 
@@ -51,15 +51,17 @@ private:
 
     void armas(QPainter * painter); // responsavel por desenhar as armas adicionais que serão mostradas na tela
 
-    void disparo(); // responsavel por desenhar o disparo especiais feitos pelo player
+    void disparo(QPainter* painter); // responsavel por desenhar o disparo especiais feitos pelo player
 
-    void disparoAcima(TBomba* bomba);
+    void disparoAcima(TBomba* bomba,QPainter* painter);
 
-    void disparoAbaixo(TBomba* bomba);
+    void disparoAbaixo(TBomba* bomba,QPainter* painter);
 
-    void disparoEsquerda(TBomba* bomba);
+    void disparoEsquerda(TBomba* bomba,QPainter* painter);
 
-    void disparoDireita(TBomba* bomba);
+    void disparoDireita(TBomba* bomba,QPainter* painter);
+
+    void disparo(TPlayer* player);
 
 private slots:
 

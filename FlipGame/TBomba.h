@@ -3,6 +3,7 @@
 
 #include <QColor>
 #include <QObject>
+#include <QDebug>
 
 class TBomba {
 
@@ -10,6 +11,10 @@ class TBomba {
     int y;
     int posX;
     int posY;
+    int posX2;
+    int posY2;
+    int x2;
+    int y2;
     int direcao;
     int tipo;
     int largura;
@@ -24,11 +29,12 @@ class TBomba {
     QColor borda;
 
     //variaveis usadas para o controle do deslocamento
-    const int SALTOS = 5;
-    const float PERCENTUAL_DESLOCAMENTO = 0.20;
+    static const int SALTO = 5;
+    static const float PERCENTUAL = 0.20;
 
 public:
-    int DESLOCAMENTO = 0;
+
+   int DESLOCAMENTO = 0;
 
    static const int DUPLO = 2;
    static const int TRIPLO = 3;
@@ -51,6 +57,10 @@ public:
 
    void setAtivo(bool ativo);
 
+   void setPosX2(int posX2);
+
+   void setPosY2(int posY2);
+
    int getX();
 
    int getY();
@@ -58,6 +68,10 @@ public:
    int getPosX();
 
    int getPosY();
+
+   int getPosX2();
+
+   int getPosY2();
 
    bool isVisivel();
 
@@ -73,6 +87,10 @@ public:
 
    int getNivel();
 
+   int getX2();
+
+   int getY2();
+
    void setFundo(QColor fundo);
 
    void setBorda(QColor borda);
@@ -86,6 +104,10 @@ public:
    void setAltura(int altura);
 
    void setNivel(int nivel);
+
+   void setX2(int x2);
+
+   void setY2(int y2);
 
    QColor getFundo();
 

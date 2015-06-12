@@ -11,6 +11,8 @@ TBomba::TBomba(){
     this->largura = 0;
     this->altura = 0;
     this->nivel = 0;
+    this->x2 = 0;
+    this->y2 = 0;
     this->visivel = false;
     this->ativo = true;
 }
@@ -28,6 +30,8 @@ TBomba::TBomba(int x, int y, int posX, int posY, bool visivel){
     this->largura = 0;
     this->altura = 0;
     this->nivel = 0;
+    this->x2 = 0;
+    this->y2 = 0;
 }
 
 TBomba::~TBomba(){
@@ -138,33 +142,72 @@ int TBomba::getNivel(){
     return this->nivel;
 }
 
+void TBomba:: setPosX2(int posX2){
+    this->posX2 = posX2;
+}
+
+void TBomba::setPosY2(int posY2){
+    this->posY2 = posY2;
+}
+
+
+int TBomba::getPosX2(){
+    return this->posX2;
+}
+
+int TBomba::getPosY2(){
+    return this->posY2;
+}
+
+void TBomba::setX2(int x2){
+    this->x2 = x2;
+}
+
+void TBomba::setY2(int y2){
+    this->y2 = y2;
+}
+
+
+int TBomba::getX2(){
+    return this->x2;
+}
+
+int TBomba::getY2(){
+    return this->y2;
+}
+
 /**
  * @brief TBomba::deslocamento método responsavel por efetuar o calculo da variavel usada para o
  * deslocamento da bomba e atualizar as suas coordenadas x e y em relação ao tabuleiro
  * @param dimen a largura ou altura de cada objeto TPonto
  */
 void TBomba::deslocamento(int dimen){
-    DESLOCAMENTO = (dimen * PERCENTUAL_DESLOCAMENTO);
-    if(count == SALTOS){
+    DESLOCAMENTO = (dimen * PERCENTUAL);
+    if(count == SALTO){
         switch(direcao){
             case Qt::Key_Up:
             case Qt::Key_W:
                 this->posY--;
+                this->posY2--;
                 break;
             case Qt::Key_Down:
             case Qt::Key_S:
                 this->posY++;
+                this->posY2++;
                 break;
             case Qt::Key_Left:
             case Qt::Key_A:
                 this->posX--;
+                this->posX2--;
                 break;
             case Qt::Key_Right:
             case Qt::Key_D:
                 this->posX++;
+                this->posX2++;
                 break;
             default:
                 this->posX--;
+                this->posX2--;
                 break;
         }
         count = 0;

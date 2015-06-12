@@ -24,6 +24,11 @@ class TPlayer {
   int ultimaPosicao;
   int i;
   int j;
+
+  QVector<TProjetil>* tiros;
+
+  //variaveis contadoras
+  int countBomba;
   QColor fundo;
   QColor borda;
 
@@ -91,6 +96,10 @@ public:
     void setBombas(QVector<TBomba>* b);
 
     QVector<TBomba>* getBombas();
+
+    void setTiros(QVector<TProjetil>* projeteis);
+
+    QVector<TProjetil>* getTiros();
 
     void addBomba(TBomba* bomba);
 

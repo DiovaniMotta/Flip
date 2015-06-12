@@ -339,6 +339,8 @@ void TFrame::armas(QPainter *painter){
 void TFrame::disparo(QPainter* painter){
     //pinto os projeteis especiais disparados pelo player 1
     for(int x=0; x<player1->getBombas()->size(); x++){
+        qDebug()<<"Disparo B ->";
+        qDebug()<<x;
         TBomba bomba = player1->getBombas()->at(x);
         if(bomba.isAtivo()){
             painter->setPen(bomba.getBorda());
@@ -368,11 +370,13 @@ void TFrame::disparo(QPainter* painter){
  * @param player o jogador que será avaliado
  */
 void TFrame::disparo(TPlayer* player){
+   QVector<TBomba>* temp  = player->getBombas();
    for(int x=0; x< player->getBombas()->size(); x++){
+        qDebug()<<"Disparo A ->";
+        qDebug()<<x;
         TBomba bomba = player->getBombas()->at(x);
         if(bomba.isAtivo()){
             int disparo = 0;
-            //int disparo2 = 0;
             switch(bomba.getDirecao()){
                 case Qt::Key_Up:
                 case Qt::Key_W:
@@ -381,7 +385,10 @@ void TFrame::disparo(TPlayer* player){
                     bomba.setY(disparo);
                     bomba.setY2(disparo);
                     colisao->colisao(&bomba);
-                    player->getBombas()->replace(x,bomba);
+                    //player->getBombas()->replace(x,bomba);
+                    temp->insert(x,bomba);
+                    qDebug()<<"Size ->";
+                    qDebug()<<player->getBombas()->size();
                     break;
                 case Qt::Key_Down:
                 case Qt::Key_S:

@@ -4,6 +4,7 @@
 #include <QColor>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QVector>
 
 class TProjetil {
 
@@ -21,8 +22,8 @@ class TProjetil {
     QColor borda;
 
     //variaveis usadas para o controle do deslocamento
-    const int SALTOS = 4;
-    const float PERCENTUAL_DESLOCAMENTO = 0.25;
+    static const int SALTOS = 5;
+    static const float PERCENTUAL_DESLOCAMENTO = 0.20;
 
 public:
     int DESLOCAMENTO = 0;

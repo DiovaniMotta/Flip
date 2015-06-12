@@ -12,11 +12,18 @@ TPlayer::TPlayer() {
     this->bombas = new QVector<TBomba>();
     this->i = -1;
     this->j = -1;
+    this->countBomba = 0;
+    this->tiros = new QVector<TProjetil>();
+    for(int x=0; x<5; x++){
+        TProjetil projetil;
+        tiros->append(projetil);
+    }
 }
 
 TPlayer::~TPlayer(){
     delete projetil;
     delete bombas;
+    delete tiros;
 }
 
 int TPlayer::getNivel(){
@@ -115,6 +122,14 @@ QVector<TBomba>* TPlayer::getBombas(){
   return this->bombas;
 }
 
+QVector<TProjetil>* TPlayer::getTiros(){
+    return this->tiros;
+}
+
+void TPlayer::setTiros(QVector<TProjetil> *projeteis){
+    this->tiros = projeteis;
+}
+
 /**
  * @brief TPlayer::disparo responsavel por configurar os valores usados para o objeto projetil
  */
@@ -141,6 +156,7 @@ void TPlayer::disparo(){
  * @param bomba o objeto a ser adicionado
  */
 void TPlayer::addBomba(TBomba* bomba){
+    this->countBomba++;
     if(!bomba->isVisivel()){
        return;
     }
@@ -180,13 +196,18 @@ void TPlayer::disparo(const int tipo){
  * @brief TPlayer::duplo método responsavel por configurar um objeto  bomba que será usado pelo player
  */
 void TPlayer::duplo(){
+    qDebug()<<"Duplo";
+    qDebug()<<i;
+    qDebug()<<bombas->size();
     if(bombas->size() == 0){
         return;
     }
-    if(i >= bombas->size()){
-        i = -1;
+    if(i >= countBomba){
         return;
     }
+    if(i < 0)
+        return;
+
     TBomba b = bombas->at(i);
     int largura = (this->largura /2);
     int altura = (this->altura/2);
@@ -227,8 +248,8 @@ void TPlayer::duplo(){
     }
     b.setX2(((b.getPosX2() * this->largura) + (this->largura /4)));
     b.setY2(((b.getPosY2() * this->altura) + (this->altura /4)));
-    b.setFundo(this->borda);
-    b.setBorda(this->fundo);
+    b.setFundo(this->fundo);
+    b.setBorda(this->borda);
     b.setAtivo(true);
     b.setVisivel(true);
     b.setDirecao(this->ultimaPosicao);

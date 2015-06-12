@@ -1650,7 +1650,8 @@ release/TProjetil.o: ../FlipGame/TProjetil.cpp ../FlipGame/TProjetil.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtGui/qtouchdevice.h \
-		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QDebug
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QDebug \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QVector
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\TProjetil.o ..\FlipGame\TProjetil.cpp
 
 release/TNivel3.o: ../FlipGame/TNivel3.cpp ../FlipGame/TNivel3.h \
@@ -2084,7 +2085,19 @@ release/TBomba.o: ../FlipGame/TBomba.cpp ../FlipGame/TBomba.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qpair.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qregexp.h \
 		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qstringmatcher.h \
-		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QObject
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QObject \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/QDebug \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qhash.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qmap.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qvector.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qset.h \
+		C:/Qt/Qt5.4.1/5.4/mingw491_32/include/QtCore/qcontiguouscache.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\TBomba.o ..\FlipGame\TBomba.cpp
 
 release/TUtils.o: ../FlipGame/TUtils.cpp ../FlipGame/TUtils.h

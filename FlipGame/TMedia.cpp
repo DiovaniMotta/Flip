@@ -3,13 +3,13 @@
 TMedia::TMedia(){
     bomba = new QMediaPlayer;
     tiro = new QMediaPlayer;
-    tiro->setMedia(QUrl("qrc:/sounds/sons/tiro_simples.mp3"));
+    //tiro->setMedia(QUrl("qrc:/sounds/sons/tiro_simples.mp3"));
     abertura = new QMediaPlayer;
-    abertura->setMedia(QUrl("qrc:/sounds/sons/abertura.mp3"));
+    //abertura->setMedia(QUrl("qrc:/sounds/sons/abertura.mp3"));
     explosao = new QMediaPlayer;
-    explosao->setMedia(QUrl("qrc:/sounds/sons/explosao.mp3"));
+    //explosao->setMedia(QUrl("qrc:/sounds/sons/explosao.mp3"));
     capturaTiro = new QMediaPlayer;
-    capturaTiro->setMedia(QUrl("qrc:/sounds/sons/captura_tiro_especial.mp3"));
+    //capturaTiro->setMedia(QUrl("qrc:/sounds/sons/captura_tiro_especial.mp3"));
 }
 
 TMedia::~TMedia(){

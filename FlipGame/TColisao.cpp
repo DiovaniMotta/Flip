@@ -15,6 +15,7 @@ TColisao::~TColisao(){
     delete tabuleiro;
     delete media;
 }
+
 /**
  * @brief TColisao::colisao metodo responsavel por verificar a colisao entre o player e o tabuleiro
  * @param player o objeto player que contem as informações de posicionamento
@@ -204,8 +205,8 @@ void TColisao::repintar(TProjetil *projetil, TPonto ponto){
 }
 
 void TColisao::repintar(TBomba* bomba, TPonto ponto,const int index){
-    ponto.setCorBorda(bomba->getBorda());
-    ponto.setCorFundo(bomba->getFundo());
+    ponto.setCorBorda(bomba->getFundo());
+    ponto.setCorFundo(bomba->getBorda());
     switch(bomba->getNivel()){
         case TPlayer::NIVEL1:
             if(index ==1)
@@ -314,6 +315,7 @@ void TColisao::colisao(TPlayer *player, TBomba* bomba){
     }
     if(player->getPosX() == bomba->getPosX()){
         if(player->getPosY() == bomba->getPosY()){
+            qDebug()<<"Add Bomba";
             player->addBomba(bomba);
             bomba->setVisivel(false);
         }
@@ -347,7 +349,10 @@ void TColisao::colisao(TBomba *bomba){
         bomba->setAtivo(false);
         return;
     }
-    repintar(bomba,ponto,1);
+    if(ponto.getCorFundo().operator ==(bomba->getFundo())){
+        this->repintar(bomba,ponto,1);
+        return;
+    }
     ponto = this->nivel(bomba,2);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
         bomba->setAtivo(false);
@@ -369,7 +374,10 @@ void TColisao::colisao(TBomba *bomba){
         bomba->setAtivo(false);
         return;
     }
-    repintar(bomba,ponto,2);
+    if(ponto.getCorFundo().operator ==(bomba->getFundo())){
+        this->repintar(bomba,ponto,2);
+        return;
+    }
 }
 
 

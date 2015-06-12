@@ -16,7 +16,7 @@
 #define TFRAME
 
 #define TIMER 1000
-#define FPS 80
+#define FPS 30
 
 class TFrame : public QFrame {
 

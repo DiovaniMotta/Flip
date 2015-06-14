@@ -38,11 +38,11 @@ void TColisao::colisao(TPlayer *player){
         tabuleiro->reposicionar(player);
         return;
     }
-    if(player->getPosX() == TTabuleiro::DIMENSAO){
+    if(player->getPosX() == TUtils::DIMENSAO){
         tabuleiro->reposicionar(player);
         return;
     }
-    if(player->getPosY() == TTabuleiro::DIMENSAO){
+    if(player->getPosY() == TUtils::DIMENSAO){
         tabuleiro->reposicionar(player);
         return;
     }
@@ -78,13 +78,13 @@ void TColisao::colisao(TProjetil* projetil){
         projetil->reiniciar();
         return;
     }
-    if(projetil->getPosX() == TTabuleiro::DIMENSAO){
+    if(projetil->getPosX() == TUtils::DIMENSAO){
         media->parar();
         media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
-    if(projetil->getPosY() == TTabuleiro::DIMENSAO){
+    if(projetil->getPosY() == TUtils::DIMENSAO){
         media->parar();
         media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
@@ -140,40 +140,20 @@ TPonto TColisao::nivel(TProjetil *projetil){
  * @param bomba um objeto bomba contendo as informações sobre o posicionamento
  * @return um objeto TPonto contendo as informações sobre a cor usada naquele determinado ponto
  */
-TPonto TColisao::nivel(TBomba *bomba,const int index){
+TPonto TColisao::nivel(TTiro *bomba){
     switch(bomba->getNivel()){
         case TPlayer::NIVEL1:
-            if(index == 1)
-                return tabuleiro->getNivel1()->nivel(bomba->getPosX(),bomba->getPosY());
-            if(index == 2)
-                return tabuleiro->getNivel1()->nivel(bomba->getPosX2(),bomba->getPosY2());
-            break;
+            return tabuleiro->getNivel1()->nivel(bomba->getPosX(),bomba->getPosY());
         case TPlayer::NIVEL2:
-            if(index == 1)
-                return tabuleiro->getNivel2()->nivel(bomba->getPosX(),bomba->getPosY());
-            if(index == 2)
-                return tabuleiro->getNivel2()->nivel(bomba->getPosX2(),bomba->getPosY2());
-            break;
+            return tabuleiro->getNivel2()->nivel(bomba->getPosX(),bomba->getPosY());
         case TPlayer::NIVEL3:
-            if(index == 1)
-                return tabuleiro->getNivel3()->nivel(bomba->getPosX(),bomba->getPosY());
-            if(index == 2)
-                return tabuleiro->getNivel3()->nivel(bomba->getPosX2(),bomba->getPosY2());
-            break;
+            return tabuleiro->getNivel3()->nivel(bomba->getPosX(),bomba->getPosY());
         case TPlayer::NIVEL4:
-            if(index == 1)
-                return tabuleiro->getNivel4()->nivel(bomba->getPosX(),bomba->getPosY());
-            if(index == 2)
-                return tabuleiro->getNivel4()->nivel(bomba->getPosX2(),bomba->getPosY2());
-            break;
+            return tabuleiro->getNivel4()->nivel(bomba->getPosX(),bomba->getPosY());
         case TPlayer::NIVEL5:
-            if(index ==1)
-                return tabuleiro->getNivel5()->nivel(bomba->getPosX(),bomba->getPosY());
-            if(index ==2)
-                return tabuleiro->getNivel5()->nivel(bomba->getPosX2(),bomba->getPosY2());
-            break;
+            return tabuleiro->getNivel5()->nivel(bomba->getPosX(),bomba->getPosY());
     }
-    return nivel(bomba,index);
+    return nivel(bomba);
 }
 
 /**
@@ -204,39 +184,29 @@ void TColisao::repintar(TProjetil *projetil, TPonto ponto){
     }
 }
 
-void TColisao::repintar(TBomba* bomba, TPonto ponto,const int index){
-    ponto.setCorBorda(bomba->getFundo());
-    ponto.setCorFundo(bomba->getBorda());
+/**
+ * @brief TColisao::repintar responsavel por repintar um ponto da tela quando houve a colisao
+ * @param bomba o objeto que colidiu
+ * @param ponto o ponto da tela onde houve a colisao
+ */
+void TColisao::repintar(TTiro* bomba, TPonto ponto){
+    ponto.setCorBorda(bomba->getCorFundoJogador());
+    ponto.setCorFundo(bomba->getCorBordaJogador());
     switch(bomba->getNivel()){
         case TPlayer::NIVEL1:
-            if(index ==1)
-                tabuleiro->getNivel1()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
-            if(index ==2)
-                tabuleiro->getNivel1()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            tabuleiro->getNivel1()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
             break;
         case TPlayer::NIVEL2:
-            if(index ==1)
-                tabuleiro->getNivel2()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
-            if(index ==2)
-                tabuleiro->getNivel2()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            tabuleiro->getNivel2()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
             break;
         case TPlayer::NIVEL3:
-            if(index ==1)
-                tabuleiro->getNivel3()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
-            if(index ==2)
-                tabuleiro->getNivel3()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            tabuleiro->getNivel3()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
             break;
         case TPlayer::NIVEL4:
-            if(index ==1)
-                tabuleiro->getNivel4()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
-            if(index ==2)
-                tabuleiro->getNivel4()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            tabuleiro->getNivel4()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
             break;
         case TPlayer::NIVEL5:
-            if(index ==1)
-                tabuleiro->getNivel5()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
-            if(index ==2)
-                tabuleiro->getNivel5()->addPonto(bomba->getPosX2(),bomba->getPosY2(),ponto);
+            tabuleiro->getNivel5()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
             break;
     }
 }
@@ -305,8 +275,9 @@ void TColisao::colisao(TProjetil *projetil1, TProjetil *projetil2){
  * @brief TColisao::colisao método responsavel por implementar a colisao entre o player e um objeto bomba
  * @param player o player avaliado
  * @param bomba o objeto bomba
+ * @param tipo o tipo de objetos que será recolhido
  */
-void TColisao::colisao(TPlayer *player, TBomba* bomba){
+void TColisao::colisao(TPlayer *player, TTiro* bomba,const int tipo){
     if(bomba == NULL){
         return;
     }
@@ -315,9 +286,16 @@ void TColisao::colisao(TPlayer *player, TBomba* bomba){
     }
     if(player->getPosX() == bomba->getPosX()){
         if(player->getPosY() == bomba->getPosY()){
-            qDebug()<<"Add Bomba";
-            player->addBomba(bomba);
-            bomba->setVisivel(false);
+            switch(tipo){
+                case TTiro::RAIO:
+                    player->addRaio(bomba);
+                    bomba->setVisivel(false);
+                    break;
+                case TTiro::BOMBA:
+                    player->addBomba(bomba);
+                    bomba->setVisivel(false);
+                    break;
+            }
         }
     }
 }
@@ -327,10 +305,10 @@ void TColisao::colisao(TPlayer *player, TBomba* bomba){
  * pelo player e o tabuleiro
  * @param bomba
  */
-void TColisao::colisao(TBomba *bomba){
-    TPonto ponto = this->nivel(bomba,1);
+void TColisao::colisao(TTiro *bomba){
+    TPonto ponto = this->nivel(bomba);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
-        bomba->setAtivo(false);
+        bomba->reiniciar();
         return;
     }
     if(bomba->getPosX() < 0){
@@ -341,45 +319,61 @@ void TColisao::colisao(TBomba *bomba){
         bomba->setAtivo(false);
         return;
     }
-    if(bomba->getPosX() == TTabuleiro::DIMENSAO){
+    if(bomba->getPosX() == TUtils::DIMENSAO){
         bomba->setAtivo(false);
         return;
     }
-    if(bomba->getPosY() == TTabuleiro::DIMENSAO){
+    if(bomba->getPosY() == TUtils::DIMENSAO){
         bomba->setAtivo(false);
         return;
     }
-    if(ponto.getCorFundo().operator ==(bomba->getFundo())){
-        this->repintar(bomba,ponto,1);
-        return;
-    }
-    ponto = this->nivel(bomba,2);
-    if(ponto.getCorFundo().operator ==(Qt::gray)){
-        bomba->setAtivo(false);
-        return;
-    }
-    if(bomba->getPosX() < 0){
-        bomba->setAtivo(false);
-        return;
-    }
-    if(bomba->getPosY() < 0){
-        bomba->setAtivo(false);
-        return;
-    }
-    if(bomba->getPosX() == TTabuleiro::DIMENSAO){
-        bomba->setAtivo(false);
-        return;
-    }
-    if(bomba->getPosY() == TTabuleiro::DIMENSAO){
-        bomba->setAtivo(false);
-        return;
-    }
-    if(ponto.getCorFundo().operator ==(bomba->getFundo())){
-        this->repintar(bomba,ponto,2);
+    if(ponto.getCorFundo().operator ==(bomba->getCorFundoJogador())){
+        this->repintar(bomba,ponto);
         return;
     }
 }
 
+/**
+ * @brief TColisao::colisao método responsavel por validar a colisao entre o tiro e o projetil disparo pelo
+ * player
+ * @param tiro1 o tiro especial disparado pelo player
+ * @param projetil o projetil dispardo pelo player
+ */
+void TColisao::colisao(TTiro *tiro1, TProjetil *projetil){
+    if(tiro1->getPosX() == projetil->getPosX()){
+        if(tiro1->getPosY() == projetil->getPosY()){
+            projetil->reiniciar();
+            tiro1->reiniciar();
+        }
+    }
+}
+/**
+ * @brief TColisao::colisao método responsavel por validar a colisao entre os tiros especiais dos players
+ * @param tiro1 o tiro especial dispardo pelo player1
+ * @param tiro2 o tiro especial dispardo pelo player2
+ */
+void TColisao::colisao(TTiro *tiro1, TTiro *tiro2){
+    if(tiro1->getPosX() == tiro2->getPosX()){
+        if(tiro1->getPosY() == tiro2->getPosY()){
+            tiro1->reiniciar();
+            tiro2->reiniciar();
+        }
+    }
+}
+
+/**
+ * @brief TColisao::colisao método responsavel por verificar a colisao entre o player e o tiro especial feito
+ * pelo outro player
+ * @param player o player que será verificado a colisao
+ * @param tiro o tiro disparado pelo player oposto
+ */
+void TColisao::colisao(TPlayer *player, TTiro *tiro){
+    if(player->getPosX() == tiro->getPosX()){
+        if(player->getPosY() == tiro->getPosY()){
+            tabuleiro->zerar(player);
+        }
+    }
+}
 
 int TColisao::getLargura(){
     return largura;

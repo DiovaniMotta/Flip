@@ -13,8 +13,9 @@ INPUT(
 ./release\TNivel4.o
 ./release\TNivel5.o
 ./release\TMedia.o
-./release\TBomba.o
 ./release\TUtils.o
+./release\TTiro.o
+./release\TControle.o
 ./release\qrc_res.o
 ./release\moc_TFrame.o
 ./release\moc_TColor.o

@@ -11,8 +11,10 @@
 #include <QKeyEvent>
 #include <TUtils.h>
 #include <TColor.h>
+#include <TUtils.h>
 
 #define TIMEOUT 200
+#define TIME_OUT 800
 /**
  * Author : Diovani Bernardi da Motta
  * @brief The TTabuleiro class classe responsável por montar as informações que serão exibidas para o usuario em forma de
@@ -27,10 +29,9 @@ class TTabuleiro {
    TNivel3* nivel3;
    TNivel4* nivel4;
    TNivel5* nivel5;
-   int contador;
-
+   int contadorX;
+   int contadorY;
 public:
-    static const int DIMENSAO = 20;
 
     TTabuleiro();
 
@@ -74,10 +75,12 @@ public:
 
     void zerar(TPlayer* player);
 
-    TBomba* bomba();
+    TTiro* bomba(TTiro* tiro);
+
+    TTiro* raio(TTiro* tiro);
 
 private:
 
-    void bomba(TPonto* ponto,TBomba* bomba);
+    void tiros(TPonto* ponto,TTiro* bomba,int tipo);
 };
 #endif // TTABULEIRO

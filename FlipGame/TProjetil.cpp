@@ -10,6 +10,7 @@ TProjetil::TProjetil(){
     this->count = 5;
     this->ultimaPosicao = 0;
     this->ativo = false;
+    this->DESLOCAMENTO = 0;
 }
 
 TProjetil::TProjetil(int x, int y, int posX, int posY, int largura, int altura){
@@ -22,6 +23,7 @@ TProjetil::TProjetil(int x, int y, int posX, int posY, int largura, int altura){
     this->count = 5;
     this->ultimaPosicao = 0;
     this->ativo = false;
+    this->DESLOCAMENTO = 0;
 }
 
 TProjetil::~TProjetil(){

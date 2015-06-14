@@ -26,7 +26,7 @@ class TProjetil {
     static const float PERCENTUAL_DESLOCAMENTO = 0.20;
 
 public:
-    int DESLOCAMENTO = 0;
+    int DESLOCAMENTO;
 
     TProjetil ();
 
@@ -83,7 +83,6 @@ public:
     void reiniciar();
 
     void deslocamento(int dimen); // recebe uma dimensao da tela (Altura ou largura)
-
 
 };
 #endif // TPROJETIL

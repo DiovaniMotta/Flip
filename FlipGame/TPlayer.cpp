@@ -8,20 +8,22 @@ TPlayer::TPlayer() {
     this->largura = 0;
     this->altura = 0;
     this->ultimaPosicao = 0;
-    this->projetil = new TProjetil;
-    this->bombas = new QVector<TBomba>();
+    this->bombas = new QVector<TTiro>();
+    this->raios = new QVector<TTiro>();
     this->i = -1;
     this->j = -1;
-    this->countBomba = 0;
+    this->l = -1;
+    this->indexBombas = -1;
+    this->indexRaios = -1;
     this->tiros = new QVector<TProjetil>();
-    for(int x=0; x<5; x++){
+    for(int x=0; x<TIROS; x++){
         TProjetil projetil;
         tiros->append(projetil);
     }
 }
 
 TPlayer::~TPlayer(){
-    delete projetil;
+    delete raios;
     delete bombas;
     delete tiros;
 }
@@ -106,19 +108,11 @@ int TPlayer::getY(){
     return this->y;
 }
 
-void TPlayer::setProjetil(TProjetil *projetil){
-    this->projetil = projetil;
-}
-
-TProjetil* TPlayer::getProjetil(){
-    return this->projetil;
-}
-
-void TPlayer::setBombas(QVector<TBomba>* b){
+void TPlayer::setBombas(QVector<TTiro>* b){
     this->bombas = b;
 }
 
-QVector<TBomba>* TPlayer::getBombas(){
+QVector<TTiro>* TPlayer::getBombas(){
   return this->bombas;
 }
 
@@ -130,136 +124,146 @@ void TPlayer::setTiros(QVector<TProjetil> *projeteis){
     this->tiros = projeteis;
 }
 
+void TPlayer::setRaios(QVector<TTiro> *b){
+    this->raios = b;
+}
+
+QVector<TTiro>* TPlayer::getRaios(){
+    return this->raios;
+}
+
 /**
  * @brief TPlayer::disparo responsavel por configurar os valores usados para o objeto projetil
  */
 void TPlayer::disparo(){
+    i++;
+    if(i >= TIROS)
+        return;
+    TProjetil projetil = tiros->at(i);
     int largura = (this->largura /2);
     int altura = (this->altura/2);
-    projetil->setAltura(altura);
-    projetil->setAtivo(true);
-    projetil->setLargura(largura);
-    projetil->setUltimaPosicao(this->ultimaPosicao);
-    projetil->setPosX(this->posX);
-    projetil->setPosY(this->posY);
-    projetil->setX(x);
-    projetil->setY(y);
-    projetil->setX(this->x);
-    projetil->setY(this->y);
-    projetil->setCorBorda(this->borda);
-    projetil->setCorFundo(this->fundo);
-    projetil->setNivel(this->nivel);
+    projetil.setAltura(altura);
+    projetil.setAtivo(true);
+    projetil.setLargura(largura);
+    projetil.setUltimaPosicao(this->ultimaPosicao);
+    projetil.setPosX(this->posX);
+    projetil.setPosY(this->posY);
+    projetil.setX(x);
+    projetil.setY(y);
+    projetil.setX(this->x);
+    projetil.setY(this->y);
+    projetil.setCorBorda(this->borda);
+    projetil.setCorFundo(this->fundo);
+    projetil.setNivel(this->nivel);
+    tiros->replace(i,projetil);
 }
 
 /**
  * @brief TPlayer::addBomba adiciona um objeto do tipo bomba a lista de bombas do usuario
  * @param bomba o objeto a ser adicionado
  */
-void TPlayer::addBomba(TBomba* bomba){
-    this->countBomba++;
+void TPlayer::addBomba(TTiro* bomba){
+    this->l++;
     if(!bomba->isVisivel()){
        return;
     }
-    TBomba b;
-    b.setFundo(this->borda);
-    b.setBorda(this->fundo);
+    TTiro b;
+    b.setCorBordaJogador(this->borda);
+    b.setCorFundoJogador(this->fundo);
     b.setBorda(bomba->getBorda());
     b.setFundo(bomba->getFundo());
     b.setPosX(bomba->getPosX());
     b.setPosY(bomba->getPosY());
     b.setVisivel(false);
+    b.setColidiu(false);
     b.setX(bomba->getX());
     b.setY(bomba->getY());
     b.setNivel(this->nivel);
     b.setAtivo(false);
-    this->bombas->append(b);
+    this->bombas->insert(l,b);
+    indexBombas = TControle::posicionar(bombas,indexBombas);
 }
 
 /**
- * @brief TPlayer::disparo método responsavel por efetuar o disparo das munições especiais
- * @param tipo o tipo de disparo
+ * @brief TPlayer::addRaio adiciona um objeto do tipo bomba a lista de bombas do usuario
+ * @param bomba o objeto a ser adicionado
  */
-void TPlayer::disparo(const int tipo){
-    switch(tipo){
-        case TBomba::DUPLO:
-            i++;
-            duplo();
+void TPlayer::addRaio(TTiro* bomba){
+    this->j++;
+    if(!bomba->isVisivel()){
+       return;
+    }
+    TTiro b;
+    b.setCorBordaJogador(this->borda);
+    b.setCorFundoJogador(this->fundo);
+    b.setBorda(bomba->getBorda());
+    b.setFundo(bomba->getFundo());
+    b.setPosX(bomba->getPosX());
+    b.setPosY(bomba->getPosY());
+    b.setColidiu(false);
+    b.setVisivel(false);
+    b.setX(bomba->getX());
+    b.setY(bomba->getY());
+    b.setNivel(this->nivel);
+    b.setAtivo(false);
+    this->raios->insert(j,b);
+    indexRaios = TControle::posicionar(raios,indexRaios);
+}
+
+/**
+ * @brief TPlayer::disparo responsavel por efetuar o disparo de um tipo especial
+ * @param valor uma constaten representando qual o tipo de tiro se deseja disparar
+ */
+void TPlayer::disparo(const int valor){
+    switch(valor){
+        case TTiro::RAIO:
+            raio();
             break;
-        case TBomba::TRIPLO:
-            j++;
-            triplo();
+        case TTiro::BOMBA:
+            bomba();
             break;
     }
 }
 
 /**
- * @brief TPlayer::duplo método responsavel por configurar um objeto  bomba que será usado pelo player
+ * @brief TPlayer::raio responsavel por configurar o disparo especial feito pelo player
  */
-void TPlayer::duplo(){
-    qDebug()<<"Duplo";
-    qDebug()<<i;
-    qDebug()<<bombas->size();
-    if(bombas->size() == 0){
+void TPlayer::raio(){
+    if(indexRaios < 0)
         return;
-    }
-    if(i >= countBomba){
-        return;
-    }
-    if(i < 0)
-        return;
-
-    TBomba b = bombas->at(i);
-    int largura = (this->largura /2);
-    int altura = (this->altura/2);
-    b.setAltura(altura);
-    b.setLargura(largura);
-    b.setX(((this->posX * this->largura) + (this->largura /4)));
-    b.setY(((this->posY * this->altura) + (this->altura /4)));
-    b.setPosX(this->posX);
-    b.setPosY(this->posY);
-    switch(this->ultimaPosicao)
-    {
-        case Qt::Key_A:
-        case Qt::Key_D:
-        case Qt::Key_Left:
-        case Qt::Key_Right:
-            if(this->posX < (20 - 1)){
-                b.setPosX2((this->posX + 1));
-            }
-            else
-            {
-                b.setPosX2((this->posX - 1));
-            }
-            b.setPosY2((this->posY + 1));
-            break;
-        case Qt::Key_W:
-        case Qt::Key_S:
-        case Qt::Key_Up:
-        case Qt::Key_Down:
-            if(this->posY < (20 - 1)){
-                b.setPosY2((this->posY + 1));
-            }
-            else
-            {
-                b.setPosY2((this->posY - 1));
-            }
-            b.setPosX2((this->posX + 1));
-            break;
-    }
-    b.setX2(((b.getPosX2() * this->largura) + (this->largura /4)));
-    b.setY2(((b.getPosY2() * this->altura) + (this->altura /4)));
-    b.setFundo(this->fundo);
-    b.setBorda(this->borda);
-    b.setAtivo(true);
-    b.setVisivel(true);
-    b.setDirecao(this->ultimaPosicao);
-    b.setTipo(TBomba::DUPLO);
-    bombas->insert(i,b);
+    if(indexRaios >= raios->size())
+       return;
+    TTiro tiro = raios->at(indexRaios);
+    tiro.setAtivo(true);
+    tiro.setNivel(this->nivel);
+    tiro.setPosX(this->posX);
+    tiro.setPosY(this->posY);
+    tiro.setX(((this->posX * this->largura) + (largura/4)));
+    tiro.setY(((this->posY * this->altura) + (altura/4)));
+    tiro.setLargura((largura/2));
+    tiro.setAltura((largura/2));
+    tiro.setDirecao(ultimaPosicao);
+    raios->replace(indexRaios,tiro);
+    indexRaios++;
 }
-
 /**
- * @brief TPlayer::duplo método responsavel por configurar um objeto  bomba que será usado pelo player
+ * @brief TPlayer::bomba responsavel por configurar o disparo especial feito pelo player
  */
-void TPlayer::triplo(){
-
+void TPlayer::bomba(){
+    if(indexBombas < 0)
+        return;
+    if(indexBombas >= bombas->size())
+       return;
+    TTiro tiro = bombas->at(indexBombas);
+    tiro.setAtivo(true);
+    tiro.setNivel(this->nivel);
+    tiro.setPosX(this->posX);
+    tiro.setPosY(this->posY);
+    tiro.setX(((this->posX * this->largura) + (largura/4)));
+    tiro.setY(((this->posY * this->altura) + (altura/4)));
+    tiro.setLargura((largura/2));
+    tiro.setAltura((largura/2));
+    tiro.setDirecao(ultimaPosicao);
+    bombas->replace(indexBombas,tiro);
+    indexBombas++;
 }

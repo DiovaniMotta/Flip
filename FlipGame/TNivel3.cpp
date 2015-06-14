@@ -13,9 +13,9 @@ TNivel3::~TNivel3(){
 }
 
 void TNivel3::configurar(){
-    for(int x=0; x < DIMENSAO; x++){
-        for(int y=0; y<DIMENSAO; y++){
-            if(x < (DIMENSAO/2)){
+    for(int x=0; x < TUtils::DIMENSAO; x++){
+        for(int y=0; y<TUtils::DIMENSAO; y++){
+            if(x < (TUtils::DIMENSAO/2)){
                TColor::branco(&lista[x][y]);
             }else{
                TColor::preto(&lista[x][y]);
@@ -45,8 +45,8 @@ void TNivel3::configurar(){
 }
 
 void TNivel3::inicializar(){
-    for(int x=0; x<DIMENSAO; x++){
-        for(int y=0; y< DIMENSAO; y++){
+    for(int x=0; x<TUtils::DIMENSAO; x++){
+        for(int y=0; y< TUtils::DIMENSAO; y++){
             TPonto ponto;
             ponto.setCorBorda(Qt::white);
             ponto.setCorFundo(Qt::black);
@@ -83,11 +83,13 @@ void TNivel3::players(){
  * @param player o player que foi derrotado
  */
 void TNivel3::zerar(TPlayer *player){
-    for(int x=0; x<DIMENSAO; x++){
-        for(int y=0; y<DIMENSAO; y++){
+    for(int x=0; x<TUtils::DIMENSAO; x++){
+        for(int y=0; y<TUtils::DIMENSAO; y++){
             TPonto ponto = lista[x][y];
             ponto.setCorBorda(player->getBorda());
             ponto.setCorFundo(player->getFundo());
+            ponto.setX(x);
+            ponto.setY(y);
             lista[x][y] = ponto;
         }
     }

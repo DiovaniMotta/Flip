@@ -10,7 +10,8 @@
 #include <QTimer>
 #include <TMedia.h>
 #include <QDebug>
-#include <TBomba.h>
+#include <TTiro.h>
+#include <math.h>
 
 #ifndef TFRAME
 #define TFRAME
@@ -30,7 +31,8 @@ class TFrame : public QFrame {
     TMedia* media;
     TPlayer* player1;
     TPlayer* player2;
-    TBomba* bomber = NULL;
+    TTiro* bomber = NULL;
+    TTiro* raio = NULL;
 public:
 
     TFrame ();
@@ -45,7 +47,7 @@ private:
 
     void disparo(TPlayer* player,QPainter* painter);
 
-    void disparo(TPlayer* player,TProjetil* projetil,QPainter* painter); // usado para verifica se houve a colisao entre o player e o projetil
+    void disparo(TPlayer* player,TProjetil* projetil); // usado para verifica se houve a colisao entre o player e o projetil
 
     void redimensionar(TPlayer* player); // funcao responsavel por redimensionar o projetil disparado pelo player
 
@@ -53,21 +55,16 @@ private:
 
     void disparo(QPainter* painter); // responsavel por desenhar o disparo especiais feitos pelo player
 
-    void disparoAcima(TBomba* bomba,QPainter* painter);
-
-    void disparoAbaixo(TBomba* bomba,QPainter* painter);
-
-    void disparoEsquerda(TBomba* bomba,QPainter* painter);
-
-    void disparoDireita(TBomba* bomba,QPainter* painter);
-
     void disparo(TPlayer* player);
+
+    void mover();
+
+    void municao(TPlayer* player,QPainter* painter);
 
 private slots:
 
     void iniciar();
 
-    void parar();
 };
 #endif // TFRAME
 

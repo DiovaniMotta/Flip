@@ -4,17 +4,16 @@
 #include <TColor.h>
 #include <TPonto.h>
 #include <TPlayer.h>
+#include <TUtils.h>
 
 class TNivel3 {
 
   TPlayer* player1;
   TPlayer* player2;
 
-  static const int DIMENSAO = 20;
-
 protected:
 
-  TPonto lista[20][20];
+  TPonto lista[TUtils::DIMENSAO][TUtils::DIMENSAO];
 
   void inicializar();
 

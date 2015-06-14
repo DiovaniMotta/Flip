@@ -15,8 +15,9 @@ SOURCES += \
     TNivel4.cpp \
     TNivel5.cpp \
     TMedia.cpp \
-    TBomba.cpp \
-    TUtils.cpp
+    TUtils.cpp \
+    TTiro.cpp \
+    TControle.cpp
 
 HEADERS += \
     TTabuleiro.h\
@@ -33,8 +34,9 @@ HEADERS += \
     TNivel4.h \
     TNivel5.h \
     TMedia.h \
-    TBomba.h \
-    TUtils.h
+    TUtils.h \
+    TTiro.h \
+    TControle.h
 
 DISTFILES +=
 

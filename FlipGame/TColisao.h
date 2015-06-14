@@ -6,7 +6,7 @@
 #include <TNivel2.h>
 #include <TTabuleiro.h>
 #include <TProjetil.h>
-#include <TBomba.h>
+#include <TTiro.h>
 #include <TMedia.h>
 #include <QDebug>
 
@@ -45,9 +45,15 @@ public:
 
     bool colisao(TPlayer* player,TProjetil* projetil);
 
-    void colisao(TPlayer* player,TBomba* bomba);
+    void colisao(TPlayer* player,TTiro* bomba,const int tipo);
 
-    void colisao(TBomba* bomba);
+    void colisao(TTiro* bomba);
+
+    void colisao(TPlayer* player,TTiro* tiro);
+
+    void colisao(TTiro* tiro1,TTiro* tiro2);
+
+    void colisao(TTiro* tiro1,TProjetil* projetil);
 
     TTabuleiro* getTabuleiro();
 
@@ -63,11 +69,11 @@ private:
 
     TPonto nivel(TProjetil* projetil);
 
-    TPonto nivel(TBomba* bomba,const int index);
+    TPonto nivel(TTiro* bomba);
 
     void repintar(TProjetil* projetil,TPonto ponto);
 
-    void repintar(TBomba* bomba,TPonto ponto,const int index);
+    void repintar(TTiro* bomba,TPonto ponto);
 };
 #endif // TCOLISAO
 

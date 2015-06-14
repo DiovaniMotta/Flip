@@ -8,7 +8,8 @@ TTabuleiro::TTabuleiro(){
     this->nivel3 = new TNivel3();
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
-    this->contador = 0;
+    this->contadorX = 0;
+    this->contadorY = 0;
 }
 
 TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
@@ -19,7 +20,8 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->nivel3 = new TNivel3();
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
-    this->contador = 0;
+    this->contadorX = 0;
+    this->contadorY = 0;
 }
 
 TTabuleiro::~TTabuleiro(){
@@ -215,70 +217,70 @@ void TTabuleiro::zerar(TPlayer *player){
  * @brief TTabuleiro::bomba retorna um objeto bomba que será pintado em algum lugar do tabuleiro
  * @return null caso não tenha sido possivel gerar o objeto bomba e diferente de nulo se foi possivel
  */
-TBomba* TTabuleiro::bomba(){
-    TBomba* b = NULL;
-    contador++;
-    if(contador >= TIMEOUT){
-        int x = TUtils::randomize(TTabuleiro::DIMENSAO);
-        int y = TUtils::randomize(TTabuleiro::DIMENSAO);
+TTiro* TTabuleiro::bomba(TTiro* tiro){
+    TTiro* b = NULL;
+    contadorX++;
+    if(contadorX >= TIMEOUT){
+        int x = TUtils::randomize(TUtils::DIMENSAO);
+        int y = TUtils::randomize(TUtils::DIMENSAO);
         bool retorno = false;
-        b = new TBomba;
+        b = new TTiro;
         TPonto ponto;
         switch(player1->getNivel()){
             case TPlayer::NIVEL1:
                 ponto = nivel1->nivel(x,y);
-                ponto.setX(x);
-                ponto.setY(y);
                 retorno = TColor::equals(ponto,Qt::gray);
-                if(retorno){
-                   return bomba();
-                }
-                contador = 0;
-                bomba(&ponto,b);
+                if(retorno)
+                   return bomba(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return bomba(tiro);
+                contadorX = 0;
+                tiros(&ponto,b,TTiro::BOMBA);
                 return b;
             case TPlayer::NIVEL2:
                 ponto = nivel2->nivel(x,y);
-                ponto.setX(x);
-                ponto.setY(y);
                 retorno = TColor::equals(ponto,Qt::gray);
-                if(retorno){
-                   return bomba();
-                }
-                contador = 0;
-                bomba(&ponto,b);
+                if(retorno)
+                   return bomba(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return bomba(tiro);
+                contadorX = 0;
+                tiros(&ponto,b,TTiro::BOMBA);
                 return b;
             case TPlayer::NIVEL3:
                 ponto = nivel3->nivel(x,y);
-                ponto.setX(x);
-                ponto.setY(y);
                 retorno = TColor::equals(ponto,Qt::gray);
-                if(retorno){
-                   return bomba();
-                }
-                contador = 0;
-                bomba(&ponto,b);
+                if(retorno)
+                   return bomba(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return bomba(tiro);
+                contadorX = 0;
+                tiros(&ponto,b,TTiro::BOMBA);
                 return b;
             case TPlayer::NIVEL4:
                 ponto = nivel4->nivel(x,y);
-                ponto.setX(x);
-                ponto.setY(y);
                 retorno = TColor::equals(ponto,Qt::gray);
-                if(retorno){
-                   return bomba();
-                }
-                contador = 0;
-                bomba(&ponto,b);
+                if(retorno)
+                   return bomba(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                    return bomba(tiro);
+                contadorX = 0;
+                tiros(&ponto,b,TTiro::BOMBA);
                 return b;
             case TPlayer::NIVEL5:
                 ponto = nivel5->nivel(x,y);
-                ponto.setX(x);
-                ponto.setY(y);
                 retorno = TColor::equals(ponto,Qt::gray);
-                if(retorno){
-                   return bomba();
-                }
-                contador = 0;
-                bomba(&ponto,b);
+                if(retorno)
+                   return bomba(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                    return bomba(tiro);
+                contadorX = 0;
+                tiros(&ponto,b,TTiro::BOMBA);
                 return b;
         }
     }
@@ -287,14 +289,97 @@ TBomba* TTabuleiro::bomba(){
 
 /**
  * @brief TTabuleiro::bomba metodo responsavel por configurar a localizacao de um
- * objeto TBomba que será pintada  na tela
+ * objeto TTiro que será pintada  na tela
  * @param ponto o ponto onde deve ser pintado o objeto bomba
  * @param bomba o objeto que será pintado no ponto
+ * @param uma constante identificando o tipo de tiro
  */
-void TTabuleiro::bomba(TPonto *ponto, TBomba *bomba){
+void TTabuleiro::tiros(TPonto *ponto, TTiro *bomba,int tipo){
     bomba->setPosX(ponto->getX());
     bomba->setPosY(ponto->getY());
     bomba->setVisivel(true);
-    bomba->setBorda(Qt::red);
-    bomba->setFundo(Qt::red);
+    switch(tipo){
+        case TTiro::RAIO:
+            bomba->setBorda(Qt::red);
+            bomba->setFundo(Qt::red);
+            break;
+        case TTiro::BOMBA:
+            bomba->setBorda(Qt::green);
+            bomba->setFundo(Qt::green);
+            break;
+    }
+}
+
+/**
+ * @brief TTabuleiro::bomba retorna um objeto tiro que será pintado em algum lugar do tabuleiro
+ * @return null caso não tenha sido possivel gerar o objeto bomba e diferente de nulo se foi possivel
+ */
+TTiro* TTabuleiro::raio(TTiro* tiro){
+    TTiro* b = NULL;
+    contadorY++;
+    if(contadorY >= TIME_OUT){
+        int x = TUtils::randomize(TUtils::DIMENSAO);
+        int y = TUtils::randomize(TUtils::DIMENSAO);
+        bool retorno = false;
+        b = new TTiro;
+        TPonto ponto;
+        switch(player1->getNivel()){
+            case TPlayer::NIVEL1:
+                ponto = nivel1->nivel(x,y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno)
+                   return raio(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return raio(tiro);
+                contadorY = 0;
+                tiros(&ponto,b,TTiro::RAIO);
+                return b;
+            case TPlayer::NIVEL2:
+                ponto = nivel2->nivel(x,y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno)
+                   return raio(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return raio(tiro);
+                contadorY = 0;
+                tiros(&ponto,b,TTiro::RAIO);
+                return b;
+            case TPlayer::NIVEL3:
+                ponto = nivel3->nivel(x,y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno)
+                   return raio(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return raio(tiro);
+                contadorY = 0;
+                tiros(&ponto,b,TTiro::RAIO);
+                return b;
+            case TPlayer::NIVEL4:
+                ponto = nivel4->nivel(x,y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno)
+                   return raio(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return raio(tiro);
+                contadorY = 0;
+                tiros(&ponto,b,TTiro::RAIO);
+                return b;
+            case TPlayer::NIVEL5:
+                ponto = nivel5->nivel(x,y);
+                retorno = TColor::equals(ponto,Qt::gray);
+                if(retorno)
+                   return raio(tiro);
+                retorno = TUtils::existe(tiro,ponto);
+                if(retorno)
+                   return raio(tiro);
+                contadorY = 0;
+                tiros(&ponto,b,TTiro::RAIO);
+                return b;
+        }
+    }
+    return b;
 }

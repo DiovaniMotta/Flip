@@ -152,6 +152,7 @@ void TPlayer::disparo(){
     projetil.setY(y);
     projetil.setX(this->x);
     projetil.setY(this->y);
+    projetil.setDisparou(true);
     projetil.setCorBorda(this->borda);
     projetil.setCorFundo(this->fundo);
     projetil.setNivel(this->nivel);

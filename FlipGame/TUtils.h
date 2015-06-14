@@ -27,6 +27,8 @@ public:
 
     static void recalcular(TProjetil* projetil,const int widht,const int height);
 
+    static void recalcular(TTiro* tiro,const int widht,const int height);
+
     static bool existe(TTiro* tiro,TPonto ponto);
 
 };

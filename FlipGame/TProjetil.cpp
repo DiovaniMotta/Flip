@@ -10,6 +10,7 @@ TProjetil::TProjetil(){
     this->count = 5;
     this->ultimaPosicao = 0;
     this->ativo = false;
+    this->disparou = false;
     this->DESLOCAMENTO = 0;
 }
 
@@ -23,6 +24,7 @@ TProjetil::TProjetil(int x, int y, int posX, int posY, int largura, int altura){
     this->count = 5;
     this->ultimaPosicao = 0;
     this->ativo = false;
+    this->disparou = false;
     this->DESLOCAMENTO = 0;
 }
 
@@ -162,4 +164,12 @@ void TProjetil::setNivel(int nivel){
 
 int TProjetil::getNivel(){
     return this->nivel;
+}
+
+void TProjetil::setDisparou(bool disparou){
+    this->disparou = disparou;
+}
+
+bool TProjetil::isDisparou(){
+    return this->disparou;
 }

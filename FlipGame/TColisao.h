@@ -55,6 +55,10 @@ public:
 
     void colisao(TTiro* tiro1,TProjetil* projetil);
 
+    void colisao(QVector<TTiro>* tiros,TProjetil* projetil);
+
+    void colisao(QVector<TTiro>* tiros1,QVector<TTiro>* tiros2);
+
     TTabuleiro* getTabuleiro();
 
     void setTabuleiro(TTabuleiro* tabuleiro);
@@ -73,7 +77,7 @@ private:
 
     void repintar(TProjetil* projetil,TPonto ponto);
 
-    void repintar(TTiro* bomba,TPonto ponto);
+    void repintar(TTiro* bomba,TPonto ponto);    
 };
 #endif // TCOLISAO
 

@@ -233,9 +233,28 @@ void TFrame::redimensionar(TPlayer *player){
        TProjetil projetil = player->getTiros()->at(x);
        if(projetil.isAtivo()){
            TUtils::recalcular(&projetil,_w_sz,_h_sz);
-           player->getTiros()->insert(x,projetil);
+           player->getTiros()->replace(x,projetil);
        }
     }
+    /*
+    for(int x=0; x<player->getBombas()->size(); x++){
+        TTiro tiro = player->getBombas()->at(x);
+        if(tiro.isAtivo()){
+            if(!tiro.isColidiu()){
+                TUtils::recalcular(&tiro,_w_sz,_h_sz);
+                player->getBombas()->insert(x,tiro);
+            }
+        }
+    }
+    for(int x=0; x<player->getRaios()->size(); x++){
+        TTiro tiro = player->getRaios()->at(x);
+        if(tiro.isAtivo()){
+            if(!tiro.isColidiu()){
+                TUtils::recalcular(&tiro,_w_sz,_h_sz);
+                player->getRaios()->insert(x,tiro);
+            }
+        }
+    }*/
 }
 
 /**
@@ -258,7 +277,6 @@ void TFrame::armas(QPainter *painter){
             painter->drawEllipse((bomber->getX()),bomber->getY(),rx,ry);
         }
     }
-
     TTiro* t = tabuleiro->raio(bomber);
     if(t != NULL)
       raio = t;
@@ -289,7 +307,6 @@ void TFrame::disparo(QPainter* painter){
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
             painter->drawEllipse((bomba.getX()),bomba.getY(),rx,ry);
-            //painter->drawEllipse((bomba.getX() + 10),bomba.getY(),rx,ry);
         }
     }
     //pinto os projeteis especiais disparados pelo player 1
@@ -312,7 +329,6 @@ void TFrame::disparo(QPainter* painter){
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
             painter->drawEllipse(bomba.getX(),bomba.getY(),rx,ry);
-            //painter->drawEllipse((bomba.getX() + 10),bomba.getY(),rx,ry);
        }
     }
     //pinto os projeteis especiais disparados peloww player 2
@@ -379,7 +395,6 @@ void TFrame::disparo(TPlayer* player){
             if(projetil.getY() < 0){
                 projetil.reiniciar();
             }
-
             colisao->colisao(&projetil);
             player->getTiros()->replace(x,projetil);
         }
@@ -395,40 +410,34 @@ void TFrame::disparo(TPlayer* player){
                     bomba.deslocamento(_h_sz);
                     disparo = (bomba.getY() - bomba.DESLOCAMENTO);
                     bomba.setY(disparo);
-                    colisao->colisao(&bomba);
-                    player->getBombas()->replace(x,bomba);
                     break;
                 case Qt::Key_Down:
                 case Qt::Key_S:
                     bomba.deslocamento(_h_sz);
                     disparo = (bomba.getY() + bomba.DESLOCAMENTO);
                     bomba.setY(disparo);
-                    colisao->colisao(&bomba);
-                    player->getBombas()->replace(x,bomba);
                     break;
                 case Qt::Key_Left:
                 case Qt::Key_A:
                     bomba.deslocamento(_w_sz);
                     disparo = (bomba.getX() - bomba.DESLOCAMENTO);
                     bomba.setX(disparo);
-                    colisao->colisao(&bomba);
-                    player->getBombas()->replace(x,bomba);
                     break;
                 case Qt::Key_Right:
                 case Qt::Key_D:
                     bomba.deslocamento(_w_sz);
                     disparo = (bomba.getX() + bomba.DESLOCAMENTO);
                     bomba.setX(disparo);
-                    colisao->colisao(&bomba);
-                    player->getBombas()->replace(x,bomba);
                     break;
                 default:
                     bomba.deslocamento(_w_sz);
                     disparo = (bomba.getX() - bomba.DESLOCAMENTO);
                     bomba.setX(disparo);
-                    colisao->colisao(&bomba);
-                    player->getBombas()->replace(x,bomba);
             }
+            colisao->colisao(&bomba);
+            colisao->colisao(player1,&bomba);
+            colisao->colisao(player2,&bomba);
+            player->getBombas()->replace(x,bomba);
        }
    }
     //verifico se o player disparo alguma bomba
@@ -442,40 +451,34 @@ void TFrame::disparo(TPlayer* player){
                     bomba.deslocamento(_h_sz);
                     disparo = (bomba.getY() - bomba.DESLOCAMENTO);
                     bomba.setY(disparo);
-                    colisao->colisao(&bomba);
-                    player->getRaios()->replace(x,bomba);
                     break;
                 case Qt::Key_Down:
                 case Qt::Key_S:
                     bomba.deslocamento(_h_sz);
                     disparo = (bomba.getY() + bomba.DESLOCAMENTO);
                     bomba.setY(disparo);
-                    colisao->colisao(&bomba);
-                    player->getRaios()->replace(x,bomba);
                     break;
                 case Qt::Key_Left:
                 case Qt::Key_A:
                     bomba.deslocamento(_w_sz);
                     disparo = (bomba.getX() - bomba.DESLOCAMENTO);
                     bomba.setX(disparo);
-                    colisao->colisao(&bomba);
-                    player->getRaios()->replace(x,bomba);
                     break;
                 case Qt::Key_Right:
                 case Qt::Key_D:
                     bomba.deslocamento(_w_sz);
                     disparo = (bomba.getX() + bomba.DESLOCAMENTO);
                     bomba.setX(disparo);
-                    colisao->colisao(&bomba);
-                    player->getRaios()->replace(x,bomba);
                     break;
                 default:
                     bomba.deslocamento(_w_sz);
                     disparo = (bomba.getX() - bomba.DESLOCAMENTO);
                     bomba.setX(disparo);
-                    colisao->colisao(&bomba);
-                    player->getRaios()->replace(x,bomba);
             }
+            colisao->colisao(&bomba);
+            colisao->colisao(player1,&bomba);
+            colisao->colisao(player2,&bomba);
+            player->getRaios()->replace(x,bomba);
        }
    }
 }
@@ -493,6 +496,9 @@ void TFrame::mover(){
         TProjetil projetil = player2->getTiros()->at(x);
         // verifica a colisao entre o player 1 e o projetil do player 2
         this->disparo(player1,&projetil);
+        colisao->colisao(player1->getBombas(),&projetil);
+        colisao->colisao(player1->getRaios(),&projetil);
+        player2->getTiros()->replace(x,projetil);
     }
     // verifico se o player 1 e um objeto bomba estão na mesma posicao
     colisao->colisao(player1,bomber,TTiro::BOMBA);
@@ -506,16 +512,23 @@ void TFrame::mover(){
         TProjetil projetil = player1->getTiros()->at(x);
         // verifica a colisao entre o player 2 e o projetil do player 1
         this->disparo(player2,&projetil);
+        colisao->colisao(player2->getBombas(),&projetil);
+        colisao->colisao(player2->getRaios(),&projetil);
+        player1->getTiros()->replace(x,projetil);
     }
     for(int x=0; x<TPlayer::TIROS; x++){
         TProjetil projetil1 = player1->getTiros()->at(x);
         TProjetil projetil2 = player2->getTiros()->at(x);
         //verifico a colisao entre os projeteis
         colisao->colisao(&projetil1,&projetil2);
+        player1->getTiros()->replace(x,projetil1);
+        player2->getTiros()->replace(x,projetil2);
     }
     // verifico se o player 1 e um objeto bomba estão na mesma posicao
     colisao->colisao(player2,bomber,TTiro::BOMBA);
     colisao->colisao(player2,raio,TTiro::RAIO);
+    colisao->colisao(player1->getBombas(),player2->getBombas());
+    colisao->colisao(player1->getRaios(),player2->getRaios());
 }
 
 /**
@@ -532,9 +545,9 @@ void TFrame::municao(TPlayer *player, QPainter *painter){
     int graus = 72;
     for(int x=0; x< TPlayer::TIROS; x++){
        TProjetil projetil = player->getTiros()->at(x);
-       if(projetil.isAtivo()){
-           painter->setBrush(player->getBorda());
-           painter->setPen(player->getBorda());
+       if(projetil.isDisparou()){
+           painter->setBrush(player->getFundo());
+           painter->setPen(player->getFundo());
        } else {
            painter->setBrush(player->getBorda());
            painter->setPen(player->getBorda());

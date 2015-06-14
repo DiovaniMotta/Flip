@@ -306,6 +306,8 @@ void TColisao::colisao(TPlayer *player, TTiro* bomba,const int tipo){
  * @param bomba
  */
 void TColisao::colisao(TTiro *bomba){
+    if(!bomba->isAtivo())
+        return;
     TPonto ponto = this->nivel(bomba);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
         bomba->reiniciar();
@@ -340,6 +342,10 @@ void TColisao::colisao(TTiro *bomba){
  * @param projetil o projetil dispardo pelo player
  */
 void TColisao::colisao(TTiro *tiro1, TProjetil *projetil){
+    if(!tiro1->isAtivo())
+        return;
+    if(!projetil->isAtivo())
+        return;
     if(tiro1->getPosX() == projetil->getPosX()){
         if(tiro1->getPosY() == projetil->getPosY()){
             projetil->reiniciar();
@@ -347,12 +353,42 @@ void TColisao::colisao(TTiro *tiro1, TProjetil *projetil){
         }
     }
 }
+
+/**
+ * @brief TColisao::colisao método responsavel por verificar a colisao entre os tipos de tiros especiais
+ * @param tiros1 a lista de objetos tiros contidas pelo player 1
+ * @param tiros2 a lista de objetos tiros contidas pelo player 2
+ */
+void TColisao::colisao(QVector<TTiro> *tiros1, QVector<TTiro> *tiros2){
+    if(tiros1->isEmpty())
+        return;
+    if(tiros2->isEmpty())
+        return;
+    for(int x=0; x<tiros1->size(); x++){
+        TTiro tiro1 = tiros1->at(x);
+        if(tiro1.isAtivo()){
+            for(int y=0; y<tiros2->size();y++){
+                TTiro tiro2 = tiros2->at(y);
+                if(tiro2.isAtivo()){
+                    this->colisao(&tiro1,&tiro2);
+                    tiros2->replace(y,tiro2);
+                }
+             }
+             tiros1->replace(x,tiro1);
+        }
+    }
+}
+
 /**
  * @brief TColisao::colisao método responsavel por validar a colisao entre os tiros especiais dos players
  * @param tiro1 o tiro especial dispardo pelo player1
  * @param tiro2 o tiro especial dispardo pelo player2
  */
 void TColisao::colisao(TTiro *tiro1, TTiro *tiro2){
+    if(!tiro1->isAtivo())
+        return;
+    if(!tiro2->isAtivo())
+        return;
     if(tiro1->getPosX() == tiro2->getPosX()){
         if(tiro1->getPosY() == tiro2->getPosY()){
             tiro1->reiniciar();
@@ -371,7 +407,16 @@ void TColisao::colisao(TPlayer *player, TTiro *tiro){
     if(player->getPosX() == tiro->getPosX()){
         if(player->getPosY() == tiro->getPosY()){
             tabuleiro->zerar(player);
+            tiro->reiniciar();
         }
+    }
+}
+
+void TColisao::colisao(QVector<TTiro> *tiros, TProjetil *projetil){
+    for(int x=0; x<tiros->size(); x++){
+        TTiro tiro = tiros->at(x);
+        this->colisao(&tiro,projetil);
+        tiros->replace(x,tiro);
     }
 }
 

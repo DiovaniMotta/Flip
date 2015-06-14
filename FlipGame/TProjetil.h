@@ -18,6 +18,7 @@ class TProjetil {
     int altura;
     int ultimaPosicao;
     bool ativo;
+    bool disparou;
     QColor corFundo;
     QColor borda;
 
@@ -64,7 +65,11 @@ public:
 
     void setAtivo(bool ativo);
 
+    void setDisparou(bool disparou);
+
     bool isAtivo();
+
+    bool isDisparou();
 
     void setCorFundo(QColor fundo);
 

@@ -15,6 +15,7 @@ class TUtils {
 public:
 
     static const int DIMENSAO = 20;
+    static const int MEDIA_DIMENSAO = (DIMENSAO/2);
     static const float CINCO_POR_CENTO = 0.05;
 
     TUtils ();

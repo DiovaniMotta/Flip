@@ -7,7 +7,7 @@ TProjetil::TProjetil(){
     this->altura =0;
     this->x =0;
     this->y =0;
-    this->count = 5;
+    this->count = SALTOS;
     this->ultimaPosicao = 0;
     this->ativo = false;
     this->disparou = false;
@@ -21,7 +21,7 @@ TProjetil::TProjetil(int x, int y, int posX, int posY, int largura, int altura){
     this->altura = altura;
     this->x = x;
     this->y = y;
-    this->count = 5;
+    this->count = SALTOS;
     this->ultimaPosicao = 0;
     this->ativo = false;
     this->disparou = false;
@@ -39,7 +39,7 @@ void TProjetil::reiniciar(){
     this->altura =0;
     this->x =0;
     this->y =0;
-    this->count = 5;
+    this->count = SALTOS;
     this->ultimaPosicao = 0;
     this->ativo = false;
 }

@@ -30,8 +30,8 @@ class TTiro {
     QColor corBordaJogador;
 
     //variaveis usadas para o controle do deslocamento
-    static const int SALTO = 5;
-    static const float PERCENTUAL = 0.20;
+    static const int SALTO = 2;
+    static const float PERCENTUAL = 0.5;
 
 public:
 

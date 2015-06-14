@@ -14,7 +14,7 @@
 #include <TUtils.h>
 
 #define TIMEOUT 200
-#define TIME_OUT 800
+#define TIME_OUT 700
 /**
  * Author : Diovani Bernardi da Motta
  * @brief The TTabuleiro class classe responsável por montar as informações que serão exibidas para o usuario em forma de
@@ -31,6 +31,10 @@ class TTabuleiro {
    TNivel5* nivel5;
    int contadorX;
    int contadorY;
+
+   int INDEX;
+   static const int MAX_INDEX = 3;
+
 public:
 
     TTabuleiro();

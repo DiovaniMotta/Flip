@@ -7,7 +7,7 @@ TTiro::TTiro(){
     this->posY = 0;
     this->direcao = 0;
     this->tipo = 0;
-    this->count = 5;
+    this->count = SALTO;
     this->largura = 0;
     this->altura = 0;
     this->nivel = 0;
@@ -26,7 +26,7 @@ TTiro::TTiro(int x, int y, int posX, int posY, bool visivel){
     this->ativo = false;
     this->direcao = 0;
     this->tipo = 0;
-    this->count = 5;
+    this->count = SALTO;
     this->largura = 0;
     this->altura = 0;
     this->nivel = 0;
@@ -200,6 +200,9 @@ void TTiro::deslocamento(int dimen){
     count++;
 }
 
+/**
+ * @brief TTiro::reiniciar metodo responsavel por setar que o tiro ja foi usado
+ */
 void TTiro::reiniciar(){
     this->colidiu = true;
     this->ativo = false;

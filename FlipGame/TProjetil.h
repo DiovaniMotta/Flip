@@ -23,8 +23,8 @@ class TProjetil {
     QColor borda;
 
     //variaveis usadas para o controle do deslocamento
-    static const int SALTOS = 5;
-    static const float PERCENTUAL_DESLOCAMENTO = 0.20;
+    static const int SALTOS = 2;
+    static const float PERCENTUAL_DESLOCAMENTO = 0.5;
 
 public:
     int DESLOCAMENTO;

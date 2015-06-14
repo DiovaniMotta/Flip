@@ -75,10 +75,12 @@ bool TUtils::existe(TTiro *tiro, TPonto ponto){
     {
          if(ponto.getX() == tiro->getPosX()){
             if(ponto.getY() == tiro->getPosY()){
+                qDebug()<<"Existe -> true";
                 return true;
            }
         }
     }
+    qDebug()<<"Existe -> false";
     return false;
 }
 

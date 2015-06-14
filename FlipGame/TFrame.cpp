@@ -12,7 +12,7 @@ TFrame::TFrame () {
     setMouseTracking(true);
     setFocus();
     tabuleiro = new TTabuleiro;
-    tabuleiro->posicionar(TPlayer::NIVEL1);
+    tabuleiro->posicionar(TPlayer::NIVEL3);
     player1 = tabuleiro->getPlayer1();
     player2 = tabuleiro->getPlayer2();
     colisao = new TColisao;
@@ -524,11 +524,14 @@ void TFrame::mover(){
         player1->getTiros()->replace(x,projetil1);
         player2->getTiros()->replace(x,projetil2);
     }
-    // verifico se o player 1 e um objeto bomba estão na mesma posicao
+    //verifico se o player 2 pegou algum tiro especial
     colisao->colisao(player2,bomber,TTiro::BOMBA);
     colisao->colisao(player2,raio,TTiro::RAIO);
+    // verifico se houve colisao entre os tiros especiais disparados pelos players
     colisao->colisao(player1->getBombas(),player2->getBombas());
     colisao->colisao(player1->getRaios(),player2->getRaios());
+    colisao->colisao(player1->getBombas(),player2->getRaios());
+    colisao->colisao(player1->getRaios(),player2->getBombas());
 }
 
 /**

@@ -16,6 +16,8 @@ INPUT(
 ./release\TUtils.o
 ./release\TTiro.o
 ./release\TControle.o
+./release\TMenu.o
+./release\TPainel.o
 ./release\qrc_res.o
 ./release\moc_TFrame.o
 ./release\moc_TColor.o

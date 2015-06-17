@@ -25,14 +25,19 @@ class TFrame : public QFrame {
 
     int _h_sz;
     int _w_sz;
+    int _w_frame;
+    int _h_frame;
+    bool iniciou;// controla se o usuario iniciou o gameplayer ou nao
 
     TColisao* colisao;
     TTabuleiro* tabuleiro;
+    TPainel* panel;
     TMedia* media;
     TPlayer* player1;
     TPlayer* player2;
     TTiro* bomber = NULL;
     TTiro* raio = NULL;
+
 public:
 
     TFrame ();
@@ -42,6 +47,8 @@ public:
     void paintEvent(QPaintEvent* event);
 
     void keyPressEvent(QKeyEvent* event);
+
+    void mouseDoubleClickEvent(QMouseEvent *event);
 
 private:
 

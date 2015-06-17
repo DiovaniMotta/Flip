@@ -17,7 +17,9 @@ SOURCES += \
     TMedia.cpp \
     TUtils.cpp \
     TTiro.cpp \
-    TControle.cpp
+    TControle.cpp \
+    TMenu.cpp \
+    TPainel.cpp
 
 HEADERS += \
     TTabuleiro.h\
@@ -36,7 +38,9 @@ HEADERS += \
     TMedia.h \
     TUtils.h \
     TTiro.h \
-    TControle.h
+    TControle.h \
+    TMenu.h \
+    TPainel.h
 
 DISTFILES +=
 

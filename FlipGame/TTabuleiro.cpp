@@ -8,6 +8,7 @@ TTabuleiro::TTabuleiro(){
     this->nivel3 = new TNivel3();
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
+    this->menus = new QVector<TMenu>();
     this->contadorX = 0;
     this->contadorY = 0;
     this->INDEX = 0;
@@ -21,6 +22,7 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->nivel3 = new TNivel3();
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
+    this->menus = new QVector<TMenu>();
     this->contadorX = 0;
     this->contadorY = 0;
     this->INDEX = 0;
@@ -34,6 +36,7 @@ TTabuleiro::~TTabuleiro(){
     delete nivel3;
     delete nivel4;
     delete nivel5;
+    delete menus;
 }
 
 void TTabuleiro::setPlayer1(TPlayer* player1){
@@ -90,6 +93,14 @@ void TTabuleiro::setNivel5(TNivel5 *nivel){
 
 TNivel5* TTabuleiro::getNivel5(){
     return this->nivel5;
+}
+
+QVector<TMenu>* TTabuleiro::getMenus(){
+    return this->menus;
+}
+
+void TTabuleiro::setMenus(QVector<TMenu>* m){
+    this->menus = m;
 }
 
 /**
@@ -393,4 +404,80 @@ TTiro* TTabuleiro::raio(TTiro* tiro){
         }
     }
     return b;
+}
+
+/**
+ * @brief TTabuleiro::menu método responsavel por retornar uma lista de objetos TMenu que serão pintados na tela
+ * @param w a largura da tela
+ * @param h a altura da tela
+ * @return um objeto do tipo QVector contendo menus do tipo TMenu
+ */
+QVector<TMenu>* TTabuleiro::menu(int w, int h){
+    menus->clear();
+    TMenu menu1;
+    TMenu menu2;
+    TMenu menu3;
+    TMenu menu4;
+    TMenu menu5;
+    QFont font;
+    font.setBold(true);
+    font.setPointSize(20);
+    menu1.setFont(font);
+    menu1.setCor(Qt::black);
+    menu1.setNome(QString(MAPA01));
+    menu1.setX(TUtils::dimensao(w,2,50));
+    menu1.setY(TUtils::dimensao(panel,1,TUtils::VINTE_POR_CENTO));
+    menu1.setH(0);
+    menu1.setW(0);
+    menu2.setFont(font);
+    menu2.setCor(Qt::black);
+    menu2.setNome(QString(MAPA02));
+    menu2.setX(TUtils::dimensao(w,2,50));
+    menu2.setY(TUtils::dimensao(panel,2,TUtils::VINTE_POR_CENTO));
+    menu2.setH(0);
+    menu2.setW(0);
+    menu3.setFont(font);
+    menu3.setCor(Qt::black);
+    menu3.setNome(QString(MAPA03));
+    menu3.setX(TUtils::dimensao(w,2,50));
+    menu3.setY(TUtils::dimensao(panel,3,TUtils::VINTE_POR_CENTO));
+    menu3.setH(0);
+    menu3.setW(0);
+    menu4.setFont(font);
+    menu4.setCor(Qt::black);
+    menu4.setNome(QString(MAPA04));
+    menu4.setX(TUtils::dimensao(w,2,50));
+    menu4.setY(TUtils::dimensao(panel,4,TUtils::VINTE_POR_CENTO));
+    menu4.setH(0);
+    menu4.setW(0);
+    menu5.setFont(font);
+    menu5.setCor(Qt::black);
+    menu5.setNome(QString(MAPA05));
+    menu5.setX(TUtils::dimensao(w,2,50));
+    menu5.setY(TUtils::dimensao(panel,5,TUtils::VINTE_POR_CENTO));
+    menu5.setH(0);
+    menu5.setW(0);
+    menus->append(menu1);
+    menus->append(menu2);
+    menus->append(menu3);
+    menus->append(menu4);
+    menus->append(menu5);
+    return menus;
+}
+
+/**
+ * @brief TTabuleiro::painel método responsável por retornar um painel que será pintado na tela para a exibição
+ * dos menus
+ * @param w a largura da tela
+ * @param h a altura da tela
+ * @return um ponteiro para um objeto TPainel
+ */
+TPainel* TTabuleiro::painel(int w, int h){
+    panel = new TPainel;
+    panel->setX(0);
+    panel->setY((h/2));
+    panel->setH(h);
+    panel->setW(w);
+    panel->setCor(Qt::white);
+    return panel;
 }

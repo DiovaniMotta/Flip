@@ -16,6 +16,8 @@ INPUT(
 ./debug\TUtils.o
 ./debug\TTiro.o
 ./debug\TControle.o
+./debug\TMenu.o
+./debug\TPainel.o
 ./debug\qrc_res.o
 ./debug\moc_TFrame.o
 ./debug\moc_TColor.o

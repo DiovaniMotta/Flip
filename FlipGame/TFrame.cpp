@@ -11,8 +11,10 @@ TFrame::TFrame () {
     setLineWidth(4);
     setMouseTracking(true);
     setFocus();
+    _w_frame = 0;
+    _h_frame = 0;
     tabuleiro = new TTabuleiro;
-    tabuleiro->posicionar(TPlayer::NIVEL3);
+    tabuleiro->posicionar(TPlayer::NIVEL1);
     player1 = tabuleiro->getPlayer1();
     player2 = tabuleiro->getPlayer2();
     colisao = new TColisao;
@@ -20,6 +22,9 @@ TFrame::TFrame () {
     colisao->setTabuleiro(tabuleiro);
     colisao->setMedia(media);
     media->iniciar(TMedia::ABERTURA);
+    iniciou = false;
+    _w_frame = this->width();
+    _h_frame = TUtils::dimensao(width(),TUtils::CINQUENTA_POR_CENTO);
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }
 
@@ -33,10 +38,16 @@ void TFrame::resizeEvent(QResizeEvent* event){
     colisao->setAltura(this->height());
     _h_sz = TUtils::dimensao(height(),TUtils::CINCO_POR_CENTO);
     _w_sz = TUtils::dimensao(width(),TUtils::CINCO_POR_CENTO);
+    _w_frame = this->width();
+    _h_frame = TUtils::dimensao(height(),TUtils::CINQUENTA_POR_CENTO);
     TUtils::recalcular(player1,_w_sz,_h_sz);
     redimensionar(player1);
     TUtils::recalcular(player2,_w_sz,_h_sz);
     redimensionar(player2);
+    if(iniciou)
+        return;
+    panel = tabuleiro->painel(_w_frame,_h_frame);
+    tabuleiro->menu(_w_frame,_h_frame);
 }
 
 /**
@@ -76,7 +87,20 @@ void TFrame::paintEvent(QPaintEvent* event){
     //verifico se existem armas para serem desenhadas no tabuleiro
     this->armas(&painter);
     this->disparo(&painter);
- }
+    if(iniciou)
+       return;
+    painter.setBrush(panel->getCor());
+    painter.setPen(panel->getCor());
+    //desenho o painel inicial
+    painter.drawRect(panel->getX(),panel->getY(),panel->getW(),panel->getH());
+    for(int x = 0; x < tabuleiro->getMenus()->size(); x++){
+        TMenu m = tabuleiro->getMenus()->at(x);
+        painter.setBrush(m.getCor());
+        painter.setPen(m.getCor());
+        painter.setFont(m.getFont());
+        painter.drawText(m.getX(),m.getY(),m.getNome());
+    }
+}
 
 /**
  * @brief TFrame::keyPressEvent evento acionado ao pressionar uma tecla do teclado
@@ -84,6 +108,8 @@ void TFrame::paintEvent(QPaintEvent* event){
  */
 void TFrame::keyPressEvent(QKeyEvent* event){
   QFrame::keyPressEvent(event);
+  if(!iniciou)
+    return;
   int acima =0;
   int abaixo = 0;
   int esquerda = 0;
@@ -183,6 +209,15 @@ void TFrame::keyPressEvent(QKeyEvent* event){
     }
 }
 
+void TFrame::mouseDoubleClickEvent(QMouseEvent *event){
+    QFrame::mouseDoubleClickEvent(event);
+    QRect r = geometry();
+    qDebug()<<"Y->";
+    qDebug()<<r.y();
+    qDebug()<<"X->";
+    qDebug()<<r.x();
+}
+
 /**
  * @brief TFrame::iniciar slot tratador do evento de pintura de tela
  */
@@ -262,6 +297,8 @@ void TFrame::redimensionar(TPlayer *player){
  * @param painter o objeto responsavel pela pintura em tela
  */
 void TFrame::armas(QPainter *painter){
+    if(!iniciou)
+      return;
     TTiro* b = tabuleiro->bomba(raio);
     if(b != NULL)
       bomber = b;

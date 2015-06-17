@@ -8,6 +8,7 @@
 #include <TTiro.h>
 #include <TPonto.h>
 #include <QVector>
+#include <TPainel.h>
 #include <QDebug>
 
 class TUtils {
@@ -17,12 +18,19 @@ public:
     static const int DIMENSAO = 20;
     static const int MEDIA_DIMENSAO = (DIMENSAO/2);
     static const float CINCO_POR_CENTO = 0.05;
+    static const float OITO_POR_CENTO = 0.08;
+    static const float CINQUENTA_POR_CENTO = 0.5;
+    static const float VINTE_POR_CENTO = 0.20;
 
     TUtils ();
 
     static int randomize(const int range);
 
     static int dimensao(int medida,const float percentual);
+
+    static int  dimensao(int medida,int divisor,int decremento);
+
+    static int  dimensao(TPainel* painel,int index,const float percentual);
 
     static void recalcular(TPlayer* player,const int widht,const int height);
 

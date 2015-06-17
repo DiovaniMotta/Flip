@@ -75,12 +75,31 @@ bool TUtils::existe(TTiro *tiro, TPonto ponto){
     {
          if(ponto.getX() == tiro->getPosX()){
             if(ponto.getY() == tiro->getPosY()){
-                qDebug()<<"Existe -> true";
                 return true;
            }
         }
     }
-    qDebug()<<"Existe -> false";
     return false;
 }
 
+/**
+ * @brief TUtils::dimensao método responsavel por efetuar o calculo do posicionamento de um objeto na tela
+ * @param medida a medida padrao
+ * @param divisor o fator da divisao
+ * @param decremento o decremento para correção da coordenada
+ * @return um valor inteiro representando a posicao
+ */
+int TUtils::dimensao(int medida, int divisor, int decremento){
+    return (int)((medida/divisor) - decremento);
+}
+
+/**
+ * @brief TUtils::dimensao  método responsavel por calcular o posicionamento do menu em relação ao painel
+ * @param painel o objeto painel em que será pintado os menus
+ * @param index o indice do menu
+ * @param percentual o percentual em relação ao tamanho do menu
+ * @return a nova coordenada para o eixo y
+ */
+int TUtils::dimensao(TPainel *painel, int index, const float percentual){
+    return (int) (painel->getY() + (painel->getY() * (index * percentual)));
+}

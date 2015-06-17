@@ -12,9 +12,13 @@
 #include <TUtils.h>
 #include <TColor.h>
 #include <TUtils.h>
+#include <TMenu.h>
+#include <TPainel.h>
+#include <QVector>
 
 #define TIMEOUT 200
 #define TIME_OUT 700
+
 /**
  * Author : Diovani Bernardi da Motta
  * @brief The TTabuleiro class classe responsável por montar as informações que serão exibidas para o usuario em forma de
@@ -29,6 +33,9 @@ class TTabuleiro {
    TNivel3* nivel3;
    TNivel4* nivel4;
    TNivel5* nivel5;
+   TPainel* panel;
+   QVector<TMenu>* menus;
+
    int contadorX;
    int contadorY;
 
@@ -51,8 +58,6 @@ public:
 
     TPlayer* getPlayer2();
 
-    TPonto nivel(int x,int y);
-
     TNivel1* getNivel1();
 
     void setNivel1(TNivel1* nivel);
@@ -73,6 +78,12 @@ public:
 
     TNivel5* getNivel5();
 
+    QVector<TMenu>* getMenus();
+
+    void setMenus(QVector<TMenu>* m);
+
+    // métodos que implementam a regra de negocio da classe
+
     void reposicionar(TPlayer* player1);
 
     void posicionar(const int nivel);
@@ -82,6 +93,12 @@ public:
     TTiro* bomba(TTiro* tiro);
 
     TTiro* raio(TTiro* tiro);
+
+    TPonto nivel(int x,int y);
+
+    QVector<TMenu>* menu(int w, int h);
+
+    TPainel* painel(int w, int h);
 
 private:
 

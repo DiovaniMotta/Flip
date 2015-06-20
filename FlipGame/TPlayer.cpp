@@ -133,6 +133,43 @@ QVector<TTiro>* TPlayer::getRaios(){
 }
 
 /**
+ * @brief TPlayer::isEmptyBombas método responsavel por verificar se a lista de bombas ja foi toda disparada
+ * @return verdadeiro se todos os disparos foram feitos e falso caso ainda existam disparos
+ */
+bool TPlayer::isEmptyBombas(){
+    if(indexBombas < 0)
+        return true;
+    int index = (bombas->size() - 1);
+    if(indexBombas > index)
+        return true;
+    return false;
+}
+
+/**
+ * @brief TPlayer::isEmptyRaios método responsavel por verificar se a lista de raios ja foi toda disparada
+ * @return verdadeiro se todos os disparos foram feitos e falso caso ainda existam disparos
+ */
+bool TPlayer::isEmptyRaios(){
+    if(indexRaios < 0)
+        return true;
+    int index = (raios->size() - 1);
+    if(indexRaios >= index)
+        return true;
+    return false;
+}
+
+/**
+ * @brief TPlayer::isEmptyTiros método responsavel por verificar se a lista de tiros ja foi toda disparada
+ * @return verdadeiro se todos os disparos foram feitos e falso caso ainda existam disparos
+ */
+bool TPlayer::isEmptyTiros(){
+    int index = (tiros->size() - 1);
+    if(i >= index)
+        return true;
+    return false;
+}
+
+/**
  * @brief TPlayer::disparo responsavel por configurar os valores usados para o objeto projetil
  */
 void TPlayer::disparo(){

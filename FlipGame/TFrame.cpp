@@ -11,6 +11,7 @@ TFrame::TFrame () {
     setLineWidth(4);
     setMouseTracking(true);
     setFocus();
+    rotacao = 0;
     _w_frame = 0;
     _h_frame = 0;
     tabuleiro = new TTabuleiro;
@@ -100,7 +101,6 @@ void TFrame::paintEvent(QPaintEvent* event){
         painter.setPen(m.getCor());
         painter.setFont(m.getFont());
         painter.drawText(m.getX(),m.getY(),m.getNome());
-        painter.drawLine(QLine(m.getX(),m.getY(),m.getW(),m.getY()));
     }
 }
 
@@ -155,12 +155,18 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao();
         break;
      case Qt::Key_End:
+        if(!player2->isEmptyTiros())
+            media->iniciar(TMedia::TIRO);
         player2->disparo();
         break;
      case Qt::Key_PageDown:
+        if(!player2->isEmptyBombas())
+            media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_PageUp:
+        if(!player2->isEmptyRaios())
+            media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::RAIO);
         break;
      //comandos de movimentação do player1
@@ -200,12 +206,18 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao();
         break;
      case Qt::Key_E:
+        if(!player1->isEmptyTiros())
+            media->iniciar(TMedia::TIRO);
         player1->disparo();
         break;
      case Qt::Key_Q:
+        if(!player1->isEmptyBombas())
+            media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_Z:
+        if(!player1->isEmptyRaios())
+            media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::RAIO);
         break;
     }
@@ -219,11 +231,13 @@ void TFrame::mousePressEvent(QMouseEvent *event){
     for(int x=0; x<tabuleiro->getMenus()->size(); x++){
         TMenu m = tabuleiro->getMenus()->at(x);
         if(m.click(r)){
-            qDebug()<<"Nivel->";
-            qDebug()<<m.getNivel();
             tabuleiro->posicionar(m.getNivel());
             player1 = tabuleiro->getPlayer1();
             player2 = tabuleiro->getPlayer2();
+            TUtils::recalcular(player1,_w_sz,_h_sz);
+            redimensionar(player1);
+            TUtils::recalcular(player2,_w_sz,_h_sz);
+            redimensionar(player2);
             iniciou = true;
             return;
         }
@@ -237,6 +251,7 @@ void TFrame::iniciar(){
     this->mover();
     this->disparo(player1);
     this->disparo(player2);
+    media->sound();
     this->repaint();
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }
@@ -545,6 +560,8 @@ void TFrame::mover(){
         TProjetil projetil = player2->getTiros()->at(x);
         // verifica a colisao entre o player 1 e o projetil do player 2
         this->disparo(player1,&projetil);
+        colisao->colisao(&projetil,bomber,true);
+        colisao->colisao(&projetil,raio,true);
         colisao->colisao(player1->getBombas(),&projetil);
         colisao->colisao(player1->getRaios(),&projetil);
         player2->getTiros()->replace(x,projetil);
@@ -561,6 +578,8 @@ void TFrame::mover(){
         TProjetil projetil = player1->getTiros()->at(x);
         // verifica a colisao entre o player 2 e o projetil do player 1
         this->disparo(player2,&projetil);
+        colisao->colisao(&projetil,bomber,true);
+        colisao->colisao(&projetil,raio,true);
         colisao->colisao(player2->getBombas(),&projetil);
         colisao->colisao(player2->getRaios(),&projetil);
         player1->getTiros()->replace(x,projetil);
@@ -581,6 +600,10 @@ void TFrame::mover(){
     colisao->colisao(player1->getRaios(),player2->getRaios());
     colisao->colisao(player1->getBombas(),player2->getRaios());
     colisao->colisao(player1->getRaios(),player2->getBombas());
+    colisao->colisao(player1->getBombas(),bomber);
+    colisao->colisao(player1->getBombas(),raio);
+    colisao->colisao(player2->getBombas(),bomber);
+    colisao->colisao(player2->getBombas(),raio);
 }
 
 /**
@@ -596,20 +619,23 @@ void TFrame::municao(TPlayer *player, QPainter *painter){
     double ry = 0;
     int graus = 72;
     for(int x=0; x< TPlayer::TIROS; x++){
-       TProjetil projetil = player->getTiros()->at(x);
-       if(projetil.isDisparou()){
-           painter->setBrush(player->getFundo());
-           painter->setPen(player->getFundo());
-       } else {
-           painter->setBrush(player->getBorda());
-           painter->setPen(player->getBorda());
-       }
-       raio = (_h_sz / 3.5);
-       radiano = (graus * (M_PI/180));
-       rx = ((cos(radiano) * raio) + player->getX() + (player->getLargura()/2.5));
-       ry = ((sin(radiano) * raio) + player->getY() + (player->getAltura()/2.5));
-       painter->drawEllipse(rx,ry,(player->getLargura()* 0.2),(player->getAltura() * 0.1));
-       graus += 72;
-       graus %= 370;
-    }
+        TProjetil projetil = player->getTiros()->at(x);
+        if(projetil.isDisparou()){
+            painter->setBrush(player->getFundo());
+            painter->setPen(player->getFundo());
+        } else {
+            painter->setBrush(player->getBorda());
+            painter->setPen(player->getBorda());
+        }
+        raio = (_h_sz / 3.5);
+        radiano = (graus * (M_PI/180));
+        rx = ((cos(radiano) * raio) + player->getX() + (player->getLargura()/2.5));
+        ry = ((sin(radiano) * raio) + player->getY() + (player->getAltura()/2.5));
+        rotacao++;
+        if(rotacao > MAX)
+            rotacao = 0;
+        painter->drawEllipse(rx,ry,(player->getLargura()* 0.2),(player->getAltura() * 0.1));
+        graus += 72;
+        graus %= 370;
+     }
 }

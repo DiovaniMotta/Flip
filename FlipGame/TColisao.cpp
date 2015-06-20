@@ -57,36 +57,29 @@ void TColisao::colisao(TProjetil* projetil){
     if(ponto.getCorFundo().operator ==(Qt::gray)){
         media->parar();
         projetil->reiniciar();
-        media->iniciar(TMedia::ABERTURA);
         return;
     }
     if(ponto.getCorFundo().operator ==(projetil->getCorFundo())){
-        media->parar();
-        media->iniciar(TMedia::TIRO);
         this->repintar(projetil,ponto);
         return;
     }
     if(projetil->getPosX() < 0){
         media->parar();
-        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosY() < 0){
         media->parar();
-        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosX() == TUtils::DIMENSAO){
         media->parar();
-        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
     if(projetil->getPosY() == TUtils::DIMENSAO){
         media->parar();
-        media->iniciar(TMedia::ABERTURA);
         projetil->reiniciar();
         return;
     }
@@ -220,9 +213,8 @@ bool TColisao::colisao(TPlayer* player,TProjetil* projetil){
     if(player->getPosX() == projetil->getPosX()){
         if(player->getPosY() == projetil->getPosY()){
             media->parar();
-            media->iniciar(TMedia::EXPLOSAO);
+            media->iniciar(TMedia::COLISAO);
             projetil->reiniciar();
-            media->parar();
             return true;
         }
     }
@@ -264,7 +256,7 @@ void TColisao::colisao(TProjetil *projetil1, TProjetil *projetil2){
     //se houver colisao entre os projeteis
     if(projetil1->getPosX() == projetil2->getPosX()){
         if(projetil1->getPosY() == projetil2->getPosY()){
-            media->parar();
+            media->iniciar(TMedia::EXPLOSAO);
             projetil1->reiniciar();
             projetil2->reiniciar();
         }
@@ -286,6 +278,7 @@ void TColisao::colisao(TPlayer *player, TTiro* bomba,const int tipo){
     }
     if(player->getPosX() == bomba->getPosX()){
         if(player->getPosY() == bomba->getPosY()){
+            media->iniciar(TMedia::TIRO_ESPECIAL);
             switch(tipo){
                 case TTiro::RAIO:
                     player->addRaio(bomba);
@@ -310,6 +303,7 @@ void TColisao::colisao(TTiro *bomba){
         return;
     TPonto ponto = this->nivel(bomba);
     if(ponto.getCorFundo().operator ==(Qt::gray)){
+        media->parar();
         bomba->reiniciar();
         return;
     }
@@ -342,12 +336,15 @@ void TColisao::colisao(TTiro *bomba){
  * @param projetil o projetil dispardo pelo player
  */
 void TColisao::colisao(TTiro *tiro1, TProjetil *projetil){
+    if(tiro1 == NULL)
+        return;
     if(!tiro1->isAtivo())
         return;
     if(!projetil->isAtivo())
         return;
     if(tiro1->getPosX() == projetil->getPosX()){
         if(tiro1->getPosY() == projetil->getPosY()){
+            media->iniciar(TMedia::EXPLOSAO);
             projetil->reiniciar();
             tiro1->reiniciar();
         }
@@ -411,12 +408,78 @@ void TColisao::colisao(TPlayer *player, TTiro *tiro){
         }
     }
 }
-
+/**
+ * @brief TColisao::colisao método responsavel por verificar a colisao entre um projetil e um tiro especial
+ * @param tiros uma lista de disparos especiais
+ * @param projetil o objeto projetil a ser avaliado
+ */
 void TColisao::colisao(QVector<TTiro> *tiros, TProjetil *projetil){
     for(int x=0; x<tiros->size(); x++){
         TTiro tiro = tiros->at(x);
         this->colisao(&tiro,projetil);
         tiros->replace(x,tiro);
+    }
+}
+
+/**
+ * @brief TColisao::colisao método responsavel por verificar a colisao entre o projetil um tiro especial
+ * ainda nao capturado pelo player
+ * @param projetil o projetil disparado pelo player
+ * @param bomba o tiro especial pintado no tabuleiro
+ * @param isNull verifica se a bomba é nula ou nao
+ */
+void TColisao::colisao(TProjetil *projetil, TTiro *bomba, bool isNull){
+   if(isNull)
+     if(bomba == NULL)
+        return;
+   if(!projetil->isAtivo())
+      return;
+   if(projetil->getPosX() == bomba->getPosX()){
+       if(projetil->getPosY() == bomba->getPosY()){
+           media->iniciar(TMedia::EXPLOSAO);
+           bomba->setVisivel(false);
+           projetil->reiniciar();
+       }
+   }
+}
+
+/**
+ * @brief TColisao::colisao método responsavel por verificar se a colisao entre o projetil e um tiro especial
+ * ainda nao capturado pelo usuario
+ * @param tiro o tiro especial disparado pelo player
+ * @param bomba o tiro especial pintado no tabuleiro
+ * @param isNull verifica se a bomba é nula ou nao
+ */
+void TColisao::colisao(TTiro *tiro, TTiro *bomba, bool isNull){
+    if(isNull)
+      if(bomba == NULL)
+         return;
+    if(!tiro->isAtivo())
+       return;
+    if(tiro->getPosX() == bomba->getPosX()){
+        if(tiro->getPosY() == tiro->getPosY()){
+            media->iniciar(TMedia::EXPLOSAO);
+            bomba->setVisivel(false);
+            tiro->reiniciar();
+        }
+    }
+}
+
+/**
+ * @brief TColisao::colisao método responsavel por verificar a colisao entre os tiros especiais disparados
+ * e um tiro que ainda nao foi capturado pelo player
+ * @param tiros uma lista de tiros especiais pertencentes a um player
+ * @param tiro o tiro pintado no tabuleiro
+ */
+void TColisao::colisao(QVector<TTiro> *tiros, TTiro *tiro){
+    if(tiro == NULL)
+      return;
+    for(int x=0; x<tiros->size(); x++){
+       TTiro t = tiros->at(x);
+       if(t.isAtivo()){
+           colisao(&t,tiro,true);
+           tiros->replace(x,t);
+       }
     }
 }
 

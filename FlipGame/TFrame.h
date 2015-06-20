@@ -29,6 +29,7 @@ class TFrame : public QFrame {
     int _w_sz;
     int _w_frame;
     int _h_frame;
+    int rotacao;
     bool iniciou;// controla se o usuario iniciou o gameplayer ou nao
 
     TColisao* colisao;
@@ -39,7 +40,7 @@ class TFrame : public QFrame {
     TPlayer* player2;
     TTiro* bomber = NULL;
     TTiro* raio = NULL;
-
+    static const int MAX = 5;
 public:
 
     TFrame ();

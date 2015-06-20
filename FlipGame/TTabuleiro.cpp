@@ -236,15 +236,8 @@ TTiro* TTabuleiro::bomba(TTiro* tiro){
     if(contadorX >= TIMEOUT){
         int x = 0;
         int y = 0;
-        if(INDEX < MAX_INDEX){
-           x = TUtils::randomize(TUtils::DIMENSAO);
-           y = TUtils::randomize(TUtils::DIMENSAO);
-           INDEX++;
-        }else {
-           x = TUtils::randomize(TUtils::MEDIA_DIMENSAO);
-           y = TUtils::randomize(TUtils::MEDIA_DIMENSAO);
-           INDEX = 0;
-        }
+        x = TUtils::randomize(TUtils::DIMENSAO);
+        y = TUtils::randomize(TUtils::DIMENSAO);
         bool retorno = false;
         b = new TTiro;
         TPonto ponto;

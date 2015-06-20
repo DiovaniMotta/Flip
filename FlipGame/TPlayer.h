@@ -109,6 +109,8 @@ public:
 
     QVector<TProjetil>* getTiros();
 
+    // métodos que implementam a regra de negocio
+
     void addBomba(TTiro* bomba);
 
     void addRaio(TTiro* bomba);
@@ -116,6 +118,12 @@ public:
     void  disparo();
 
     void disparo(const int valor);
+
+    bool isEmptyTiros();
+
+    bool isEmptyBombas();
+
+    bool isEmptyRaios();
 
 private:
 

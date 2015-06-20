@@ -35,6 +35,14 @@ public:
 
     int getAltura();
 
+    TTabuleiro* getTabuleiro();
+
+    void setTabuleiro(TTabuleiro* tabuleiro);
+
+    void setMedia(TMedia* midia);
+
+    TMedia* getMedia();
+
     void colisao(TPlayer* player);
 
     void colisao();
@@ -46,6 +54,10 @@ public:
     bool colisao(TPlayer* player,TProjetil* projetil);
 
     void colisao(TPlayer* player,TTiro* bomba,const int tipo);
+
+    void colisao(TProjetil* projetil,TTiro* bomba,bool isNull);
+
+    void colisao(TTiro* tiro,TTiro* bomba,bool isNull);
 
     void colisao(TTiro* bomba);
 
@@ -59,13 +71,7 @@ public:
 
     void colisao(QVector<TTiro>* tiros1,QVector<TTiro>* tiros2);
 
-    TTabuleiro* getTabuleiro();
-
-    void setTabuleiro(TTabuleiro* tabuleiro);
-
-    void setMedia(TMedia* midia);
-
-    TMedia* getMedia();
+    void colisao(QVector<TTiro>* tiros,TTiro* tiro);
 
 private:
 

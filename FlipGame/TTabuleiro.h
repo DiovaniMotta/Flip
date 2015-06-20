@@ -16,7 +16,6 @@
 #include <QFontMetrics>
 #include <TPainel.h>
 #include <QVector>
-#include <TRandomize.h>
 
 #define TIMEOUT 200
 #define TIME_OUT 700
@@ -36,15 +35,9 @@ class TTabuleiro {
    TNivel4* nivel4;
    TNivel5* nivel5;
    TPainel* panel;
-   TRandomize* randomize;
    QVector<TMenu>* menus;
-
-
    int contadorX;
    int contadorY;
-
-   int INDEX;
-   static const int MAX_INDEX = 3;
 
 public:
 
@@ -94,13 +87,13 @@ public:
 
     void zerar(TPlayer* player);
 
-    TTiro* bomba(TTiro* tiro);
+    TTiro* bomba(TTiro* tiro,int x=0,int y=0);
 
-    TTiro* raio(TTiro* tiro);
+    TTiro* raio(TTiro* tiro,int x=0,int y=0);
 
     TPonto nivel(int x,int y);
 
-    QVector<TMenu>* menu(int w, int h);
+    QVector<TMenu>* menu(int w);
 
     TPainel* painel(int w, int h);
 

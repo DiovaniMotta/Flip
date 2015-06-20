@@ -48,7 +48,7 @@ void TFrame::resizeEvent(QResizeEvent* event){
     if(iniciou)
         return;
     panel = tabuleiro->painel(_w_frame,_h_frame);
-    tabuleiro->menu(_w_frame,_h_frame);
+    tabuleiro->menu(_w_frame);
 }
 
 /**

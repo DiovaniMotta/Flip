@@ -19,8 +19,7 @@ SOURCES += \
     TTiro.cpp \
     TControle.cpp \
     TMenu.cpp \
-    TPainel.cpp \
-    TRandomize.cpp
+    TPainel.cpp
 
 HEADERS += \
     TTabuleiro.h\
@@ -41,8 +40,7 @@ HEADERS += \
     TTiro.h \
     TControle.h \
     TMenu.h \
-    TPainel.h \
-    TRandomize.h
+    TPainel.h
 
 DISTFILES +=
 

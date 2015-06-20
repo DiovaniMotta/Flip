@@ -9,11 +9,8 @@ TTabuleiro::TTabuleiro(){
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
     this->menus = new QVector<TMenu>();
-    this->randomize = new TRandomize();
-    this->randomize->random(TUtils::DIMENSAO);
     this->contadorX = 0;
     this->contadorY = 0;
-    this->INDEX = 0;
 }
 
 TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
@@ -25,11 +22,8 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
     this->menus = new QVector<TMenu>();
-    this->randomize = new TRandomize();
-    this->randomize->random(TUtils::DIMENSAO);
     this->contadorX = 0;
     this->contadorY = 0;
-    this->INDEX = 0;
 }
 
 TTabuleiro::~TTabuleiro(){
@@ -234,16 +228,18 @@ void TTabuleiro::zerar(TPlayer *player){
  * @brief TTabuleiro::bomba retorna um objeto bomba que será pintado em algum lugar do tabuleiro
  * @return null caso não tenha sido possivel gerar o objeto bomba e diferente de nulo se foi possivel
  */
-TTiro* TTabuleiro::bomba(TTiro* tiro){
+TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
     contadorX++;
     if(contadorX >= TIMEOUT){
-        int x = TUtils::randomize(TUtils::DIMENSAO);
-        qDebug()<<"X->";
-        qDebug()<<x;
-        int y = TUtils::randomize(TUtils::DIMENSAO);
-        qDebug()<<"Y->";
-        qDebug()<<y;
+        if(x == 0)
+            x = TUtils::randomize(TUtils::DIMENSAO);
+        else
+            x++;
+        if(y == 0)
+            y = TUtils::randomize(TUtils::DIMENSAO);
+        else
+            y++;
         bool retorno = false;
         b = new TTiro;
         TPonto ponto;
@@ -255,7 +251,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro){
                    return bomba(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 contadorX = 0;
                 tiros(&ponto,b,TTiro::BOMBA);
                 return b;
@@ -266,21 +262,18 @@ TTiro* TTabuleiro::bomba(TTiro* tiro){
                    return bomba(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 contadorX = 0;
                 tiros(&ponto,b,TTiro::BOMBA);
                 return b;
             case TPlayer::NIVEL3:
                 ponto = nivel3->nivel(x,y);
-                qDebug()<<"Ponto->";
-                qDebug()<<ponto.getX();
-                qDebug()<<ponto.getY();
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
                    return bomba(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 contadorX = 0;
                 tiros(&ponto,b,TTiro::BOMBA);
                 return b;
@@ -291,7 +284,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro){
                    return bomba(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                    return bomba(tiro);
+                    return bomba(tiro,x,y);
                 contadorX = 0;
                 tiros(&ponto,b,TTiro::BOMBA);
                 return b;
@@ -302,7 +295,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro){
                    return bomba(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                    return bomba(tiro);
+                    return bomba(tiro,x,y);
                 contadorX = 0;
                 tiros(&ponto,b,TTiro::BOMBA);
                 return b;
@@ -338,12 +331,18 @@ void TTabuleiro::tiros(TPonto *ponto, TTiro *bomba,int tipo){
  * @brief TTabuleiro::bomba retorna um objeto tiro que será pintado em algum lugar do tabuleiro
  * @return null caso não tenha sido possivel gerar o objeto bomba e diferente de nulo se foi possivel
  */
-TTiro* TTabuleiro::raio(TTiro* tiro){
+TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
     contadorY++;
     if(contadorY >= TIME_OUT){
-        int x = TUtils::randomize(TUtils::DIMENSAO);
-        int y = TUtils::randomize(TUtils::DIMENSAO);
+        if(x == 0)
+            x = TUtils::randomize(TUtils::DIMENSAO);
+        else
+            x++;
+        if(y == 0)
+            y = TUtils::randomize(TUtils::DIMENSAO);
+        else
+            y++;
         bool retorno = false;
         b = new TTiro;
         TPonto ponto;
@@ -355,7 +354,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro){
                    return raio(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 contadorY = 0;
                 tiros(&ponto,b,TTiro::RAIO);
                 return b;
@@ -366,7 +365,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro){
                    return raio(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 contadorY = 0;
                 tiros(&ponto,b,TTiro::RAIO);
                 return b;
@@ -377,7 +376,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro){
                    return raio(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 contadorY = 0;
                 tiros(&ponto,b,TTiro::RAIO);
                 return b;
@@ -388,7 +387,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro){
                    return raio(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 contadorY = 0;
                 tiros(&ponto,b,TTiro::RAIO);
                 return b;
@@ -399,7 +398,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro){
                    return raio(tiro);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 contadorY = 0;
                 tiros(&ponto,b,TTiro::RAIO);
                 return b;
@@ -414,7 +413,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro){
  * @param h a altura da tela
  * @return um objeto do tipo QVector contendo menus do tipo TMenu
  */
-QVector<TMenu>* TTabuleiro::menu(int w, int h){
+QVector<TMenu>* TTabuleiro::menu(int w){
     menus->clear();
     TMenu menu1;
     TMenu menu2;

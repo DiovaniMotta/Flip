@@ -5,6 +5,7 @@
 #include <QVector>
 #include <TProjetil.h>
 #include <TProjetil.h>
+#include <QDebug>
 
 class TControle {
 
@@ -17,7 +18,6 @@ public:
     static void remove(QVector<TProjetil>* projeteis,const int index);
 
     static int posicionar(QVector<TTiro>* bombas,int index);
-
 };
 #endif // TCONTROLE
 

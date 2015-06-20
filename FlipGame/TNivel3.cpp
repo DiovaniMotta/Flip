@@ -50,6 +50,8 @@ void TNivel3::inicializar(){
             TPonto ponto;
             ponto.setCorBorda(Qt::white);
             ponto.setCorFundo(Qt::black);
+            ponto.setX(x);
+            ponto.setY(y);
             lista[x][y] = ponto;
         }
     }

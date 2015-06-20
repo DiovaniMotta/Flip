@@ -6,10 +6,8 @@
  * @return um valor inteiro representando o valor aleatorio gerado
  */
 int TUtils::randomize(const int range){
-    QTime time = QTime::currentTime();
-    qsrand((uint) time.msec());
-    int retorno = (qrand() % range);
-    return retorno;
+    srand( (unsigned)time(NULL));
+    return (rand() % range);
 }
 
 /**
@@ -106,3 +104,4 @@ int TUtils::dimensao(int medida, int divisor, int decremento){
 int TUtils::dimensao(TPainel *painel, int index, const float percentual){
     return (int) ((painel->getY() + (painel->getY() * 0.40)) + (painel->getY() * (index * percentual)));
 }
+

@@ -9,6 +9,8 @@ TTabuleiro::TTabuleiro(){
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
     this->menus = new QVector<TMenu>();
+    this->randomize = new TRandomize();
+    this->randomize->random(TUtils::DIMENSAO);
     this->contadorX = 0;
     this->contadorY = 0;
     this->INDEX = 0;
@@ -23,6 +25,8 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
     this->menus = new QVector<TMenu>();
+    this->randomize = new TRandomize();
+    this->randomize->random(TUtils::DIMENSAO);
     this->contadorX = 0;
     this->contadorY = 0;
     this->INDEX = 0;
@@ -234,10 +238,12 @@ TTiro* TTabuleiro::bomba(TTiro* tiro){
     TTiro* b = NULL;
     contadorX++;
     if(contadorX >= TIMEOUT){
-        int x = 0;
-        int y = 0;
-        x = TUtils::randomize(TUtils::DIMENSAO);
-        y = TUtils::randomize(TUtils::DIMENSAO);
+        int x = TUtils::randomize(TUtils::DIMENSAO);
+        qDebug()<<"X->";
+        qDebug()<<x;
+        int y = TUtils::randomize(TUtils::DIMENSAO);
+        qDebug()<<"Y->";
+        qDebug()<<y;
         bool retorno = false;
         b = new TTiro;
         TPonto ponto;
@@ -266,6 +272,9 @@ TTiro* TTabuleiro::bomba(TTiro* tiro){
                 return b;
             case TPlayer::NIVEL3:
                 ponto = nivel3->nivel(x,y);
+                qDebug()<<"Ponto->";
+                qDebug()<<ponto.getX();
+                qDebug()<<ponto.getY();
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
                    return bomba(tiro);

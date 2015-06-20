@@ -36,7 +36,6 @@ public:
 
     static int  dimensao(TPainel* painel,int index,const float percentual);
 
-    //const int height,
     static void recalcular(TPlayer* player,const int widht,const int height);
 
     static void recalcular(TProjetil* projetil,const int widht,const int height);
@@ -44,7 +43,6 @@ public:
     static void recalcular(TTiro* tiro,const int widht,const int height);
 
     static bool existe(TTiro* tiro,TPonto ponto);
-
 };
 
 

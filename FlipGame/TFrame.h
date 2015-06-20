@@ -12,6 +12,8 @@
 #include <QDebug>
 #include <TTiro.h>
 #include <math.h>
+#include <QPoint>
+#include <QLine>
 
 #ifndef TFRAME
 #define TFRAME
@@ -48,7 +50,7 @@ public:
 
     void keyPressEvent(QKeyEvent* event);
 
-    void mouseDoubleClickEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 private:
 

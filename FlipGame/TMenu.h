@@ -3,6 +3,8 @@
 #include <QString>
 #include <QFont>
 #include <QColor>
+#include <QPoint>
+#include <QDebug>
 
 #define MAPA01 "Mapa01"
 #define MAPA02 "Mapa02"
@@ -19,6 +21,7 @@ class TMenu {
     int y;
     int w;
     int h;
+    int nivel;
     QString nome;
     QFont fonte;
     QColor cor;
@@ -50,11 +53,18 @@ public:
 
     int getH();
 
+    int getNivel();
+
+    void setNivel(int nivel);
+
     QString getNome();
 
     QFont getFont();
 
     QColor getCor();
+
+    //verifica a regiao do click do mouse
+    bool click(QPoint r);
 };
 #endif // TMENU
 

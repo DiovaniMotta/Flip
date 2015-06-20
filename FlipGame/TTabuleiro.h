@@ -13,6 +13,7 @@
 #include <TColor.h>
 #include <TUtils.h>
 #include <TMenu.h>
+#include <QFontMetrics>
 #include <TPainel.h>
 #include <QVector>
 

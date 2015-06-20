@@ -21,6 +21,8 @@ public:
     static const float OITO_POR_CENTO = 0.08;
     static const float CINQUENTA_POR_CENTO = 0.5;
     static const float VINTE_POR_CENTO = 0.20;
+    static const float QUINZE_POR_CENTO = 0.15;
+    static const float QUARENTA_POR_CENTO = 0.40;
 
     TUtils ();
 
@@ -32,6 +34,7 @@ public:
 
     static int  dimensao(TPainel* painel,int index,const float percentual);
 
+    //const int height,
     static void recalcular(TPlayer* player,const int widht,const int height);
 
     static void recalcular(TProjetil* projetil,const int widht,const int height);

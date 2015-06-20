@@ -14,7 +14,7 @@ TFrame::TFrame () {
     _w_frame = 0;
     _h_frame = 0;
     tabuleiro = new TTabuleiro;
-    tabuleiro->posicionar(TPlayer::NIVEL1);
+    tabuleiro->posicionar(TPlayer::NIVEL4);
     player1 = tabuleiro->getPlayer1();
     player2 = tabuleiro->getPlayer2();
     colisao = new TColisao;
@@ -93,12 +93,14 @@ void TFrame::paintEvent(QPaintEvent* event){
     painter.setPen(panel->getCor());
     //desenho o painel inicial
     painter.drawRect(panel->getX(),panel->getY(),panel->getW(),panel->getH());
+    //desenho o menu inicial
     for(int x = 0; x < tabuleiro->getMenus()->size(); x++){
         TMenu m = tabuleiro->getMenus()->at(x);
         painter.setBrush(m.getCor());
         painter.setPen(m.getCor());
         painter.setFont(m.getFont());
         painter.drawText(m.getX(),m.getY(),m.getNome());
+        painter.drawLine(QLine(m.getX(),m.getY(),m.getW(),m.getY()));
     }
 }
 
@@ -209,13 +211,23 @@ void TFrame::keyPressEvent(QKeyEvent* event){
     }
 }
 
-void TFrame::mouseDoubleClickEvent(QMouseEvent *event){
-    QFrame::mouseDoubleClickEvent(event);
-    QRect r = geometry();
-    qDebug()<<"Y->";
-    qDebug()<<r.y();
-    qDebug()<<"X->";
-    qDebug()<<r.x();
+void TFrame::mousePressEvent(QMouseEvent *event){
+    QFrame::mousePressEvent(event);
+    if(iniciou)
+      return;
+    QPoint r = event->pos();
+    for(int x=0; x<tabuleiro->getMenus()->size(); x++){
+        TMenu m = tabuleiro->getMenus()->at(x);
+        if(m.click(r)){
+            qDebug()<<"Nivel->";
+            qDebug()<<m.getNivel();
+            tabuleiro->posicionar(m.getNivel());
+            player1 = tabuleiro->getPlayer1();
+            player2 = tabuleiro->getPlayer2();
+            iniciou = true;
+            return;
+        }
+    }
 }
 
 /**

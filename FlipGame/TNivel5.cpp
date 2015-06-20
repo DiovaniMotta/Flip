@@ -53,6 +53,10 @@ void TNivel5::configurar(){
                    TColor::cinza(&lista[x][y]);
                 }
             }
+            if ((x == 0) || (x == (TUtils::DIMENSAO - 1)))
+              TColor::cinza(&lista[x][y]);
+            if ((y == 0) || (y == (TUtils::DIMENSAO - 1)))
+              TColor::cinza(&lista[x][y]);
         }
     }
 }

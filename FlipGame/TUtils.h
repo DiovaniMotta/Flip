@@ -10,6 +10,8 @@
 #include <QVector>
 #include <TPainel.h>
 #include <QDebug>
+#include <time.h>
+#include <QTime>
 
 class TUtils {
 

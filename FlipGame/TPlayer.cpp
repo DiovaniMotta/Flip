@@ -148,8 +148,8 @@ void TPlayer::setNumeroPlayer(int value){
 bool TPlayer::isEmptyBombas(){
     if(indexBombas < 0)
         return true;
-    int index = (bombas->size() - 1);
-    if(indexBombas > index)
+    int index = bombas->size();
+    if(indexBombas >= index)
         return true;
     return false;
 }
@@ -161,7 +161,7 @@ bool TPlayer::isEmptyBombas(){
 bool TPlayer::isEmptyRaios(){
     if(indexRaios < 0)
         return true;
-    int index = (raios->size() - 1);
+    int index = raios->size();
     if(indexRaios >= index)
         return true;
     return false;

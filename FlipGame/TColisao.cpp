@@ -484,6 +484,10 @@ void TColisao::colisao(QVector<TTiro> *tiros, TTiro *tiro){
       return;
     if(tiros == NULL)
       return;
+    if(tiro->isAtivo())
+      return;
+    if(tiro->isVisivel())
+      return;
     for(int x=0; x<tiros->size(); x++){
        TTiro t = tiros->at(x);
        if(t.isAtivo()){

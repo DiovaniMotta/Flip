@@ -372,9 +372,13 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
             case TPlayer::NIVEL1:
                 ponto = nivel1->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
+                qDebug()<<"Raio 1";
+                qDebug()<<retorno;
                 if(retorno)
                    return raio(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
+                qDebug()<<"Raio 2";
+                qDebug()<<retorno;
                 if(retorno)
                    return raio(tiro,x,y);
                 contadorY = 0;

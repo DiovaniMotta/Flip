@@ -176,13 +176,11 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         player2->disparo();
         break;
      case Qt::Key_PageDown:
-        qDebug()<<"BOMBA";
         if(!player2->isEmptyBombas())
             media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_PageUp:
-        qDebug()<<"RAIO";
         if(!player2->isEmptyRaios())
             media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::RAIO);
@@ -224,19 +222,16 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao();
         break;
      case Qt::Key_E:
-        qDebug()<<"TIRO";
         if(!player1->isEmptyTiros())
             media->iniciar(TMedia::TIRO);
         player1->disparo();
         break;
      case Qt::Key_Q:
-        qDebug()<<"BOMBA";
         if(!player1->isEmptyBombas())
             media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_Z:
-        qDebug()<<"RAIO";
         if(!player1->isEmptyRaios())
             media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::RAIO);
@@ -272,7 +267,6 @@ void TFrame::iniciar(){
     this->mover();
     this->disparo(player1);
     this->disparo(player2);
-    media->sound();
     this->repaint();
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }

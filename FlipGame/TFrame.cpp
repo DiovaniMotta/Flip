@@ -49,6 +49,7 @@ void TFrame::resizeEvent(QResizeEvent* event){
         return;
     panel = tabuleiro->painel(_w_frame,_h_frame);
     tabuleiro->menu(_w_frame);
+    tabuleiro->redimensionar();
 }
 
 /**
@@ -88,6 +89,20 @@ void TFrame::paintEvent(QPaintEvent* event){
     //verifico se existem armas para serem desenhadas no tabuleiro
     this->armas(&painter);
     this->disparo(&painter);
+    bool fimJogo = colisao->isFimJogo();
+    if(fimJogo){
+        painter.setBrush(panel->getCor());
+        painter.setPen(panel->getCor());
+        //desenho o painel inicial
+        painter.drawRect(panel->getX(),panel->getY(),panel->getW(),panel->getH());
+        TMenu* m = tabuleiro->menuFinal();
+        painter.setBrush(m->getCor());
+        painter.setPen(m->getCor());
+        painter.setFont(m->getFont());
+        painter.drawText(m->getX(),m->getY(),m->getNome());
+        iniciou = false;
+        return;
+    }
     if(iniciou)
        return;
     painter.setBrush(panel->getCor());

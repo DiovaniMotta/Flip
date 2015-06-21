@@ -62,12 +62,14 @@ void TNivel1::configurar(){
 void TNivel1::players(){
 
     player1->setNivel(TPlayer::NIVEL1);
+    player1->setNumeroPlayer(1);
     player1->setPosX(5);
     player1->setPosY(10);
     player1->setBorda(Qt::white);
     player1->setFundo(Qt::black);
 
     player2->setNivel(TPlayer::NIVEL1);
+    player2->setNumeroPlayer(2);
     player2->setPosX(15);
     player2->setPosY(10);
     player2->setBorda(Qt::black);

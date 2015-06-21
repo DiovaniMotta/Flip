@@ -25,6 +25,7 @@ class TPlayer {
   int largura;
   int altura;
   int ultimaPosicao;
+  int numeroPlayer;
   int i;// variavel contador de tipos disparados do tipo TProjetil
   int j; // variavel contador de tipos disparados TBomba(Raio)
   int l; // variavel contador de tipos disparados TBomba(Bomba)
@@ -108,6 +109,10 @@ public:
     void setTiros(QVector<TProjetil>* projeteis);
 
     QVector<TProjetil>* getTiros();
+
+    int getNumeroPlayer();
+
+    void setNumeroPlayer(int value);
 
     // métodos que implementam a regra de negocio
 

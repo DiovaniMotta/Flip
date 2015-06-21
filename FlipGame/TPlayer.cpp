@@ -13,6 +13,7 @@ TPlayer::TPlayer() {
     this->i = -1;
     this->j = -1;
     this->l = -1;
+    this->numeroPlayer = 0;
     this->indexBombas = -1;
     this->indexRaios = -1;
     this->tiros = new QVector<TProjetil>();
@@ -130,6 +131,14 @@ void TPlayer::setRaios(QVector<TTiro> *b){
 
 QVector<TTiro>* TPlayer::getRaios(){
     return this->raios;
+}
+
+int TPlayer::getNumeroPlayer(){
+    return this->numeroPlayer;
+}
+
+void TPlayer::setNumeroPlayer(int value){
+    this->numeroPlayer = value;
 }
 
 /**

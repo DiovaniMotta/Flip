@@ -12,6 +12,8 @@
 #define MAPA04 "Mapa04"
 #define MAPA05 "Mapa05"
 
+#define PLAYER1_WINNER "Player 1 Winner!"
+#define PLAYER2_WINNER "Player 2 Winner!"
 /**
  * @brief The TMenu class classe responsavel por definir o objeto que será pintado no menu do usuário
  */

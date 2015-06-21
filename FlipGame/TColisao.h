@@ -14,6 +14,8 @@ class TColisao {
 
     int largura;
     int altura;
+    bool fimJogo;
+
     TTabuleiro* tabuleiro;
     TMedia* media;
 
@@ -42,6 +44,10 @@ public:
     void setMedia(TMedia* midia);
 
     TMedia* getMedia();
+
+    bool isFimJogo();
+
+    void setFimJogo(bool fimJogo);
 
     void colisao(TPlayer* player);
 

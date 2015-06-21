@@ -4,11 +4,13 @@
 TColisao::TColisao(){
     largura = 0;
     altura = 0;
+    fimJogo = false;
 }
 
 TColisao::TColisao(int larg, int alt){
     largura = larg;
     altura = alt;
+    fimJogo = false;
 }
 
 TColisao::~TColisao(){
@@ -215,6 +217,8 @@ bool TColisao::colisao(TPlayer* player,TProjetil* projetil){
             media->parar();
             media->iniciar(TMedia::COLISAO);
             projetil->reiniciar();
+            tabuleiro->vencedor(player);
+            fimJogo = true;
             return true;
         }
     }
@@ -516,4 +520,12 @@ void TColisao::setMedia(TMedia *midia){
 
 TMedia* TColisao::getMedia(){
     return this->media;
+}
+
+void TColisao::setFimJogo(bool fimJogo){
+    this->fimJogo = fimJogo;
+}
+
+bool TColisao::isFimJogo(){
+    return this->fimJogo;
 }

@@ -35,6 +35,7 @@ class TTabuleiro {
    TNivel4* nivel4;
    TNivel5* nivel5;
    TPainel* panel;
+   TMenu* menuVencedor;
    QVector<TMenu>* menus;
    int contadorX;
    int contadorY;
@@ -79,6 +80,11 @@ public:
 
     void setMenus(QVector<TMenu>* m);
 
+    TMenu* menuFinal();
+
+    void setMenu(TMenu* menu);
+
+
     // métodos que implementam a regra de negocio da classe
 
     void reposicionar(TPlayer* player1);
@@ -96,6 +102,10 @@ public:
     QVector<TMenu>* menu(int w);
 
     TPainel* painel(int w, int h);
+
+    void vencedor(TPlayer* player);
+
+    void redimensionar();
 
 private:
 

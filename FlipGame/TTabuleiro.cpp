@@ -9,6 +9,7 @@ TTabuleiro::TTabuleiro(){
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
     this->menus = new QVector<TMenu>();
+    this->menuVencedor = new TMenu;
     this->contadorX = 0;
     this->contadorY = 0;
 }
@@ -21,6 +22,7 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->nivel3 = new TNivel3();
     this->nivel4 = new TNivel4();
     this->nivel5 = new TNivel5();
+    this->menuVencedor = new TMenu;
     this->menus = new QVector<TMenu>();
     this->contadorX = 0;
     this->contadorY = 0;
@@ -99,6 +101,10 @@ QVector<TMenu>* TTabuleiro::getMenus(){
 
 void TTabuleiro::setMenus(QVector<TMenu>* m){
     this->menus = m;
+}
+
+TMenu* TTabuleiro::menuFinal(){
+    return this->menuVencedor;
 }
 
 /**
@@ -503,4 +509,36 @@ TPainel* TTabuleiro::painel(int w, int h){
     panel->setW(w);
     panel->setCor(Qt::white);
     return panel;
+}
+
+/**
+ * @brief TTabuleiro::vencedor método responsavel por pintar o menu contendo as informações sobre o vencedor
+ * @param player o player perdedor
+ * @return um objeto menu
+ */
+void TTabuleiro::vencedor(TPlayer *player){
+    QFont font;
+    font.setBold(true);
+    font.setPointSize(20);
+    QFontMetrics metrics(font);
+    menuVencedor->setFont(font);
+    menuVencedor->setCor(Qt::black);
+    switch(player->getNumeroPlayer()){
+        case 1:
+            menuVencedor->setNome(QString(PLAYER2_WINNER));
+            break;
+        case 2:
+            menuVencedor->setNome(QString(PLAYER1_WINNER));
+            break;
+    }
+    menuVencedor->setX(TUtils::dimensao(panel->getW(),2,100));
+    menuVencedor->setY(TUtils::dimensao(panel,1,TUtils::CINQUENTA_POR_CENTO));
+    menuVencedor->setH(metrics.height());
+    menuVencedor->setW(metrics.maxWidth());
+}
+
+
+void TTabuleiro::redimensionar(){
+    menuVencedor->setX(TUtils::dimensao(panel->getW(),2,100));
+    menuVencedor->setY(TUtils::dimensao(panel,1,TUtils::CINQUENTA_POR_CENTO));
 }

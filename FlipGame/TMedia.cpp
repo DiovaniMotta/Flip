@@ -88,20 +88,29 @@ void TMedia::parar(){
  * @brief TMedia::sound método responsavel por executar o som de abertura quando nenum som for executado
  */
 void TMedia::sound(){
+   /* qDebug()<<"B1";
     if(explosao->state() == QMediaPlayer::PlayingState)
        return;
+    qDebug()<<"B2";
     if(tiro->state() == QMediaPlayer::PlayingState)
        return;
+    qDebug()<<"B3";
     if(abertura->state() == QMediaPlayer::PlayingState)
        return;
+    qDebug()<<"B4";
     if(bomba->state() == QMediaPlayer::PlayingState)
        return;
+    qDebug()<<"B5";
     if(capturaTiro->state() == QMediaPlayer::PlayingState)
        return;
+    qDebug()<<"B6";
     if(explosao->state() == QMediaPlayer::PlayingState)
        return;
-    if(tiro->state() == QMediaPlayer::StoppedState)
-       iniciar(TMedia::ABERTURA);
+    qDebug()<<"B7";
+    if(tiro->state() == QMediaPlayer::PlayingState)
+        return;
+    iniciar(TMedia::ABERTURA);
+    qDebug()<<"B8";*/
 }
 
 void TMedia::somAbertura(){

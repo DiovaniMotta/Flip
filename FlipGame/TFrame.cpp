@@ -298,25 +298,6 @@ void TFrame::redimensionar(TPlayer *player){
            player->getTiros()->replace(x,projetil);
        }
     }
-    /*
-    for(int x=0; x<player->getBombas()->size(); x++){
-        TTiro tiro = player->getBombas()->at(x);
-        if(tiro.isAtivo()){
-            if(!tiro.isColidiu()){
-                TUtils::recalcular(&tiro,_w_sz,_h_sz);
-                player->getBombas()->insert(x,tiro);
-            }
-        }
-    }
-    for(int x=0; x<player->getRaios()->size(); x++){
-        TTiro tiro = player->getRaios()->at(x);
-        if(tiro.isAtivo()){
-            if(!tiro.isColidiu()){
-                TUtils::recalcular(&tiro,_w_sz,_h_sz);
-                player->getRaios()->insert(x,tiro);
-            }
-        }
-    }*/
 }
 
 /**
@@ -453,12 +434,10 @@ void TFrame::disparo(TPlayer* player){
                     projetil.setX(esqueda);
                     break;
             }
-            if(projetil.getX() < 0){
+            if(projetil.getX() < 0)
                 projetil.reiniciar();
-            }
-            if(projetil.getY() < 0){
+            if(projetil.getY() < 0)
                 projetil.reiniciar();
-            }
             colisao->colisao(&projetil);
             player->getTiros()->replace(x,projetil);
         }
@@ -505,7 +484,7 @@ void TFrame::disparo(TPlayer* player){
        }
    }
     //verifico se o player disparo alguma bomba
-    for(int x=0; x< player->getRaios()->size(); x++){
+    for(int x=0; x <player->getRaios()->size(); x++){
         TTiro bomba = player->getRaios()->at(x);
         if(bomba.isAtivo()){
             int disparo = 0;
@@ -601,9 +580,9 @@ void TFrame::mover(){
     colisao->colisao(player1->getBombas(),player2->getRaios());
     colisao->colisao(player1->getRaios(),player2->getBombas());
     colisao->colisao(player1->getBombas(),bomber);
-    colisao->colisao(player1->getBombas(),raio);
+    colisao->colisao(player1->getRaios(),raio);
     colisao->colisao(player2->getBombas(),bomber);
-    colisao->colisao(player2->getBombas(),raio);
+    colisao->colisao(player2->getRaios(),raio);
 }
 
 /**

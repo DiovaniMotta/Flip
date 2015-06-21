@@ -459,7 +459,8 @@ void TColisao::colisao(TTiro *tiro, TTiro *bomba, bool isNull){
     if(tiro->getPosX() == bomba->getPosX()){
         if(tiro->getPosY() == tiro->getPosY()){
             media->iniciar(TMedia::EXPLOSAO);
-            bomba->setVisivel(false);
+            //bomba->setVisivel(false);
+            bomba->reiniciar();
             tiro->reiniciar();
         }
     }
@@ -473,6 +474,8 @@ void TColisao::colisao(TTiro *tiro, TTiro *bomba, bool isNull){
  */
 void TColisao::colisao(QVector<TTiro> *tiros, TTiro *tiro){
     if(tiro == NULL)
+      return;
+    if(tiros == NULL)
       return;
     for(int x=0; x<tiros->size(); x++){
        TTiro t = tiros->at(x);

@@ -232,6 +232,10 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
     contadorX++;
     if(contadorX >= TIMEOUT){
+        if(x >= TUtils::DIMENSAO)
+            x = 0;
+        if(y >= TUtils::DIMENSAO)
+            y = 0;
         if(x == 0)
             x = TUtils::randomize(TUtils::DIMENSAO);
         else
@@ -240,6 +244,10 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
             y = TUtils::randomize(TUtils::DIMENSAO);
         else
             y++;
+        if((x == 0) && (y  == 0)){
+            x++;
+            y++;
+        }
         bool retorno = false;
         b = new TTiro;
         TPonto ponto;
@@ -248,7 +256,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
                 ponto = nivel1->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return bomba(tiro,x,y);
@@ -259,7 +267,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
                 ponto = nivel2->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return bomba(tiro,x,y);
@@ -270,7 +278,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
                 ponto = nivel3->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return bomba(tiro,x,y);
@@ -281,7 +289,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
                 ponto = nivel4->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                     return bomba(tiro,x,y);
@@ -292,7 +300,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
                 ponto = nivel5->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return bomba(tiro);
+                   return bomba(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                     return bomba(tiro,x,y);
@@ -335,6 +343,10 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
     contadorY++;
     if(contadorY >= TIME_OUT){
+        if(x >= TUtils::DIMENSAO)
+            x = 0;
+        if(y >= TUtils::DIMENSAO)
+            y = 0;
         if(x == 0)
             x = TUtils::randomize(TUtils::DIMENSAO);
         else
@@ -343,6 +355,10 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
             y = TUtils::randomize(TUtils::DIMENSAO);
         else
             y++;
+        if((x == 0) && (y  == 0)){
+            x++;
+            y++;
+        }
         bool retorno = false;
         b = new TTiro;
         TPonto ponto;
@@ -351,7 +367,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
                 ponto = nivel1->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return raio(tiro,x,y);
@@ -362,7 +378,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
                 ponto = nivel2->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return raio(tiro,x,y);
@@ -373,7 +389,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
                 ponto = nivel3->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return raio(tiro,x,y);
@@ -384,7 +400,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
                 ponto = nivel4->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return raio(tiro,x,y);
@@ -395,7 +411,7 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
                 ponto = nivel5->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
                 if(retorno)
-                   return raio(tiro);
+                   return raio(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
                 if(retorno)
                    return raio(tiro,x,y);

@@ -72,12 +72,11 @@ void TUtils::recalcular(TTiro *tiro, const int widht, const int height){
  * @return true se no ponto selecionado existir um objeto tiro desenhado e falso caso nao exista
  */
 bool TUtils::existe(TTiro *tiro, TPonto ponto){
-    if(tiro != NULL)
-    {
-         if(ponto.getX() == tiro->getPosX())
-            if(ponto.getY() == tiro->getPosY())
-                return true;
-    }
+    if(tiro == NULL)
+        return false;
+    if(ponto.getX() == tiro->getPosX())
+       if(ponto.getY() == tiro->getPosY())
+          return true;
     return false;
 }
 

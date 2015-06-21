@@ -408,6 +408,8 @@ void TColisao::colisao(TPlayer *player, TTiro *tiro){
     if(player->getPosX() == tiro->getPosX()){
         if(player->getPosY() == tiro->getPosY()){
             tabuleiro->zerar(player);
+            tabuleiro->vencedor(player);
+            fimJogo = true;
             tiro->reiniciar();
         }
     }
@@ -433,9 +435,10 @@ void TColisao::colisao(QVector<TTiro> *tiros, TProjetil *projetil){
  * @param isNull verifica se a bomba é nula ou nao
  */
 void TColisao::colisao(TProjetil *projetil, TTiro *bomba, bool isNull){
-   if(isNull)
-     if(bomba == NULL)
-        return;
+   if(!isNull)
+      return;
+   if(bomba == NULL)
+      return;
    if(!projetil->isAtivo())
       return;
    if(projetil->getPosX() == bomba->getPosX()){
@@ -455,15 +458,15 @@ void TColisao::colisao(TProjetil *projetil, TTiro *bomba, bool isNull){
  * @param isNull verifica se a bomba é nula ou nao
  */
 void TColisao::colisao(TTiro *tiro, TTiro *bomba, bool isNull){
-    if(isNull)
-      if(bomba == NULL)
-         return;
+    if(!isNull)
+       return;
+    if(bomba == NULL)
+       return;
     if(!tiro->isAtivo())
        return;
     if(tiro->getPosX() == bomba->getPosX()){
         if(tiro->getPosY() == tiro->getPosY()){
             media->iniciar(TMedia::EXPLOSAO);
-            //bomba->setVisivel(false);
             bomba->reiniciar();
             tiro->reiniciar();
         }

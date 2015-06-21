@@ -537,7 +537,9 @@ void TTabuleiro::vencedor(TPlayer *player){
     menuVencedor->setW(metrics.maxWidth());
 }
 
-
+/**
+ * @brief TTabuleiro::redimensionar responsavel por redimensionar o menu final do jogos
+ */
 void TTabuleiro::redimensionar(){
     menuVencedor->setX(TUtils::dimensao(panel->getW(),2,100));
     menuVencedor->setY(TUtils::dimensao(panel,1,TUtils::CINQUENTA_POR_CENTO));

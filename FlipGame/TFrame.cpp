@@ -24,6 +24,7 @@ TFrame::TFrame () {
     colisao->setMedia(media);
     media->iniciar(TMedia::ABERTURA);
     iniciou = false;
+    graus = 72;
     _w_frame = this->width();
     _h_frame = TUtils::dimensao(width(),TUtils::CINQUENTA_POR_CENTO);
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
@@ -630,7 +631,6 @@ void TFrame::municao(TPlayer *player, QPainter *painter){
     double radiano  = 0;
     double rx = 0;
     double ry = 0;
-    int graus = 72;
     for(int x=0; x< TPlayer::TIROS; x++){
         TProjetil projetil = player->getTiros()->at(x);
         if(projetil.isDisparou()){

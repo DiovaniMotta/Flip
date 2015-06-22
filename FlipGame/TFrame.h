@@ -30,6 +30,7 @@ class TFrame : public QFrame {
     int _w_frame;
     int _h_frame;
     int rotacao;
+    int graus;
     bool iniciou;// controla se o usuario iniciou o gameplayer ou nao
 
     TColisao* colisao;

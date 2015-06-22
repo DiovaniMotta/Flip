@@ -206,4 +206,5 @@ void TTiro::deslocamento(int dimen){
 void TTiro::reiniciar(){
     this->colidiu = true;
     this->ativo = false;
+    //this->visivel = false;
 }

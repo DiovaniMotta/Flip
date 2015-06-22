@@ -256,6 +256,7 @@ TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
         }
         bool retorno = false;
         b = new TTiro;
+        b->setNivel(player1->getNivel());
         TPonto ponto;
         switch(player1->getNivel()){
             case TPlayer::NIVEL1:
@@ -329,6 +330,8 @@ void TTabuleiro::tiros(TPonto *ponto, TTiro *bomba,int tipo){
     bomba->setPosX(ponto->getX());
     bomba->setPosY(ponto->getY());
     bomba->setVisivel(true);
+    bomba->setAtivo(true);
+    //bomba->setColidiu(false);
     switch(tipo){
         case TTiro::RAIO:
             bomba->setBorda(Qt::red);
@@ -367,18 +370,15 @@ TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
         }
         bool retorno = false;
         b = new TTiro;
+        b->setNivel(player1->getNivel());
         TPonto ponto;
         switch(player1->getNivel()){
             case TPlayer::NIVEL1:
                 ponto = nivel1->nivel(x,y);
                 retorno = TColor::equals(ponto,Qt::gray);
-                qDebug()<<"Raio 1";
-                qDebug()<<retorno;
                 if(retorno)
                    return raio(tiro,x,y);
                 retorno = TUtils::existe(tiro,ponto);
-                qDebug()<<"Raio 2";
-                qDebug()<<retorno;
                 if(retorno)
                    return raio(tiro,x,y);
                 contadorY = 0;

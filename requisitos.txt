@@ -1,14 +1,14 @@
 1.0 - Menu do Jogo permite selecionar 1 de 5 fases (cenários) diferentes; ok;
 1.0 - A movimentação do jogador é suave (usa conceitos de velocidade e aceleração);
 1.0 - Colisão entre jogador e peças do tabuleiro; ok;
-0.5 - Animar a munição do jogador no centro do personagem;
+0.5 - Animar a munição do jogador no centro do personagem; parcialmente
 0.5 - Disparar projétil; ok;
 0.5 - Detectar colisão entre projétil e peças do tabuleiro; ok;
-1.0 - Animar as peças do tabuleiro quando são colididas por um projétil;
+1.0 - Animar as peças do tabuleiro quando são colididas por um projétil; ok
 0.5 - Detectar colisão entre projétil e jogador adversário; ok;
 0.5 - Colisão entre projétil e projétil adversário; ok
 1.0 - Ofertar munições especiais aleatoriamente (ponto vermelho no tabuleiro): 
-         implementar ao menos 2 tipos de tiro além do padrão. Ex: tiro duplo, triplo, laser, C4, etc.
+         implementar ao menos 2 tipos de tiro além do padrão. Ex: tiro duplo, triplo, laser, C4, etc. ok
 0.5 - Animar munição especial quando ela aparece no tabuleiro;
 0.5 - Detectar colisão entre projétil e munição especial no tabuleiro gera um efeito "bomba" e destrói algumas peças ao redor;
 0.5 - Suportar audio (música, tiro, explosão); ok;

@@ -84,7 +84,6 @@ public:
 
     void setMenu(TMenu* menu);
 
-
     // métodos que implementam a regra de negocio da classe
 
     void reposicionar(TPlayer* player1);

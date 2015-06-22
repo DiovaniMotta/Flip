@@ -170,17 +170,19 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao();
         break;
      case Qt::Key_End:
-        qDebug()<<"TIRO";
+        qDebug()<<"Tiro";
         if(!player2->isEmptyTiros())
             media->iniciar(TMedia::TIRO);
         player2->disparo();
         break;
      case Qt::Key_PageDown:
+        qDebug()<<"Bomba";
         if(!player2->isEmptyBombas())
             media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_PageUp:
+        qDebug()<<"Raio";
         if(!player2->isEmptyRaios())
             media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::RAIO);
@@ -222,16 +224,19 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao();
         break;
      case Qt::Key_E:
+        qDebug()<<"Tiro";
         if(!player1->isEmptyTiros())
             media->iniciar(TMedia::TIRO);
         player1->disparo();
         break;
      case Qt::Key_Q:
+        qDebug()<<"Bomba";
         if(!player1->isEmptyBombas())
             media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_Z:
+        qDebug()<<"Raio";
         if(!player1->isEmptyRaios())
             media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::RAIO);
@@ -326,7 +331,7 @@ void TFrame::armas(QPainter *painter){
     if(b != NULL)
       bomber = b;
     if(bomber != NULL){
-        if(bomber->isVisivel())
+        if(bomber->isAtivo())
         {
             painter->setPen(bomber->getBorda());
             painter->setBrush(bomber->getFundo());
@@ -341,7 +346,7 @@ void TFrame::armas(QPainter *painter){
     if(t != NULL)
       raio = t;
     if(raio != NULL){
-        if(raio->isVisivel())
+        if(raio->isAtivo())
         {
             painter->setPen(raio->getBorda());
             painter->setBrush(raio->getFundo());
@@ -367,6 +372,9 @@ void TFrame::disparo(QPainter* painter){
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
             painter->drawEllipse((bomba.getX()),bomba.getY(),rx,ry);
+            colisao->colisao(&bomba,bomber,true);
+            colisao->colisao(&bomba,raio,true);
+            player1->getBombas()->replace(x,bomba);
         }
     }
     //pinto os projeteis especiais disparados pelo player 1
@@ -378,6 +386,9 @@ void TFrame::disparo(QPainter* painter){
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
             painter->drawRect(bomba.getX(),bomba.getY(),rx,ry);
+            colisao->colisao(&bomba,bomber,true);
+            colisao->colisao(&bomba,raio,true);
+            player1->getRaios()->replace(x,bomba);
         }
     }
     //pinto os projeteis especiais disparados peloww player 2
@@ -389,6 +400,9 @@ void TFrame::disparo(QPainter* painter){
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
             painter->drawEllipse(bomba.getX(),bomba.getY(),rx,ry);
+            colisao->colisao(&bomba,bomber,true);
+            colisao->colisao(&bomba,raio,true);
+            player2->getBombas()->replace(x,bomba);
        }
     }
     //pinto os projeteis especiais disparados peloww player 2
@@ -400,6 +414,9 @@ void TFrame::disparo(QPainter* painter){
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
             painter->drawRect(bomba.getX(),bomba.getY(),rx,ry);
+            colisao->colisao(&bomba,bomber,true);
+            colisao->colisao(&bomba,raio,true);
+            player2->getRaios()->replace(x,bomba);
        }
     }
 }
@@ -536,6 +553,8 @@ void TFrame::disparo(TPlayer* player){
             colisao->colisao(&bomba);
             colisao->colisao(player1,&bomba);
             colisao->colisao(player2,&bomba);
+            //colisao->colisao(&bomba,bomber,true);
+            //colisao->colisao(&bomba,raio,true);
             player->getRaios()->replace(x,bomba);
        }
    }

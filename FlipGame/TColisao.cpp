@@ -219,6 +219,7 @@ bool TColisao::colisao(TPlayer* player,TProjetil* projetil){
             projetil->reiniciar();
             tabuleiro->vencedor(player);
             fimJogo = true;
+            qDebug()<<"Colisao 12";
             return true;
         }
     }
@@ -263,6 +264,7 @@ void TColisao::colisao(TProjetil *projetil1, TProjetil *projetil2){
             media->iniciar(TMedia::EXPLOSAO);
             projetil1->reiniciar();
             projetil2->reiniciar();
+            qDebug()<<"Colisao 11";
         }
     }
 }
@@ -283,6 +285,7 @@ void TColisao::colisao(TPlayer *player, TTiro* bomba,const int tipo){
     if(player->getPosX() == bomba->getPosX()){
         if(player->getPosY() == bomba->getPosY()){
             media->iniciar(TMedia::TIRO_ESPECIAL);
+            qDebug()<<"Colisao 10";
             switch(tipo){
                 case TTiro::RAIO:
                     player->addRaio(bomba);
@@ -293,6 +296,7 @@ void TColisao::colisao(TPlayer *player, TTiro* bomba,const int tipo){
                     bomba->setVisivel(false);
                     break;
             }
+            bomba->setAtivo(false);
         }
     }
 }
@@ -309,26 +313,32 @@ void TColisao::colisao(TTiro *bomba){
     if(ponto.getCorFundo().operator ==(Qt::gray)){
         media->parar();
         bomba->reiniciar();
+        qDebug()<<"Colisao 91";
         return;
     }
     if(bomba->getPosX() < 0){
         bomba->setAtivo(false);
+        qDebug()<<"Colisao 92";
         return;
     }
     if(bomba->getPosY() < 0){
         bomba->setAtivo(false);
+        qDebug()<<"Colisao 93";
         return;
     }
     if(bomba->getPosX() == TUtils::DIMENSAO){
         bomba->setAtivo(false);
+        qDebug()<<"Colisao 94";
         return;
     }
     if(bomba->getPosY() == TUtils::DIMENSAO){
         bomba->setAtivo(false);
+        qDebug()<<"Colisao 95";
         return;
     }
     if(ponto.getCorFundo().operator ==(bomba->getCorFundoJogador())){
         this->repintar(bomba,ponto);
+        qDebug()<<"Colisao 96";
         return;
     }
 }
@@ -351,6 +361,7 @@ void TColisao::colisao(TTiro *tiro1, TProjetil *projetil){
             media->iniciar(TMedia::EXPLOSAO);
             projetil->reiniciar();
             tiro1->reiniciar();
+            qDebug()<<"Colisao 8";
         }
     }
 }
@@ -411,6 +422,7 @@ void TColisao::colisao(TPlayer *player, TTiro *tiro){
             tabuleiro->vencedor(player);
             fimJogo = true;
             tiro->reiniciar();
+            qDebug()<<"Colisao 5";
         }
     }
 }
@@ -422,8 +434,13 @@ void TColisao::colisao(TPlayer *player, TTiro *tiro){
 void TColisao::colisao(QVector<TTiro> *tiros, TProjetil *projetil){
     for(int x=0; x<tiros->size(); x++){
         TTiro tiro = tiros->at(x);
-        this->colisao(&tiro,projetil);
-        tiros->replace(x,tiro);
+        if(tiro.isAtivo()){
+            if(!tiro.isColidiu()){
+                qDebug()<<"Colisao 4";
+                this->colisao(&tiro,projetil);
+                tiros->replace(x,tiro);
+            }
+        }
     }
 }
 
@@ -444,8 +461,10 @@ void TColisao::colisao(TProjetil *projetil, TTiro *bomba, bool isNull){
    if(projetil->getPosX() == bomba->getPosX()){
        if(projetil->getPosY() == bomba->getPosY()){
            media->iniciar(TMedia::EXPLOSAO);
-           bomba->setVisivel(false);
+           this->repintar(bomba);
+           bomba->reiniciar();
            projetil->reiniciar();
+           qDebug()<<"Colisao 3";
        }
    }
 }
@@ -466,9 +485,12 @@ void TColisao::colisao(TTiro *tiro, TTiro *bomba, bool isNull){
        return;
     if(tiro->getPosX() == bomba->getPosX()){
         if(tiro->getPosY() == tiro->getPosY()){
-            media->iniciar(TMedia::EXPLOSAO);
-            bomba->reiniciar();
-            tiro->reiniciar();
+            if((!tiro->isColidiu()) && (!bomba->isColidiu())){
+                media->iniciar(TMedia::EXPLOSAO);
+                this->repintar(bomba);
+                bomba->reiniciar();
+                tiro->reiniciar();
+            }
         }
     }
 }
@@ -491,9 +513,41 @@ void TColisao::colisao(QVector<TTiro> *tiros, TTiro *tiro){
     for(int x=0; x<tiros->size(); x++){
        TTiro t = tiros->at(x);
        if(t.isAtivo()){
-           colisao(&t,tiro,true);
-           tiros->replace(x,t);
+           if((!t.isColidiu()) && (t.isVisivel())){
+             colisao(&t,tiro,true);
+             tiros->replace(x,t);
+             qDebug()<<"Colisao 2";
+           }
        }
+    }
+}
+/**
+ * @brief TColisao::repintar metodo responsavel por repintar o tabuleiro quando houver uma colisao entre
+ * o yma bomba ainda nao pega no tabuleiro e um tiro feito pelo player
+ * @param bomba o objeto que sofreu a colisao no tabuleiro
+ */
+void TColisao::repintar(TTiro *bomba){
+    if(bomba ==  NULL)
+      return;
+    TPonto ponto = nivel(bomba);
+    ponto.setCorBorda(Qt::gray);
+    ponto.setCorFundo(Qt::gray);
+    switch(bomba->getNivel()){
+        case TPlayer::NIVEL1:
+            tabuleiro->getNivel1()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            break;
+        case TPlayer::NIVEL2:
+            tabuleiro->getNivel2()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            break;
+        case TPlayer::NIVEL3:
+            tabuleiro->getNivel3()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            break;
+        case TPlayer::NIVEL4:
+            tabuleiro->getNivel4()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            break;
+        case TPlayer::NIVEL5:
+            tabuleiro->getNivel5()->addPonto(bomba->getPosX(),bomba->getPosY(),ponto);
+            break;
     }
 }
 

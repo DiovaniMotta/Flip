@@ -39,6 +39,9 @@ class TTabuleiro {
    QVector<TMenu>* menus;
    int contadorX;
    int contadorY;
+   int bx;
+   int rx;
+   static const int RECURSIVIDADE = 5;
 
 public:
 

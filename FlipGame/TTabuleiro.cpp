@@ -12,6 +12,8 @@ TTabuleiro::TTabuleiro(){
     this->menuVencedor = new TMenu;
     this->contadorX = 0;
     this->contadorY = 0;
+    this->bx = 0;
+    this->rx = 0;
 }
 
 TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
@@ -26,6 +28,8 @@ TTabuleiro::TTabuleiro(TPlayer* player1,TPlayer* player2){
     this->menus = new QVector<TMenu>();
     this->contadorX = 0;
     this->contadorY = 0;
+    this->bx = 0;
+    this->rx = 0;
 }
 
 TTabuleiro::~TTabuleiro(){
@@ -236,6 +240,11 @@ void TTabuleiro::zerar(TPlayer *player){
  */
 TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
+    if(bx > RECURSIVIDADE){
+       bx = 0;
+       return NULL;
+    }
+    bx++;
     contadorX++;
     if(contadorX >= TIMEOUT){
         if(x >= TUtils::DIMENSAO)
@@ -331,7 +340,6 @@ void TTabuleiro::tiros(TPonto *ponto, TTiro *bomba,int tipo){
     bomba->setPosY(ponto->getY());
     bomba->setVisivel(true);
     bomba->setAtivo(true);
-    //bomba->setColidiu(false);
     switch(tipo){
         case TTiro::RAIO:
             bomba->setBorda(Qt::red);
@@ -350,6 +358,11 @@ void TTabuleiro::tiros(TPonto *ponto, TTiro *bomba,int tipo){
  */
 TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
+    if(rx > RECURSIVIDADE){
+      rx = 0;
+      return NULL;
+    }
+    rx++;
     contadorY++;
     if(contadorY >= TIME_OUT){
         if(x >= TUtils::DIMENSAO)

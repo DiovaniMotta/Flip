@@ -165,27 +165,35 @@ void TMedia::somColisao(){
 
 void TMedia::somExplosao(){
     if(capturaTiro->state() == QMediaPlayer::PlayingState){
+        qDebug()<<"A";
         capturaTiro->setPosition(0);
         capturaTiro->stop();
     }
     if(abertura->state() == QMediaPlayer::PlayingState){
+        qDebug()<<"B";
         abertura->setPosition(0);
         abertura->stop();
     }
     if(tiro->state() == QMediaPlayer::PlayingState){
+        qDebug()<<"C";
         tiro->setPosition(0);
         tiro->stop();
     }
     if(colisao->state() == QMediaPlayer::PlayingState){
+        qDebug()<<"D";
         colisao->setPosition(0);
         colisao->stop();
     }
     if(bomba->state() == QMediaPlayer::PlayingState){
+        qDebug()<<"E";
         bomba->setPosition(0);
         bomba->stop();
     }
     if(explosao->state() == QMediaPlayer::StoppedState){
-        explosao->play();
+       qDebug()<<"F";
+       qDebug()<<explosao->mediaStatus();
+       explosao->play();
+       qDebug()<<"AA";
     }
 }
 

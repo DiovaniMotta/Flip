@@ -11,7 +11,6 @@ TFrame::TFrame () {
     setLineWidth(4);
     setMouseTracking(true);
     setFocus();
-    rotacao = 0;
     _w_frame = 0;
     _h_frame = 0;
     tabuleiro = new TTabuleiro;
@@ -177,13 +176,11 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         player2->disparo();
         break;
      case Qt::Key_PageDown:
-        qDebug()<<"Bomba";
         if(!player2->isEmptyBombas())
             media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_PageUp:
-        qDebug()<<"Raio";
         if(!player2->isEmptyRaios())
             media->iniciar(TMedia::BOMBA);
         player2->disparo(TTiro::RAIO);
@@ -225,19 +222,16 @@ void TFrame::keyPressEvent(QKeyEvent* event){
         colisao->colisao();
         break;
      case Qt::Key_E:
-        qDebug()<<"Tiro";
         if(!player1->isEmptyTiros())
             media->iniciar(TMedia::TIRO);
         player1->disparo();
         break;
      case Qt::Key_Q:
-        qDebug()<<"Bomba";
         if(!player1->isEmptyBombas())
             media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::BOMBA);
         break;
      case Qt::Key_Z:
-        qDebug()<<"Raio";
         if(!player1->isEmptyRaios())
             media->iniciar(TMedia::BOMBA);
         player1->disparo(TTiro::RAIO);
@@ -372,9 +366,9 @@ void TFrame::disparo(QPainter* painter){
             painter->setBrush(bomba.getFundo());
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
-            painter->drawEllipse((bomba.getX()),bomba.getY(),rx,ry);
             colisao->colisao(&bomba,bomber,true);
             colisao->colisao(&bomba,raio,true);
+            painter->drawEllipse((bomba.getX()),bomba.getY(),rx,ry);
             player1->getBombas()->replace(x,bomba);
         }
     }
@@ -386,9 +380,9 @@ void TFrame::disparo(QPainter* painter){
             painter->setBrush(bomba.getFundo());
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
-            painter->drawRect(bomba.getX(),bomba.getY(),rx,ry);
             colisao->colisao(&bomba,bomber,true);
             colisao->colisao(&bomba,raio,true);
+            painter->drawRect(bomba.getX(),bomba.getY(),rx,ry);
             player1->getRaios()->replace(x,bomba);
         }
     }
@@ -400,9 +394,9 @@ void TFrame::disparo(QPainter* painter){
             painter->setBrush(bomba.getFundo());
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
-            painter->drawEllipse(bomba.getX(),bomba.getY(),rx,ry);
             colisao->colisao(&bomba,bomber,true);
             colisao->colisao(&bomba,raio,true);
+            painter->drawEllipse(bomba.getX(),bomba.getY(),rx,ry);
             player2->getBombas()->replace(x,bomba);
        }
     }
@@ -414,9 +408,9 @@ void TFrame::disparo(QPainter* painter){
             painter->setBrush(bomba.getFundo());
             int rx = (int)(_w_sz/2);
             int ry = (int)(_h_sz/2);
-            painter->drawRect(bomba.getX(),bomba.getY(),rx,ry);
             colisao->colisao(&bomba,bomber,true);
             colisao->colisao(&bomba,raio,true);
+            painter->drawRect(bomba.getX(),bomba.getY(),rx,ry);
             player2->getRaios()->replace(x,bomba);
        }
     }
@@ -471,6 +465,19 @@ void TFrame::disparo(TPlayer* player){
                 projetil.reiniciar();
             if(projetil.getY() < 0)
                 projetil.reiniciar();
+            if(player->getNumeroPlayer() == 1){
+               colisao->colisao(player2,&projetil);
+               colisao->colisao(player2->getTiros(),&projetil);
+               colisao->colisao(player2->getBombas(),&projetil);
+               colisao->colisao(player2->getRaios(),&projetil);
+            }else{
+               colisao->colisao(player1,&projetil);
+               colisao->colisao(player1->getTiros(),&projetil);
+               colisao->colisao(player1->getBombas(),&projetil);
+               colisao->colisao(player1->getRaios(),&projetil);
+            }
+            colisao->colisao(&projetil,bomber,true);
+            colisao->colisao(&projetil,raio,true);
             colisao->colisao(&projetil);
             player->getTiros()->replace(x,projetil);
         }
@@ -513,6 +520,15 @@ void TFrame::disparo(TPlayer* player){
             colisao->colisao(&bomba);
             colisao->colisao(player1,&bomba);
             colisao->colisao(player2,&bomba);
+            if(player->getNumeroPlayer() == 1){
+               colisao->colisao(player2->getTiros(),&bomba);
+               colisao->colisao(player2->getBombas(),&bomba);
+               colisao->colisao(player2->getRaios(),&bomba);
+            } else {
+               colisao->colisao(player1->getTiros(),&bomba);
+               colisao->colisao(player1->getBombas(),&bomba);
+               colisao->colisao(player1->getRaios(),&bomba);
+            }
             player->getBombas()->replace(x,bomba);
        }
    }
@@ -554,8 +570,17 @@ void TFrame::disparo(TPlayer* player){
             colisao->colisao(&bomba);
             colisao->colisao(player1,&bomba);
             colisao->colisao(player2,&bomba);
-            //colisao->colisao(&bomba,bomber,true);
-            //colisao->colisao(&bomba,raio,true);
+            colisao->colisao(&bomba,bomber,true);
+            colisao->colisao(&bomba,raio,true);
+            if(player->getNumeroPlayer() == 1){
+               colisao->colisao(player2->getTiros(),&bomba);
+               colisao->colisao(player2->getBombas(),&bomba);
+               colisao->colisao(player2->getRaios(),&bomba);
+            } else {
+               colisao->colisao(player1->getTiros(),&bomba);
+               colisao->colisao(player1->getBombas(),&bomba);
+               colisao->colisao(player1->getRaios(),&bomba);
+            }
             player->getRaios()->replace(x,bomba);
        }
    }
@@ -565,12 +590,53 @@ void TFrame::disparo(TPlayer* player){
  * @brief TFrame::mover método responsável por efetuar o incremento das variaveis do jogo
  */
 void TFrame::mover(){
+    //atualizo as coordenadas x e y do player 2
+    player2->setX((player2->getPosX() * _w_sz));
+    player2->setY((player2->getPosY() * _h_sz));
     //atualizo as coordenadas x e y do player 1
     player1->setX((player1->getPosX() * _w_sz));
     player1->setY((player1->getPosY() * _h_sz));
-    // desenho o disparo do player1
+    // verifico se o player 1 e um objeto bomba estão na mesma posicao
+    colisao->colisao(player1,bomber,TTiro::BOMBA);
+    colisao->colisao(player1,raio,TTiro::RAIO);
+    //verifico se o player 2 pegou algum tiro especial
+    colisao->colisao(player2,bomber,TTiro::BOMBA);
+    colisao->colisao(player2,raio,TTiro::RAIO);
     this->disparo(player1);
-    for(int x=0; x<TPlayer::TIROS; x++){
+    this->disparo(player2);
+    //colisao->colisao(player1->getTiros(),player2->getTiros());
+    /*for(int x=0; x<TPlayer::TIROS; x++){
+        TProjetil projetil1 = player1->getTiros()->at(x);
+        TProjetil projetil2 = player2->getTiros()->at(x);
+        this->disparo(player1);
+        this->disparo(player2);
+        //qDebug()<<"antes";
+        //verifico a colisao entre os projeteis
+        colisao->colisao(&projetil1,&projetil2);
+        /*this->disparo(player1,&projetil2);
+        this->disparo(player2,&projetil1);
+        colisao->colisao(&projetil1,bomber,true);
+        colisao->colisao(&projetil1,raio,true);
+        colisao->colisao(&projetil2,bomber,true);
+        colisao->colisao(&projetil2,raio,true);
+        colisao->colisao(player1->getBombas(),&projetil2);
+        colisao->colisao(player1->getRaios(),&projetil2);
+        colisao->colisao(player2->getBombas(),&projetil1);
+        colisao->colisao(player2->getRaios(),&projetil1);*/
+        //qDebug()<<"Depois";
+       /* player1->getTiros()->replace(x,projetil1);
+        player2->getTiros()->replace(x,projetil2);
+    }*/
+    /*colisao->colisao(player1->getBombas(),player2->getBombas());
+    colisao->colisao(player1->getRaios(),player2->getRaios());
+    colisao->colisao(player1->getBombas(),player2->getRaios());
+    colisao->colisao(player1->getRaios(),player2->getBombas());
+    colisao->colisao(player1->getBombas(),bomber);
+    colisao->colisao(player1->getRaios(),raio);
+    colisao->colisao(player2->getBombas(),bomber);
+    colisao->colisao(player2->getRaios(),raio);*/
+    // desenho o disparo do player1
+    /*for(int x=0; x<TPlayer::TIROS; x++){
         TProjetil projetil = player2->getTiros()->at(x);
         // verifica a colisao entre o player 1 e o projetil do player 2
         this->disparo(player1,&projetil);
@@ -579,45 +645,34 @@ void TFrame::mover(){
         colisao->colisao(player1->getBombas(),&projetil);
         colisao->colisao(player1->getRaios(),&projetil);
         player2->getTiros()->replace(x,projetil);
-    }
-    // verifico se o player 1 e um objeto bomba estão na mesma posicao
+    }*/
+    /*// verifico se o player 1 e um objeto bomba estão na mesma posicao
     colisao->colisao(player1,bomber,TTiro::BOMBA);
-    colisao->colisao(player1,raio,TTiro::RAIO);
-    //atualizo as coordenadas x e y do player 2
-    player2->setX((player2->getPosX() * _w_sz));
-    player2->setY((player2->getPosY() * _h_sz));
+    colisao->colisao(player1,raio,TTiro::RAIO);*/
     //desenho o disparo do player2
-    this->disparo(player2);
-    for(int x=0; x<TPlayer::TIROS; x++){
+    //this->disparo(player2);
+    /*for(int x=0; x<TPlayer::TIROS; x++){
         TProjetil projetil = player1->getTiros()->at(x);
         // verifica a colisao entre o player 2 e o projetil do player 1
         this->disparo(player2,&projetil);
         colisao->colisao(&projetil,bomber,true);
         colisao->colisao(&projetil,raio,true);
-        colisao->colisao(player2->getBombas(),&projetil);
-        colisao->colisao(player2->getRaios(),&projetil);
+        //colisao->colisao(player2->getBombas(),&projetil);
+        //colisao->colisao(player2->getRaios(),&projetil);
         player1->getTiros()->replace(x,projetil);
-    }
-    for(int x=0; x<TPlayer::TIROS; x++){
-        TProjetil projetil1 = player1->getTiros()->at(x);
-        TProjetil projetil2 = player2->getTiros()->at(x);
-        //verifico a colisao entre os projeteis
-        colisao->colisao(&projetil1,&projetil2);
-        player1->getTiros()->replace(x,projetil1);
-        player2->getTiros()->replace(x,projetil2);
-    }
+    }*/
     //verifico se o player 2 pegou algum tiro especial
-    colisao->colisao(player2,bomber,TTiro::BOMBA);
-    colisao->colisao(player2,raio,TTiro::RAIO);
+    //colisao->colisao(player2,bomber,TTiro::BOMBA);
+    //colisao->colisao(player2,raio,TTiro::RAIO);
     // verifico se houve colisao entre os tiros especiais disparados pelos players
-    colisao->colisao(player1->getBombas(),player2->getBombas());
+    /*colisao->colisao(player1->getBombas(),player2->getBombas());
     colisao->colisao(player1->getRaios(),player2->getRaios());
     colisao->colisao(player1->getBombas(),player2->getRaios());
     colisao->colisao(player1->getRaios(),player2->getBombas());
     colisao->colisao(player1->getBombas(),bomber);
     colisao->colisao(player1->getRaios(),raio);
     colisao->colisao(player2->getBombas(),bomber);
-    colisao->colisao(player2->getRaios(),raio);
+    colisao->colisao(player2->getRaios(),raio);*/
 }
 
 /**
@@ -644,9 +699,6 @@ void TFrame::municao(TPlayer *player, QPainter *painter){
         radiano = (graus * (M_PI/180));
         rx = ((cos(radiano) * raio) + player->getX() + (player->getLargura()/2.5));
         ry = ((sin(radiano) * raio) + player->getY() + (player->getAltura()/2.5));
-        rotacao++;
-        if(rotacao > MAX)
-            rotacao = 0;
         painter->drawEllipse(rx,ry,(player->getLargura()* 0.2),(player->getAltura() * 0.1));
         graus += 72;
         graus %= 370;

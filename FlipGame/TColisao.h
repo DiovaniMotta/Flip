@@ -79,6 +79,11 @@ public:
 
     void colisao(QVector<TTiro>* tiros,TTiro* tiro);
 
+    void colisao(QVector<TProjetil>* tiros1,QVector<TProjetil>* tiros2);
+
+    void colisao(QVector<TProjetil>* v, TProjetil* projetil);
+
+    void colisao(QVector<TProjetil> * l,TTiro* tiro);
 private:
 
     TPonto nivel(TPlayer* player);

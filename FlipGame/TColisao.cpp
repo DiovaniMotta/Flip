@@ -350,6 +350,7 @@ void TColisao::colisao(TTiro *tiro1, TProjetil *projetil){
         return;
     if(tiro1->getPosX() == projetil->getPosX()){
         if(tiro1->getPosY() == projetil->getPosY()){
+            media->parar();
             media->iniciar(TMedia::EXPLOSAO);
             this->repintar(projetil);
             projetil->reiniciar();
@@ -395,6 +396,8 @@ void TColisao::colisao(TTiro *tiro1, TTiro *tiro2){
         return;
     if(tiro1->getPosX() == tiro2->getPosX()){
         if(tiro1->getPosY() == tiro2->getPosY()){
+            media->parar();
+            qDebug()<<"Aqui";
             media->iniciar(TMedia::EXPLOSAO);
             this->repintar(tiro1);
             tiro1->reiniciar();
@@ -450,12 +453,14 @@ void TColisao::colisao(TProjetil *projetil, TTiro *bomba, bool isNull){
       return;
    if(!projetil->isAtivo())
       return;
+   if(!bomba->isAtivo())
+      return;
    if(projetil->getPosX() == bomba->getPosX()){
        if(projetil->getPosY() == bomba->getPosY()){
+           media->iniciar(TMedia::EXPLOSAO);
            this->repintar(bomba);
            bomba->reiniciar();
            projetil->reiniciar();
-           media->iniciar(TMedia::EXPLOSAO);
        }
    }
 }
@@ -478,6 +483,7 @@ void TColisao::colisao(TTiro *tiro, TTiro *bomba, bool isNull){
        return;
     if(tiro->getPosX() == bomba->getPosX()){
         if(tiro->getPosY() == bomba->getPosY()){
+            media->parar();
             media->iniciar(TMedia::EXPLOSAO);
             this->repintar(bomba);
             bomba->reiniciar();
@@ -567,6 +573,11 @@ void TColisao::repintar(TProjetil *projetil){
     }
 }
 
+/**
+ * @brief TColisao::colisao método responsavel por verificar a colisão entre a lista de projeteis disparados pelo player
+ * @param tiros1 a lista de tiros do player1
+ * @param tiros2 a lista de tiros do player2
+ */
 void TColisao::colisao(QVector<TProjetil>* tiros1, QVector<TProjetil>* tiros2){
     for(int x=0; x< tiros1->size();x++){
         TProjetil tiro1 = tiros1->at(x);

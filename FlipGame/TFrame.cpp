@@ -239,6 +239,10 @@ void TFrame::keyPressEvent(QKeyEvent* event){
     }
 }
 
+/**
+ * @brief TFrame::mousePressEvent trata o evento de click do mouse
+ * @param event
+ */
 void TFrame::mousePressEvent(QMouseEvent *event){
     QFrame::mousePressEvent(event);
     if(iniciou)
@@ -607,75 +611,6 @@ void TFrame::mover(){
     colisao->colisao(player2,raio,TTiro::RAIO);
     this->disparo(player1);
     this->disparo(player2);
-    //colisao->colisao(player1->getTiros(),player2->getTiros());
-    /*for(int x=0; x<TPlayer::TIROS; x++){
-        TProjetil projetil1 = player1->getTiros()->at(x);
-        TProjetil projetil2 = player2->getTiros()->at(x);
-        this->disparo(player1);
-        this->disparo(player2);
-        //qDebug()<<"antes";
-        //verifico a colisao entre os projeteis
-        colisao->colisao(&projetil1,&projetil2);
-        /*this->disparo(player1,&projetil2);
-        this->disparo(player2,&projetil1);
-        colisao->colisao(&projetil1,bomber,true);
-        colisao->colisao(&projetil1,raio,true);
-        colisao->colisao(&projetil2,bomber,true);
-        colisao->colisao(&projetil2,raio,true);
-        colisao->colisao(player1->getBombas(),&projetil2);
-        colisao->colisao(player1->getRaios(),&projetil2);
-        colisao->colisao(player2->getBombas(),&projetil1);
-        colisao->colisao(player2->getRaios(),&projetil1);*/
-        //qDebug()<<"Depois";
-       /* player1->getTiros()->replace(x,projetil1);
-        player2->getTiros()->replace(x,projetil2);
-    }*/
-    /*colisao->colisao(player1->getBombas(),player2->getBombas());
-    colisao->colisao(player1->getRaios(),player2->getRaios());
-    colisao->colisao(player1->getBombas(),player2->getRaios());
-    colisao->colisao(player1->getRaios(),player2->getBombas());
-    colisao->colisao(player1->getBombas(),bomber);
-    colisao->colisao(player1->getRaios(),raio);
-    colisao->colisao(player2->getBombas(),bomber);
-    colisao->colisao(player2->getRaios(),raio);*/
-    // desenho o disparo do player1
-    /*for(int x=0; x<TPlayer::TIROS; x++){
-        TProjetil projetil = player2->getTiros()->at(x);
-        // verifica a colisao entre o player 1 e o projetil do player 2
-        this->disparo(player1,&projetil);
-        colisao->colisao(&projetil,bomber,true);
-        colisao->colisao(&projetil,raio,true);
-        colisao->colisao(player1->getBombas(),&projetil);
-        colisao->colisao(player1->getRaios(),&projetil);
-        player2->getTiros()->replace(x,projetil);
-    }*/
-    /*// verifico se o player 1 e um objeto bomba estão na mesma posicao
-    colisao->colisao(player1,bomber,TTiro::BOMBA);
-    colisao->colisao(player1,raio,TTiro::RAIO);*/
-    //desenho o disparo do player2
-    //this->disparo(player2);
-    /*for(int x=0; x<TPlayer::TIROS; x++){
-        TProjetil projetil = player1->getTiros()->at(x);
-        // verifica a colisao entre o player 2 e o projetil do player 1
-        this->disparo(player2,&projetil);
-        colisao->colisao(&projetil,bomber,true);
-        colisao->colisao(&projetil,raio,true);
-        //colisao->colisao(player2->getBombas(),&projetil);
-        //colisao->colisao(player2->getRaios(),&projetil);
-        player1->getTiros()->replace(x,projetil);
-    }*/
-    //verifico se o player 2 pegou algum tiro especial
-    //colisao->colisao(player2,bomber,TTiro::BOMBA);
-    //colisao->colisao(player2,raio,TTiro::RAIO);
-    // verifico se houve colisao entre os tiros especiais disparados pelos players
-    /*colisao->colisao(player1->getBombas(),player2->getBombas());
-    colisao->colisao(player1->getRaios(),player2->getRaios());
-    colisao->colisao(player1->getBombas(),player2->getRaios());
-    colisao->colisao(player1->getRaios(),player2->getBombas());
-    colisao->colisao(player1->getBombas(),bomber);
-    colisao->colisao(player1->getRaios(),raio);
-    colisao->colisao(player2->getBombas(),bomber);
-    colisao->colisao(player2->getRaios(),raio);*/
 }
 
 /**

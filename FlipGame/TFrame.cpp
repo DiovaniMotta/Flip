@@ -267,6 +267,9 @@ void TFrame::iniciar(){
     this->mover();
     this->disparo(player1);
     this->disparo(player2);
+    bool fimJogo = colisao->isFimJogo();
+    if(!fimJogo)
+        media->sound();
     this->repaint();
     QTimer::singleShot((TIMER/FPS),this,SLOT(iniciar()));
 }

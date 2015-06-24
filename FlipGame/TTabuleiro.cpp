@@ -240,13 +240,14 @@ void TTabuleiro::zerar(TPlayer *player){
  */
 TTiro* TTabuleiro::bomba(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
-    if(bx > RECURSIVIDADE){
-       bx = 0;
-       return NULL;
-    }
-    bx++;
     contadorX++;
     if(contadorX >= TIMEOUT){
+        if(bx > RECURSIVIDADE){
+           bx = 0;
+           contadorX = 0;
+           return NULL;
+        }
+        bx++;
         if(x >= TUtils::DIMENSAO)
             x = 0;
         if(y >= TUtils::DIMENSAO)
@@ -358,13 +359,14 @@ void TTabuleiro::tiros(TPonto *ponto, TTiro *bomba,int tipo){
  */
 TTiro* TTabuleiro::raio(TTiro* tiro,int x,int y){
     TTiro* b = NULL;
-    if(rx > RECURSIVIDADE){
-      rx = 0;
-      return NULL;
-    }
-    rx++;
     contadorY++;
     if(contadorY >= TIME_OUT){
+        if(rx > RECURSIVIDADE){
+          rx = 0;
+          contadorY = 0;
+          return NULL;
+        }
+        rx++;
         if(x >= TUtils::DIMENSAO)
             x = 0;
         if(y >= TUtils::DIMENSAO)

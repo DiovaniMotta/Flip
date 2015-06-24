@@ -74,7 +74,6 @@ void TUtils::recalcular(TTiro *tiro, const int widht, const int height){
 bool TUtils::existe(TTiro *tiro, TPonto ponto){
     if(tiro == NULL)
         return false;
-    qDebug()<<"Existe";
     if(ponto.getX() == tiro->getPosX())
        if(ponto.getY() == tiro->getPosY())
           return true;

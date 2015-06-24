@@ -97,6 +97,8 @@ private:
     void repintar(TTiro* bomba,TPonto ponto);    
 
     void repintar(TTiro* bomba);
+
+    void repintar(TProjetil* projetil);
 };
 #endif // TCOLISAO
 

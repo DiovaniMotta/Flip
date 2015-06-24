@@ -1,7 +1,6 @@
 #include <TMedia.h>
 
 TMedia::TMedia(){
-    bomba = new QMediaPlayer;
     tiro = new QMediaPlayer;
     tiro->setMedia(QUrl("qrc:/sounds/sons/tiro_simples.mp3"));
     abertura = new QMediaPlayer;
@@ -165,36 +164,27 @@ void TMedia::somColisao(){
 
 void TMedia::somExplosao(){
     if(capturaTiro->state() == QMediaPlayer::PlayingState){
-        qDebug()<<"A";
         capturaTiro->setPosition(0);
         capturaTiro->stop();
     }
     if(abertura->state() == QMediaPlayer::PlayingState){
-        qDebug()<<"B";
         abertura->setPosition(0);
         abertura->stop();
     }
     if(tiro->state() == QMediaPlayer::PlayingState){
-        qDebug()<<"C";
         tiro->setPosition(0);
         tiro->stop();
     }
     if(colisao->state() == QMediaPlayer::PlayingState){
-        qDebug()<<"D";
         colisao->setPosition(0);
         colisao->stop();
     }
     if(bomba->state() == QMediaPlayer::PlayingState){
-        qDebug()<<"E";
         bomba->setPosition(0);
         bomba->stop();
     }
-    if(explosao->state() == QMediaPlayer::StoppedState){
-       qDebug()<<"F";
-       qDebug()<<explosao->mediaStatus();
+    if(explosao->state() == QMediaPlayer::StoppedState)
        explosao->play();
-       qDebug()<<"AA";
-    }
 }
 
 void TMedia::somTiro(){
@@ -247,4 +237,21 @@ void TMedia::somTiroEspecial(){
     if(capturaTiro->state() == QMediaPlayer::StoppedState){
         capturaTiro->play();
     }
+}
+/**
+ * @brief TMedia::sound método responsavel por ficar rodando a musica de abertura do gameplayer
+ */
+void TMedia::sound(){
+    if(explosao->state() == QMediaPlayer::PlayingState)
+       return;
+    if(capturaTiro->state() == QMediaPlayer::PlayingState)
+       return;
+    if(colisao->state() == QMediaPlayer::PlayingState)
+       return;
+    if(bomba->state() == QMediaPlayer::PlayingState)
+       return;
+    if(tiro->state() == QMediaPlayer::PlayingState)
+       return;
+    if(abertura->state() == QMediaPlayer::StoppedState)
+      abertura->play();
 }
